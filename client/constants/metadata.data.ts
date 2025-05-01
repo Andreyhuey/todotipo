@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import favicon from '@/public/assets/favicon.svg';
-import logo from '@/public/assets/Logo.svg';
 import { routes } from '@/lib/routes';
 import { baseUrl } from '@/constants/site.data';
 import { siteInfo } from '@/constants/site.data';
@@ -11,30 +10,6 @@ export const metadataMap: Record<string, Metadata> = {
     description:
       'Todotipo Canada Inc. provides high-quality, eco-friendly wood-plastic composite (WPC) solutions for builders, architects, and homeowners. Explore premium decking, cladding, and more — engineered for durability and sustainability.',
     icons: favicon.src,
-    openGraph: {
-      title: 'Todotipo Canada Inc. | Eco-Friendly WPC Materials',
-      description:
-        'Explore durable, stylish wood-plastic composite solutions made in Canada.',
-      url: baseUrl,
-      siteName: siteInfo.name,
-      images: [
-        {
-          url: logo.src, // Put this image in /public
-          width: 1200,
-          height: 630,
-          alt: 'Todotipo Canada Inc',
-        },
-      ],
-      locale: 'en_CA',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Todotipo Canada Inc.',
-      description:
-        'Premium WPC building materials for sustainable construction in Canada.',
-      images: [logo.src],
-    },
     keywords: [
       'WPC Canada',
       'wood plastic composite',
@@ -47,6 +22,10 @@ export const metadataMap: Record<string, Metadata> = {
       'modern building materials',
       'durable outdoor materials',
     ],
+    robots: {
+      index: true,
+      follow: true,
+    },
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: '/',
