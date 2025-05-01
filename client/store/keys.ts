@@ -1,0 +1,8 @@
+const ReactQueryKeys = {
+  VIEW_PROPERTIES: "VIEW_PROPERTIES",
+  PROPERTIES: "PROPERTIES",
+  SEND_MAIL: "SEND_MAIL",
+  REQUEST_PROPERTY: "REQUEST_PROPERTY",
+};
+
+export default ReactQueryKeys;

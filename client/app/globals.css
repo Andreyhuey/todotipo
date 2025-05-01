@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --max-width: 1200px;
+    --extra-width: calc(100% - var(--max-width));
+    --full-bleed: calc(var(--extra-width) / 2);
+  }
+
+  .full-bleed {
+    @apply px-[--full-bleed];
+  }
+
+  .container {
+    @apply px-2 md:px-4 lg:px-10 xl:full-bleed;
+  }
+
+  .hero {
+    @apply pt-16 md:pt-20;
+  }
+
+  .section {
+    @apply py-14 lg:py-20;
+  }
+
+  .h1 {
+    @apply text-[64px] font-semibold font-heading;
+  }
+
+  .h2 {
+    @apply text-[54px] font-semibold font-heading;
+  }
+
+  .h3 {
+    @apply text-[48px] font-semibold font-heading;
+  }
+
+  .h4 {
+    @apply text-[32px] font-semibold font-heading;
+  }
+
+  .h5 {
+    @apply text-[28px] font-semibold font-heading;
+  }
+
+  .body1 {
+    @apply font-medium text-[24px] font-body;
+  }
+
+  .body2 {
+    @apply font-medium text-[20px] font-body;
+  }
+
+  .body3 {
+    @apply font-medium text-[18px] font-body;
+  }
+
+  .body4 {
+    @apply font-medium text-[16px] font-body;
+  }
+
+  .caption1 {
+    @apply font-medium text-[14px] font-body;
+  }
+
+  .caption2 {
+    @apply font-medium text-[12px] font-body;
+  }
+}
