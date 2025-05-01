@@ -6,7 +6,7 @@ import { siteInfo } from '@/constants/site.data';
 
 export const metadataMap: Record<string, Metadata> = {
   [routes.home()]: {
-    title: `${siteInfo.name} | Sustainable WPC Materials for Modern Construction`,
+    title: `${siteInfo.name}`,
     description:
       'Todotipo Canada Inc. provides high-quality, eco-friendly wood-plastic composite (WPC) solutions for builders, architects, and homeowners. Explore premium decking, cladding, and more — engineered for durability and sustainability.',
     icons: favicon.src,
