@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import favicon from '@/public/assets/favicon.svg';
+import favicon from '@/public/assets/logo.png';
 import { routes } from '@/lib/routes';
 import { baseUrl } from '@/constants/site.data';
 import { siteInfo } from '@/constants/site.data';
