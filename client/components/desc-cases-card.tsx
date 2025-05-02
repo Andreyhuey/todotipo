@@ -5,7 +5,6 @@ import Link from 'next/link';
 import React from 'react';
 
 interface Props {
-  key: string;
   details: {
     tags: string[];
     image: string;
@@ -15,12 +14,9 @@ interface Props {
   };
 }
 
-export default function DesignCasesCard({ details, key }: Props) {
+export default function DesignCasesCard({ details }: Props) {
   return (
-    <div
-      className="flex flex-col gap-3 border border-[#ebebeb] bg-white rounded-xl"
-      key={key}
-    >
+    <div className="flex flex-col gap-3 border border-[#ebebeb] bg-white rounded-xl">
       <Image
         src={details.image}
         alt={details.name}

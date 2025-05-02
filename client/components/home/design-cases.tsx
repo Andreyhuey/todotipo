@@ -15,12 +15,16 @@ export default function DesignCases() {
         desc={home.designCases.desc}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Array(3)
+        {
+          // method for multiplying an array multiple times
+          /* {Array(3)
           .fill(home.designCases.list)
-          .flat()
-          .map((item, index) => (
+          .flat() */
+
+          home.designCases.list.map((item, index) => (
             <DesignCasesCard details={item} key={`${index} ##$$@22`} />
-          ))}
+          ))
+        }
       </div>
       <div className="flex items-center justify-center">
         <Link href={home.designCases.link}>
