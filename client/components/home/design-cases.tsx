@@ -12,7 +12,6 @@ export default function DesignCases() {
     <div className="container section flex flex-col gap-10">
       <TitleHeader
         title={home.designCases.title}
-        desc={home.designCases.desc}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {

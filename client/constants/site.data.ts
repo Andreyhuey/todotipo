@@ -14,7 +14,7 @@ import backyard from '@/public/assets/backyard.svg';
 import greenhaven from '@/public/assets/green-haven.svg';
 import boutiques from '@/public/assets/busy-boutiques.svg';
 import prestigious from '@/public/assets/prestigious-residence.svg';
-import mountain from '@/public/assets/mountain.svg';
+import mountain from '@/public/assets/backyard.svg';
 
 export const baseUrl = `${config.BASE_URL}`;
 
@@ -22,19 +22,42 @@ export const CHATBOT = 'DDDDDDDD';
 
 export const siteInfo = {
   siteLink: baseUrl,
-  name: 'Todotipo Canada Inc',
+  name: 'Todotipo',
   phone: '+(307) 565-0033',
   email: 'support@todotipo.ca',
   address: '',
   jurisdiction: 'Houston, Texas',
 };
 
+import hero2 from '@/public/assets/hero2.png';
+import hero3 from '@/public/assets/hero3.jpg';
+import hero4 from '@/public/assets/hero4.jpg';
+import hero5 from '@/public/assets/hero5.png';
+
 export const home = {
   hero: {
     heroImage: hero.src,
     tag: ['Modern', '•', 'Minimalistic', 'Sustainable'],
     title: 'Premium Building Textiles for Modern Architecture',
-    desc: 'Discover our range of high quality WPC materials that combines aesthetics, durability and sustainability for your next project',
+    desc: 'Get ranges of high quality composite materials that combines aesthetics, durability and sustainability for your next project',
+    slider: [
+      {
+        image: hero3.src,
+        title: 'WPC WALL PANELS',
+      },
+      {
+        image: hero5.src,
+        title: `DOORS ${' '}•${' '} WALLS ${' '}•${' '} CABINETS`,
+      },
+      {
+        image: hero2.src,
+        title: 'HD PRINTING WALL PANEL',
+      },
+      {
+        image: hero4.src,
+        title: 'SPC BACKGROUND WALL',
+      },
+    ],
     cta: {
       1: {
         text: 'Request Quote',
@@ -47,7 +70,7 @@ export const home = {
     },
   },
   quote:
-    'At Todotipo Canada Inc., we empower builders, architects, and homeowners with premium building materials and eco-friendly wood-plastic composite (WPC) solutions. From durable decking to stylish cladding, our products blend strength, sustainability, and innovation to bring your projects to life. Based in Canada, we’re committed to quality, reliability, and exceptional service, helping you create spaces that last.',
+    'At Todotipo , we empower builders, architects, and homeowners with premium building materials and eco-friendly wood-plastic composite (WPC) solutions. From durable decking to stylish cladding, our products blend strength, sustainability, and innovation to bring your projects to life. Based in Canada, we’re committed to quality, reliability, and exceptional service, helping you create spaces that last.',
   whyUs: {
     title: 'Why Choose Us',
     desc: 'Discover the advantage that makes us and our products stand out in the industry',
@@ -127,7 +150,7 @@ export const home = {
       {
         tags: ['Residential', 'Decking', 'Fencing', 'Cozy'],
         image: mountain.src,
-        name: 'Mountain Retreat Cabin',
+        name: 'Luxury Hotel',
         desc: 'A crafted Banff cabin into a cozy, eco-conscious escape. The focus was blending rustic charm with modern durability, creating a serene haven for nature lovers.',
         id: 'ss1$#@ssss',
       },
@@ -148,8 +171,11 @@ import shake from '@/public/assets/shake.svg';
 
 export const about = {
   tag: 'About Us',
-  title: 'Crafting Sustainable Spaces ',
-  desc: 'At Todotipo, we blend eco-friendly innovation with premium building materials to empower your vision, delivering durability and style for every project.',
+  title: 'ABOUT US',
+  desc: [
+    'We are a leading manufacturer and supplier of eco-friendly WPC and SPC materials, dedicated to crafting innovative, sustainable building solutions. Our advanced R&D capabilities drive the development of high-quality products, from composite decking and wall panels to slicing boards, offering durable, stylish alternatives to traditional wood. By integrating recycled materials and cutting-edge production techniques, we prioritize environmental responsibility while delivering exceptional performance.',
+    'With a robust network of professional teams, we provide comprehensive services, including customized design, production, and international logistics. Our products are trusted globally, serving contractors, architects, homeowners, and businesses with tailored solutions that blend creativity, functionality, and sustainability. Committed to excellence, we ensure reliable delivery and rigorous quality testing, transforming spaces with materials that inspire and endure.',
+  ],
   image: aboutImg.src,
   bigLogo: bigLogo.src,
   commit: {
@@ -194,37 +220,46 @@ export const about = {
     },
     story: {
       title: 'Our Story',
-      desc: 'Todotipo Canada Inc. began with a simple idea: to build better, greener spaces. Founded in Canada, our passion for sustainability drove us to pioneer wood-plastic composite (WPC) solutions that blend durability with eco-conscious design. From our first project crafting a backyard deck to supplying architects with innovative cladding, we’ve grown into a trusted partner for contractors, architects, and homeowners. Every product—whether decking, flooring, fences, gates, ceilings, or doors—reflects our commitment to quality and the planet. We source responsibly, innovate relentlessly, and listen to our clients’ dreams. Today, Todotipo stands for spaces that last, inspire, and tread lightly on the earth, rooted in our mission to shape a sustainable future, one project at a time.',
+      desc: [
+        'We began with a simple idea: to build better, greener spaces. Founded in Canada, our passion for sustainability drove us to pioneer wood-plastic composite (WPC) solutions that blend durability with eco-conscious design. From our first project crafting a backyard deck to supplying architects with innovative cladding, we’ve grown into a trusted partner for contractors, architects, and homeowners.',
+        'Every product reflects our commitment to quality and the planet. We source responsibly, innovate relentlessly, and listen to our clients’ dreams. Today, we stands for spaces that last, inspire, and tread lightly on the earth, rooted in our mission to shape a sustainable future, one project at a time.',
+      ],
     },
     coreValues: {
       title: '',
       list: [
         {
+          bg: '',
           image: img1.src,
           name: 'Sustainability',
-          desc: 'Our materials are made from recycled wood fibres and polymers reducing environmental impacts while maintaining superior quality ',
+          desc: 'We prioritize eco-friendly materials and practices, reducing environmental impact while delivering lasting solutions',
         },
         {
+          bg: '',
           image: quality.src,
           name: 'Quality',
           desc: 'We craft durable, stylish products that meet the highest standards, ensuring trust and satisfaction.',
         },
         {
+          bg: '',
           image: lightBulb.src,
           name: 'Innovation',
           desc: 'We embrace cutting-edge technology to create versatile, forward-thinking building materials.',
         },
         {
+          bg: '',
           image: integrity.src,
           name: 'Integrity',
           desc: 'We operate with honesty and reliability, building strong relationships with our clients and partners.',
         },
         {
+          bg: '',
           image: community.src,
           name: 'Community',
           desc: 'We support the communities we serve, fostering spaces that bring people together.',
         },
         {
+          bg: '',
           image: heart.src,
           name: 'Customer Focus',
           desc: 'We listen to our clients’ needs, delivering tailored solutions that bring their visions to life.',
@@ -232,6 +267,12 @@ export const about = {
       ],
     },
   },
+};
+
+import productHero from '@/public/assets/productsbg.svg';
+
+export const product = {
+  image: productHero.src,
 };
 
 export const companyPages = [

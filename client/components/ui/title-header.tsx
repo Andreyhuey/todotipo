@@ -8,10 +8,10 @@ interface Props {
 export default function TitleHeader({ title = '', desc = '' }: Props) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-neutral-head h4 md:h3 text-center md:text-left">
+      <h3 className="text-neutral-head h4 md:h3 text-center md:text-left uppercase">
         {title}
       </h3>
-      <p className="text-accent-700 body2 font-normal">{desc}</p>
+      {desc && <p className="text-accent-700 body2 font-normal">{desc}</p>}
     </div>
   );
 }

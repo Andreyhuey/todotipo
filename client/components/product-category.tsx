@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import Image from 'next/image';
+import { PremiumProducts } from '@/constants/product.data';
+import { ArrowDownRight } from 'lucide-react';
+import { routes } from '@/lib/routes';
+import Link from 'next/link';
 
 export default function ProductCategory() {
   const [type, setType] = useState(0);
@@ -8,19 +12,13 @@ export default function ProductCategory() {
     setType(index);
   };
   const labels = [
+    { name: 'All', value: 'all' },
     { name: 'Decking', value: 'decking' },
-    { name: 'WPC flooring', value: 'wpc flooring' },
+    { name: 'Flutted Wall Panels', value: 'Flutted Wall Panels' },
     { name: 'Wall Panels', value: 'wall panels' },
-    { name: 'Ceilings', value: 'ceilings' },
+    { name: 'Doors', value: 'doors' },
     { name: 'Fencing', value: 'fencing' },
     { name: 'Gates', value: 'gates' },
-  ];
-
-  const images = [
-    '/assets/decking1.png',
-    '/assets/decking2.png',
-    '/assets/decking3.png',
-    '/assets/decking4.png',
   ];
 
   return (
@@ -39,17 +37,30 @@ export default function ProductCategory() {
           </Button>
         ))}
       </div>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-        {images.map((item, index) => (
-          <Image
-            src={item}
-            alt={`product image ${1}`}
-            className="h-full w-full"
-            height={100}
-            width={100}
-            key={` s${index}555%%%32 `}
-            unoptimized
-          />
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6">
+        {PremiumProducts.slice(3, 7).map((item, index) => (
+          <Link
+            href={routes.productDetails(item.id)}
+            key={index}
+            className="relative group w-full overflow-hidden shadow h-full"
+          >
+            <Image
+              src={item.image}
+              alt={`premium image ${index + 1}`}
+              className="h-full w-full object-cover  transition-transform duration-500 group-hover:scale-110"
+              height={100}
+              width={100}
+              unoptimized
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-black/20 text-white text-center px-4 py-3 opacity-0 translate-y-5 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+              <div className="flex items-center justify-between">
+                <p className="body2">{item.title}</p>
+                <div className="p-2 flex items-center rounded-full border border-white">
+                  <ArrowDownRight />
+                </div>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

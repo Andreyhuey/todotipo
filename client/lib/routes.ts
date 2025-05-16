@@ -3,7 +3,7 @@
 const home = () => '/';
 const aboutUs = () => '/about-us';
 const products = () => '/products';
-const productDetails = (id: string = '') => `${products()}/${id}`;
+const productDetails = (id: string | number = '') => `${products()}/${id}`;
 const designCase = () => '/design-case';
 const designCaseDetails = (id: string = '') => `${designCase()}/${id}`;
 const contactUs = () => '/contact-us';

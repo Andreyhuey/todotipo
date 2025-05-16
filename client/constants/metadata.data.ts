@@ -8,7 +8,7 @@ export const metadataMap: Record<string, Metadata> = {
   [routes.home()]: {
     title: `${siteInfo.name}`,
     description:
-      'Todotipo Canada Inc. provides high-quality, eco-friendly wood-plastic composite (WPC) solutions for builders, architects, and homeowners. Explore premium decking, cladding, and more — engineered for durability and sustainability.',
+      'TodoTipo. provides high-quality, eco-friendly wood-plastic composite (WPC) solutions for builders, architects, and homeowners. Explore premium decking, cladding, and more — engineered for durability and sustainability.',
     icons: favicon.src,
     keywords: [
       'WPC Canada',
@@ -33,9 +33,9 @@ export const metadataMap: Record<string, Metadata> = {
   },
 
   [routes.aboutUs()]: {
-    title: 'About Us | Todotipo Canada Inc.',
+    title: 'About Us | TodoTipo.',
     description:
-      'Todotipo Canada Inc. is a Canadian leader in eco-friendly wood-plastic composite (WPC) building materials. Our mission is to empower builders, architects, and homeowners with sustainable, durable, and innovative solutions for modern construction.',
+      'TodoTipo. is a Canadian leader in eco-friendly wood-plastic composite (WPC) building materials. Our mission is to empower builders, architects, and homeowners with sustainable, durable, and innovative solutions for modern construction.',
     keywords: [
       'about Todotipo Canada',
       'WPC company Canada',
@@ -47,7 +47,7 @@ export const metadataMap: Record<string, Metadata> = {
   },
 
   [routes.contactUs()]: {
-    title: 'Contact Todotipo Canada Inc. | Speak with WPC Experts',
+    title: 'Contact TodoTipo. | Speak with WPC Experts',
     description:
       'Have questions about our WPC products or services? Get in touch with the Todotipo Canada team for tailored advice and material solutions.',
     keywords: [
@@ -74,9 +74,9 @@ export const metadataMap: Record<string, Metadata> = {
   },
 
   [routes.terms()]: {
-    title: 'Terms & Conditions | Todotipo Canada Inc.',
+    title: 'Terms & Conditions | TodoTipo.',
     description:
-      'Review the terms and conditions for using Todotipo Canada Inc.’s website and purchasing our WPC building materials and solutions.',
+      'Review the terms and conditions for using TodoTipo.’s website and purchasing our WPC building materials and solutions.',
     keywords: [
       'Todotipo terms of service',
       'building materials terms',
@@ -85,9 +85,9 @@ export const metadataMap: Record<string, Metadata> = {
   },
 
   [routes.privacy()]: {
-    title: 'Privacy Policy | Todotipo Canada Inc.',
+    title: 'Privacy Policy | TodoTipo.',
     description:
-      'Learn how Todotipo Canada Inc. collects, uses, and protects your personal data when interacting with our WPC services and website.',
+      'Learn how TodoTipo. collects, uses, and protects your personal data when interacting with our WPC services and website.',
     keywords: [
       'Todotipo privacy policy',
       'data protection Canada',
