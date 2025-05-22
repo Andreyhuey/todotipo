@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import Image from 'next/image';
-import { PremiumProducts } from '@/constants/product.data';
+import { PremiumProducts, productCategory } from '@/constants/product.data';
 import { ArrowDownRight } from 'lucide-react';
 import { routes } from '@/lib/routes';
 import Link from 'next/link';
@@ -11,20 +11,11 @@ export default function ProductCategory() {
   const setProductType = (index: number) => {
     setType(index);
   };
-  const labels = [
-    { name: 'All', value: 'all' },
-    { name: 'Decking', value: 'decking' },
-    { name: 'Flutted Wall Panels', value: 'Flutted Wall Panels' },
-    { name: 'Wall Panels', value: 'wall panels' },
-    { name: 'Doors', value: 'doors' },
-    { name: 'Fencing', value: 'fencing' },
-    { name: 'Gates', value: 'gates' },
-  ];
 
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center gap-3 w-full md:w-fit p-3 rounded-md md:rounded-[200px] border border-[#EBEBEB] shadow overflow-x-auto">
-        {labels.map((item, i) => (
+        {productCategory.map((item, i) => (
           <Button
             variant={type === i ? 'default' : 'ghost'}
             key={`Aq${i}^^777@@@`}
@@ -40,7 +31,7 @@ export default function ProductCategory() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6">
         {PremiumProducts.slice(3, 7).map((item, index) => (
           <Link
-            href={routes.productDetails(item.id)}
+            href={routes.productDetails(item.category, item.id)}
             key={index}
             className="relative group w-full overflow-hidden shadow h-full"
           >

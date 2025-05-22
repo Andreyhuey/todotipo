@@ -17,16 +17,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from './ui/navigation-menu';
+import { useRouter } from 'next/navigation';
 
 export const links = companyPages;
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isHome = pathname === routes.home();
-  const Color = isHome
-    ? 'text-white bg-[#0E0E0ECC]'
-    : 'text-neutral-head bg-white';
+  const isAbout = pathname === routes.aboutUs();
+  const isProduct = pathname.includes(routes.products());
+  const Color =
+    isHome || isProduct
+      ? 'text-white bg-[#0E0E0ECC]'
+      : 'text-neutral-head bg-white';
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleIsOpen = () => {
@@ -42,15 +48,13 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <div
-      className={`fixed top-0 left-0 w-full z-50 ${Color} backdrop-blur-2xl`}
-    >
+    <div className={`fixed top-0 left-0 w-full z-50 ${Color} backdrop-blur-xl`}>
       <div className="container">
         {/* for medium and large screens */}
         <div className="hidden md:flex items-center justify-between py-3">
           <Link href={routes.home()} className="">
             <Image
-              src={isHome ? logo.src : logo2.src}
+              src={isHome || isProduct ? logo.src : logo2.src}
               alt="logo"
               width={80}
               height={80}
@@ -66,7 +70,11 @@ const Navbar = () => {
                     <NavigationMenu>
                       <NavigationMenuList>
                         <NavigationMenuItem>
-                          <NavigationMenuTrigger>
+                          <NavigationMenuTrigger
+                            onClick={() => {
+                              router.push(routes.products());
+                            }}
+                          >
                             <p className="body4">{item.name}</p>
                           </NavigationMenuTrigger>
                           <NavigationMenuContent
@@ -105,7 +113,11 @@ const Navbar = () => {
               </div>
             ))}
             <Link href={routes.contactUs()}>
-              <Button variant="default2">Contact Us</Button>
+              <Button
+                variant={isHome ? 'default2' : isAbout ? 'default' : 'default'}
+              >
+                Contact Us
+              </Button>
             </Link>
           </div>
         </div>
@@ -185,7 +197,7 @@ const Navbar = () => {
           <div className="md:hidden flex justify-between items-center py-3">
             <Link href={routes.home()} className="text-[40px]">
               <Image
-                src={isHome ? logo.src : logo2.src}
+                src={isHome || isProduct ? logo.src : logo2.src}
                 alt="logo"
                 width={50}
                 height={50}
