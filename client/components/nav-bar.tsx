@@ -48,7 +48,9 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <div className={`fixed top-0 left-0 w-full z-50 ${Color} backdrop-blur-xl`}>
+    <div
+      className={`fixed top-0 left-0 w-full z-50 max-h-[80px] ${Color} backdrop-blur-xl`}
+    >
       <div className="container">
         {/* for medium and large screens */}
         <div className="hidden md:flex items-center justify-between py-3">

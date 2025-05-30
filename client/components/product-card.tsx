@@ -21,7 +21,7 @@ export default function ProductCard({
 }) {
   return (
     <Link
-      href={routes.productDetails(product.category, product.id)}
+      href={routes.productDetails(product.category, product.id, product.title)}
       className="relative group w-full overflow-hidden"
     >
       <Image

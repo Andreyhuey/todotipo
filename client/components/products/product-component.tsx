@@ -5,8 +5,10 @@ import {
   ProductCategoryValue,
   products,
 } from '@/constants/product.data';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from '../product-card';
+import ProductCategorySelector from './product-category-selector';
+import { smoothScrollTo } from '@/lib/smooth-scroll';
 
 export default function ProductComponent() {
   const [category, setCategory] = useState<ProductCategoryValue>('all');
@@ -19,29 +21,36 @@ export default function ProductComponent() {
     }))
     .filter((group) => group.items.length > 0);
 
+  useEffect(() => {
+    const targetCategory = category === 'all' ? 'decking' : category;
+
+    const scrollToCategory = () => {
+      const el = document.getElementById(targetCategory);
+      if (el) {
+        const yOffset = -80; // adjust based on your navbar height
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        smoothScrollTo(y, 600);
+      }
+    };
+
+    const timeout = setTimeout(scrollToCategory, 100); // delay ensures DOM is ready
+    return () => clearTimeout(timeout);
+  }, [category]);
+
   return (
     <div className="section container">
       <div className="flex flex-col lg:flex-row gap-7 w-full">
         <div className="w-full  lg:w-3/12">
-          <div className="text-[#333333] lg:sticky lg:top-20">
-            <div className="bg-[#00000033] body1 px-8 py-6">
-              Product Category
-            </div>
-            {productCategory.map((item, index) => (
-              <button
-                key={` sdndf${index}jvnkefv`}
-                onClick={() => setCategory(item.value)}
-                className="border-x border-b border-[#EBEBEB] px-8 py-4 body2 w-full text-left"
-              >
-                <p>{item.name}</p>
-              </button>
-            ))}
-          </div>
+          <ProductCategorySelector selected={category} onSelect={setCategory} />
         </div>
         <div className="w-full lg:w-9/12">
           <div className="flex flex-col gap-[30px] lg:gap-[60px] w-full">
             {groupedProducts.map((group) => (
-              <div key={group.category.value} className="flex flex-col gap-6">
+              <div
+                key={group.category.value}
+                className="flex flex-col gap-6"
+                id={group.category.value}
+              >
                 <h4 className="h5 md:h4 text-neutral-head font-medium bg-[#F4F4F4] py-3 px-8 border border-[#ebebeb] w-full">
                   {group.category.name}
                 </h4>
