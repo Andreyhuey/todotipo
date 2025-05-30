@@ -32,6 +32,7 @@ interface gridPlate {
 
 export interface Products {
   id: number | string;
+  seoImage?: string;
   image: string;
   title: string;
   category: ProductCategoryValue;

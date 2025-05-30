@@ -25,12 +25,15 @@ export async function generateMetadata({
   const title = `${product.title} | ${toCapitalCase(product.category)} | ${
     siteInfo.name
   }`;
-  const description = `Explore details about ${product.title} in our ${product.category} collection.`;
-  const image = product.image.startsWith('http')
-    ? product.image
-    : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}${
-        product.image
-      }`;
+  const description = `Explore details about ${product.title.toLowerCase()} in our ${
+    product.category
+  } collection.`;
+  const image =
+    product.seoImage && product.seoImage.startsWith('http')
+      ? product.seoImage
+      : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}${
+          product.seoImage ?? ''
+        }`;
 
   return {
     title,
