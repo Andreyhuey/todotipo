@@ -25,9 +25,7 @@ export async function generateMetadata({
   const title = `${product.title} | ${toCapitalCase(product.category)} | ${
     siteInfo.name
   }`;
-  const description = `Explore details about ${toCapitalCase(
-    product.title
-  )} in our ${product.category} collection.`;
+  const description = `Explore details about ${product.title} in our ${product.category} collection.`;
   const image = product.image.startsWith('http')
     ? product.image
     : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}${
@@ -37,6 +35,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    icons: image,
     openGraph: { title, description, images: [{ url: image }] },
     twitter: {
       card: 'summary_large_image',
