@@ -5,7 +5,6 @@ export const productCategory = [
   { name: 'Wall Panels', value: 'wall-panels' },
   { name: 'Composite doors', value: 'composite-doors' },
   { name: 'Fencing', value: 'fencing' },
-  { name: 'Gates', value: 'gates' },
 ] as const;
 
 export type ProductCategoryValue = (typeof productCategory)[number]['value'];
@@ -17,7 +16,18 @@ interface objectValue {
 
 interface imageObject {
   name: string;
-  image: string;
+  image: string | string[];
+}
+
+interface caseObject {
+  name: string;
+  image: string | string[];
+  specification?: objectValue[];
+}
+
+interface details {
+  name: string;
+  types: imageObject[];
 }
 
 interface gridPlate {
@@ -30,13 +40,20 @@ interface gridPlate {
   fireRating: string;
 }
 
+interface collection {
+  name: string;
+  image: string;
+  styles: imageObject;
+  details: details[];
+}
+
 export interface Products {
   id: number | string;
   seoImage?: string;
   image: string;
   title: string;
   category: ProductCategoryValue;
-  heroImage: string;
+  heroImage: string | string[];
   otherImages?: string[];
   code?: string;
   model?: string;
@@ -52,6 +69,9 @@ export interface Products {
   color?: object[];
   productPerformance?: imageObject[];
   caseAppreciation?: string[];
+  case?: caseObject[];
+  designSketches?: string[];
+  collection?: collection;
 }
 
 export const products: Products[] = [
@@ -304,9 +324,11 @@ export const products: Products[] = [
     id: 4,
     image: '/assets/flutted-wall-panel.svg',
     title: 'Flutted wall panel information',
+    brand: 'Todotipo',
+    model: 'SP-OR05L',
+    code: 'SP-OR',
     category: 'flutted-wall-panel',
     heroImage: '',
-    otherImages: ['', ''],
     desc: [
       'The nano bamboo and wood fiber grid is a next-generation upgrade to traditional wooden grid systems, designed to meet the evolving demands of modern construction and interior design. By combining natural bamboo with advanced wood fiber technology at the nano level, this innovative material delivers exceptional performance while minimizing environmental impact.',
       'Traditional wooden grids, though widely used, are prone to several issues over time—especially in humid or variable climates. Wood tends to absorb moisture, leading to swelling, warping, mold growth, and even structural failure. These problems not only compromise the aesthetics and safety of a space but also result in high maintenance costs and the need for frequent replacement. Additionally, traditional wood processing contributes to deforestation and environmental degradation, making it a less sustainable option in today’s eco-conscious world.',
@@ -316,6 +338,7 @@ export const products: Products[] = [
       'In summary, the nano bamboo and wood fiber grid represents a smart, forward-thinking alternative to traditional wood. It delivers long-term value through its resilience, low maintenance, attractive appearance, and eco-conscious design—making it a preferred choice for architects, builders, and homeowners alike.',
     ],
     descImages: ['', ''],
+    otherImages: ['', ''],
     addOns: [
       {
         name: 'Water Proof',
@@ -456,73 +479,95 @@ export const products: Products[] = [
       },
     ],
   },
-  {
-    id: 5,
-    image: '/assets/bamboo-corner-wall.svg',
-    title: 'Bamboo charcoal wood grille',
-    category: 'flutted-wall-panel',
-    heroImage: '',
-    addOns: [
-      {
-        name: 'Water Proof',
-        image: '/assets',
-      },
-      {
-        name: 'Inspect prevention',
-        image: '/assets',
-      },
-      {
-        name: 'Environs Protection',
-        image: '',
-      },
-      {
-        name: 'flame retardant',
-        image: '',
-      },
-    ],
-    descImages: [],
-    productPerformance: [{ name: 'waterproof Test', image: '' }],
-    caseAppreciation: [],
-  },
-  {
-    id: 6,
-    image: '/assets/bamboo-wood-grille.svg',
-    title: 'Bamboo wood grille',
-    category: 'flutted-wall-panel',
-    heroImage: '',
-    addOns: [
-      {
-        name: 'Water Proof',
-        image: '/assets',
-      },
-      {
-        name: 'Bendable',
-        image: '/assets',
-      },
-      {
-        name: 'Environs Protection',
-        image: '',
-      },
-      {
-        name: 'flame retardant',
-        image: '',
-      },
-    ],
-    descImages: [],
-    productPerformance: [
-      { name: 'waterproof Test', image: '' },
-      { name: 'Bent Forward', image: '' },
-      { name: 'Bent Backwards', image: '' },
-    ],
-    caseAppreciation: [],
-  },
+  // {
+  //   id: 5,
+  //   image: '/assets/bamboo-corner-wall.svg',
+  //   title: 'Bamboo charcoal wood grille',
+  //   category: 'flutted-wall-panel',
+  //   heroImage: '',
+  //   addOns: [
+  //     {
+  //       name: 'Water Proof',
+  //       image: '/assets',
+  //     },
+  //     {
+  //       name: 'Inspect prevention',
+  //       image: '/assets',
+  //     },
+  //     {
+  //       name: 'Environs Protection',
+  //       image: '',
+  //     },
+  //     {
+  //       name: 'flame retardant',
+  //       image: '',
+  //     },
+  //   ],
+  //   descImages: [],
+  //   productPerformance: [{ name: 'waterproof Test', image: '' }],
+  //   caseAppreciation: [],
+  // },
+  // {
+  //   id: 6,
+  //   image: '/assets/bamboo-wood-grille.svg',
+  //   title: 'Bamboo wood grille',
+  //   category: 'flutted-wall-panel',
+  //   heroImage: '',
+  //   addOns: [
+  //     {
+  //       name: 'Water Proof',
+  //       image: '/assets',
+  //     },
+  //     {
+  //       name: 'Bendable',
+  //       image: '/assets',
+  //     },
+  //     {
+  //       name: 'Environs Protection',
+  //       image: '',
+  //     },
+  //     {
+  //       name: 'flame retardant',
+  //       image: '',
+  //     },
+  //   ],
+  //   descImages: [],
+  //   productPerformance: [
+  //     { name: 'waterproof Test', image: '' },
+  //     { name: 'Bent Forward', image: '' },
+  //     { name: 'Bent Backwards', image: '' },
+  //   ],
+  //   caseAppreciation: [],
+  // },
   // wall-panels
   {
     id: 7,
     image: '/assets/hd-printing-wall-panel.svg',
+    brand: 'Todotipo',
+    model: 'SP-OR05L',
+    code: 'SP-OR',
     title: 'HD Printing wall panel',
     category: 'wall-panels',
     heroImage: '',
+    addOns: [
+      {
+        image: '',
+        name: 'Water Proof',
+      },
+      {
+        image: '',
+        name: 'Insect prevention',
+      },
+      {
+        image: '',
+        name: 'High Definition',
+      },
+      {
+        image: '',
+        name: 'Flame Retardant',
+      },
+    ],
+    descImages: [],
   },
   {
     id: 8,
@@ -530,6 +575,10 @@ export const products: Products[] = [
     title: 'SPC/HD Wood Grain',
     category: 'wall-panels',
     heroImage: '',
+    brand: 'Todotipo',
+    model: 'SP-OR05L',
+    code: 'SP-OR',
+    descImages: [],
   },
   {
     id: 9,
@@ -537,13 +586,191 @@ export const products: Products[] = [
     title: 'Metal Series wall panel',
     category: 'wall-panels',
     heroImage: '',
+    brand: 'Todotipo',
+    model: 'SP-OR05L',
+    code: 'SP-OR',
+    desc: [
+      'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
+      'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
+    ],
+    case: [
+      {
+        image: '',
+        name: 'Metal Series Case 1 (TDP704)',
+        specification: [
+          {
+            name: 'Name',
+            value: 'WPC Wall Panel (Metal Series)',
+          },
+          {
+            name: 'Material',
+            value: 'Nanofibre powder',
+          },
+          {
+            name: 'Length & Width',
+            value: '1120*2800(mm)',
+          },
+          {
+            name: 'Thickness',
+            value: '5mm&8mm',
+          },
+          {
+            name: 'Environmental Protection Grade',
+            value: 'ENF',
+          },
+          {
+            name: 'Fire Rating',
+            value: 'B1',
+          },
+          {
+            name: 'Performance',
+            value: 'Waterproof and Bendable',
+          },
+        ],
+      },
+      {
+        image: '',
+        name: 'Metal Series Case 2 (TDP751)',
+        specification: [
+          {
+            name: 'Name',
+            value: 'WPC Wall Panel (Metal Series)',
+          },
+          {
+            name: 'Material',
+            value: 'Nanofibre powder',
+          },
+          {
+            name: 'Length & Width',
+            value: '1120*2800(mm)',
+          },
+          {
+            name: 'Thickness',
+            value: '5mm&8mm',
+          },
+          {
+            name: 'Environmental Protection Grade',
+            value: 'ENF',
+          },
+          {
+            name: 'Fire Rating',
+            value: 'B1',
+          },
+          {
+            name: 'Performance',
+            value: 'Waterproof and Bendable',
+          },
+        ],
+      },
+      {
+        image: [''],
+        name: 'Metal Series Case 3 (TDP712)',
+        specification: [
+          {
+            name: 'Name',
+            value: 'WPC Wall Panel (Metal Series)',
+          },
+          {
+            name: 'Material',
+            value: 'Nanofibre powder',
+          },
+          {
+            name: 'Length & Width',
+            value: '1120*2800(mm)',
+          },
+          {
+            name: 'Thickness',
+            value: '5mm&8mm',
+          },
+          {
+            name: 'Environmental Protection Grade',
+            value: 'ENF',
+          },
+          {
+            name: 'Fire Rating',
+            value: 'B1',
+          },
+          {
+            name: 'Performance',
+            value: 'Waterproof and Bendable',
+          },
+        ],
+      },
+      {
+        image: [''],
+        name: 'Metal Series Case 4 (TDP701)',
+        specification: [
+          {
+            name: 'Name',
+            value: 'WPC Wall Panel (Metal Series)',
+          },
+          {
+            name: 'Material',
+            value: 'Nanofibre powder',
+          },
+          {
+            name: 'Length & Width',
+            value: '1120*2800(mm)',
+          },
+          {
+            name: 'Thickness',
+            value: '5mm&8mm',
+          },
+          {
+            name: 'Environmental Protection Grade',
+            value: 'ENF',
+          },
+          {
+            name: 'Fire Rating',
+            value: 'B1',
+          },
+          {
+            name: 'Performance',
+            value: 'Waterproof and Bendable',
+          },
+        ],
+      },
+    ],
   },
   {
     id: 10,
     image: '/assets/stone-series-wall-panel.svg',
     title: 'Stone Series Wall Panel',
+    brand: 'Todotipo',
+    model: 'SP-ORO5L',
+    code: 'SP-OR',
     category: 'wall-panels',
-    heroImage: '',
+    addOns: [
+      {
+        image: '',
+        name: 'Water Proof',
+      },
+      {
+        image: '',
+        name: 'Insect prevention',
+      },
+      {
+        image: '',
+        name: 'High Definition',
+      },
+      {
+        image: '',
+        name: 'Flame Retardant',
+      },
+    ],
+    heroImage: [''],
+    desc: [
+      'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
+      'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
+    ],
+    descImages: [],
+    case: [],
+    color: [
+      {
+        name: 'Colors',
+        image: '',
+      },
+    ],
   },
   {
     id: 11,
@@ -551,6 +778,27 @@ export const products: Products[] = [
     title: 'Wood Grain Series Wall Panel',
     category: 'wall-panels',
     heroImage: '',
+    desc: [
+      'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
+      'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
+    ],
+    descImages: [''],
+    case: [
+      {
+        name: 'Wood Grain Series Case 1 (8005)',
+        image: [''],
+      },
+      {
+        name: 'Wood Grain Series Case 2 (8024)',
+        image: [''],
+      },
+    ],
+    color: [
+      {
+        name: '',
+        colors: [''],
+      },
+    ],
   },
   // composite-doors
   {
@@ -558,28 +806,199 @@ export const products: Products[] = [
     image: '/assets/classic-collection.svg',
     title: 'Classic Collection',
     category: 'composite-doors',
-    heroImage: '',
+    brand: 'Todotipo',
+    model: 'SP-OR05L',
+    code: 'SP-OR',
+    desc: [
+      'Composite doors combine the best of multiple materials to deliver superior strength, durability, and aesthetic appeal. Designed to withstand the elements, they feature a solid timber core encased in a weather-resistant outer layer, offering excellent thermal efficiency, security, and low maintenance. Available in a wide range of styles and finishes, composite doors are the perfect upgrade for any home, blending classic looks with modern performance.',
+    ],
+    descImages: [''],
+    heroImage: [''],
+    collection: {
+      name: 'Classic Collections',
+      image: '',
+      styles: {
+        name: 'Popular Classic Styles',
+        image: [''],
+      },
+      details: [
+        {
+          name: 'Classic Accessories',
+          types: [
+            {
+              name: 'Heritage Pull Knob',
+              image: '',
+            },
+            {
+              name: 'Classic Escutcheon',
+              image: '',
+            },
+            {
+              name: 'Classic Urm Knocker',
+              image: '',
+            },
+            {
+              name: 'Classic Slimline Knocker',
+              image: '',
+            },
+            {
+              name: 'Classic Leather Plate',
+              image: '',
+            },
+            {
+              name: 'Classic Level Pad',
+              image: '',
+            },
+          ],
+        },
+        {
+          name: 'Classic Glazing Designs',
+          types: [
+            {
+              name: 'Riviera',
+              image: '',
+            },
+            {
+              name: 'Regal',
+              image: '',
+            },
+            {
+              name: 'Sarah',
+              image: '',
+            },
+            {
+              name: 'Virtue',
+              image: '',
+            },
+            {
+              name: 'Spring',
+              image: '',
+            },
+            {
+              name: 'Opal',
+              image: '',
+            },
+          ],
+        },
+      ],
+    },
   },
   {
-    id: 13,
+    id: '12-urban-collection',
     image: '/assets/urban-collection.svg',
     title: 'Urban Collection',
     category: 'composite-doors',
     heroImage: '',
+    collection: {
+      name: 'Urban Collections',
+      image: '',
+      styles: {
+        name: 'Popular Urban Styles',
+        image: [''],
+      },
+      details: [
+        {
+          name: 'Urban Accessories',
+          types: [
+            {
+              name: 'Square Pull Handle',
+              image: '',
+            },
+            {
+              name: 'Lever Handle',
+              image: '',
+            },
+            {
+              name: 'Square Pull Knob',
+              image: '',
+            },
+            {
+              name: 'Round Pull Knob',
+              image: '',
+            },
+            {
+              name: 'Classic Escutcheon',
+              image: '',
+            },
+            {
+              name: 'Leather plate',
+              image: '',
+            },
+          ],
+        },
+        {
+          name: 'Urban Glazing Designs',
+          types: [
+            {
+              name: 'Fabian',
+              image: '',
+            },
+            {
+              name: 'Harmony',
+              image: '',
+            },
+            {
+              name: 'Comete',
+              image: '',
+            },
+            {
+              name: 'Virtue',
+              image: '',
+            },
+            {
+              name: 'Clarence',
+              image: '',
+            },
+            {
+              name: 'Olympias',
+              image: '',
+            },
+          ],
+        },
+      ],
+    },
   },
   {
-    id: 15,
+    id: '12-anvantal-collection',
     image: '/assets/country-collection.svg',
-    title: 'Country Collection',
+    title: 'Anvantal Collection',
     category: 'composite-doors',
     heroImage: '',
-  },
-  {
-    id: 16,
-    image: '/assets/composite-door-information.svg',
-    title: 'Composite Door Information',
-    category: 'composite-doors',
-    heroImage: '',
+    collection: {
+      name: 'Avantal Collections',
+      image: '',
+      styles: {
+        name: 'Popular Avantal Styles',
+        image: [''],
+      },
+      details: [
+        {
+          name: 'Avantal Accessories',
+          types: [
+            {
+              name: 'Lever Handle',
+              image: '',
+            },
+            {
+              name: 'Knocker',
+              image: '',
+            },
+            {
+              name: 'Pull Bar',
+              image: '',
+            },
+            {
+              name: 'Round Pull Knob',
+              image: '',
+            },
+            {
+              name: 'Square Pull Knob',
+              image: '',
+            },
+          ],
+        },
+      ],
+    },
   },
   // fencing
   {
@@ -588,22 +1007,59 @@ export const products: Products[] = [
     title: 'Wooden Woove Fence Panels',
     category: 'fencing',
     heroImage: '',
+    addOns: [
+      {
+        image: '',
+        name: 'Water Proof',
+      },
+      {
+        image: '',
+        name: 'Insect prevention',
+      },
+      {
+        image: '',
+        name: 'High Definition',
+      },
+      {
+        image: '100% Eco Material',
+        name: 'UV Resistant',
+      },
+    ],
+    desc: [
+      'Your home is your castle, as they say. But, when other people are staring at your home or commercial property – be it your neighbours, passers-by, or the like – it’s easy to feel uncomfortable. Luckily, a high-quality fence can help with this.',
+      'With a top-quality woven fence, you help ensure your outdoor space looks and performs at its best. Moreover, you help prevent prying eyes from looking in. You could even dissuade thieves from attempting to take your belongings for their own.',
+      'A top-quality fence is vital to keep your home or commercial property safe and comfortable. However, in many cases, it can seem like we have no option other than to compromise on either durability or aesthetics.',
+      'But why should it have to be this way? Fortunately, with our stunning woven fence design, you won’t have to. Made from 100% eco-friendly and recyclable materials WPC, our stunning woven fence is UV resistant, insect resistant, and fully waterproof. Plus, each fence is available in various colours, and the unique woven design adds a little extra charm and magic to your property as a result. So, why not give it a try – you might at amazed by the value our woven fences could bring!',
+      'Because the high praise of the co-extrusion woven fence gave us great confidence in co-extrusion WPC fence development, we opened a new mold for the privacy fence. After the marketing research, we will promote two colours for the WPC fence at the beginning, and we have displayed the latest products in our showroom.',
+    ],
+    color: [
+      {
+        name: 'Antique',
+        color: '',
+      },
+      {
+        name: 'Ashwood',
+        color: '',
+      },
+      {
+        name: 'Dark Grey',
+        color: '',
+      },
+      {
+        name: 'IPE',
+        color: '',
+      },
+      {
+        name: 'Teak',
+        color: '',
+      },
+      {
+        name: 'Walnut',
+        color: '',
+      },
+    ],
+    designSketches: [''],
   },
-  {
-    id: 18,
-    image: '/assets/slate-wall-fence.svg',
-    title: 'Slate Wall Fence',
-    category: 'fencing',
-    heroImage: '',
-  },
-  // gates
-  // {
-  //   id: 22,
-  //   image: '/assets/premium1.svg',
-  //   title: 'Black Gate',
-  //   category: 'gates',
-  //   heroImage: '',
-  // },
 ] as const;
 
 export const PremiumProducts = [
