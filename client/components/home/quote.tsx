@@ -2,7 +2,7 @@ import { home } from '@/constants/site.data';
 import React from 'react';
 import TitleHeader from '../ui/title-header';
 import { PremiumProducts } from '@/constants/product.data';
-import ProductCard from '../product-card';
+import ProductCard from '../products/product-card';
 
 export default function Quote() {
   return (

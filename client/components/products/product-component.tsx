@@ -6,7 +6,7 @@ import {
   products,
 } from '@/constants/product.data';
 import { useEffect, useState } from 'react';
-import ProductCard from '../product-card';
+import ProductCard from './product-card';
 import ProductCategorySelector from './product-category-selector';
 import { smoothScrollTo } from '@/lib/smooth-scroll';
 

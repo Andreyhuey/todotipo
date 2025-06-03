@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import Image from 'next/image';
 import { PremiumProducts, productCategory } from '@/constants/product.data';
 import { ArrowDownRight } from 'lucide-react';

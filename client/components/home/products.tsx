@@ -1,6 +1,6 @@
 'use client';
 
-import ProductCategory from '../product-category';
+import ProductCategory from '../products/product-category';
 import TitleHeader from '../ui/title-header';
 
 export default function Products() {

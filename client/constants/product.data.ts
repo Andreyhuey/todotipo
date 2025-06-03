@@ -81,7 +81,13 @@ export const products: Products[] = [
     image: '/assets/solid-decking-board.svg',
     title: 'Solid Decking Board',
     category: 'decking',
-    heroImage: '',
+    heroImage: [
+      '/assets/solid1.svg',
+      '/assets/solid2.svg',
+      '/assets/solid3.svg',
+      '/assets/solid4.svg',
+      '/assets/solid5.svg',
+    ],
     otherImages: ['/assets/', '/assets/'],
     code: 'SP-OR',
     model: 'SP-OR05L',
@@ -93,7 +99,11 @@ export const products: Products[] = [
       'Without visible gaps, there’s no exposure of substructure elements like joists or clips—just a clean, polished surface from every angle. Your deck becomes a true extension of your home, blending beauty with structural integrity.',
       'Whether you prioritize superior strength or refined aesthetics, this patented no-gap solid composite decking offers a flawless solution. Bring lasting performance and seamless design to your outdoor space. Contact us today to upgrade your decking experience.',
     ],
-    descImages: ['/assets/', '/assets/', '/assets/'],
+    descImages: [
+      '/assets/solid-other-image.svg',
+      '/assets/solid-other-image2.svg',
+      '/assets/solid-other-image3.svg',
+    ],
     specification: [
       {
         name: 'Name',
@@ -123,37 +133,37 @@ export const products: Products[] = [
     optionalColors: [
       {
         name: 'Antique',
-        image: '/assets',
+        image: '/assets/solid-antique.svg',
       },
       {
         name: 'Ashwood',
-        image: '/assets',
+        image: '/assets/solid-ashwood.svg',
       },
       {
         name: 'Dark Grey',
-        image: '/assets',
+        image: '/assets/solid-dark-grey.svg',
       },
       {
         name: 'IPE',
-        image: '/assets',
+        image: '/assets/solid-ipe.svg',
       },
       {
         name: 'Teak',
-        image: '/assets',
+        image: '/assets/solid-teak.svg',
       },
       {
         name: 'Walnut',
-        image: '/assets',
+        image: '/assets/solid-walnut.svg',
       },
     ],
     surfaceTreatment: [
       {
         name: 'Front',
-        image: '/assets',
+        image: '/assets/solid-front.svg',
       },
       {
         name: 'Back',
-        image: '/assets',
+        image: '/assets/solid-back.svg',
       },
     ],
   },
