@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form Submission</title>
+    <style>
+      body {
+        background-color: #f3f4f6;
+        padding: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 24rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        margin: 0.25rem 0;
+      }
+
+      .mt-2 {
+        margin-top: 0.5rem;
+      }
+
+      .mt-4 {
+        margin-top: 1rem;
+      }
+
+      .message-box {
+        background-color: #e5e7eb;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        margin-top: 0.25rem;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Andreyhuey Contact Form</h2>
+      <p class="mt-2"><strong>Name:</strong> {{name}}</p>
+      <p><strong>Subject:</strong> {{subject}}</p>
+      <p><strong>Email:</strong> {{email}}</p>
+      <p><strong>Phone:</strong> {{phone}}</p>
+      <p class="mt-4"><strong>Message:</strong></p>
+      <p class="message-box">{{message}}</p>
+    </div>
+  </body>
+</html>

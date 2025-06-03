@@ -17,16 +17,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from './ui/navigation-menu';
+import { useRouter } from 'next/navigation';
 
 export const links = companyPages;
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isHome = pathname === routes.home();
-  const Color = isHome
-    ? 'text-white bg-[#0E0E0ECC]'
-    : 'text-neutral-head bg-white';
+  const isAbout = pathname === routes.aboutUs();
+  const isProduct = pathname.includes(routes.products());
+  const Color =
+    isHome || isProduct
+      ? 'text-white bg-[#0E0E0ECC]'
+      : 'text-neutral-head bg-white';
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleIsOpen = () => {
@@ -43,14 +49,14 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 ${Color} backdrop-blur-2xl`}
+      className={`fixed top-0 left-0 w-full z-50 max-h-[80px] ${Color} backdrop-blur-xl`}
     >
       <div className="container">
         {/* for medium and large screens */}
         <div className="hidden md:flex items-center justify-between py-3">
           <Link href={routes.home()} className="">
             <Image
-              src={isHome ? logo.src : logo2.src}
+              src={isHome || isProduct ? logo.src : logo2.src}
               alt="logo"
               width={80}
               height={80}
@@ -60,13 +66,17 @@ const Navbar = () => {
           </Link>
           <div className="flex gap-8 items-center">
             {links.slice(0, -1).map((item, index) => (
-              <>
+              <div key={`${index} sdsidn$2ddas`}>
                 {item.name === 'Products' ? (
                   <>
                     <NavigationMenu>
                       <NavigationMenuList>
                         <NavigationMenuItem>
-                          <NavigationMenuTrigger>
+                          <NavigationMenuTrigger
+                            onClick={() => {
+                              router.push(routes.products());
+                            }}
+                          >
                             <p className="body4">{item.name}</p>
                           </NavigationMenuTrigger>
                           <NavigationMenuContent
@@ -77,7 +87,7 @@ const Navbar = () => {
                             <div className="flex flex-col gap-3 w-full">
                               {productPages.map((item, index) => (
                                 <Link
-                                  key={index}
+                                  key={` 4$$6 ${index} ***&`}
                                   href={item.link}
                                   className={`capitalize hover:text-white/13 ${
                                     !isHome && 'text-white'
@@ -94,7 +104,6 @@ const Navbar = () => {
                   </>
                 ) : (
                   <Link
-                    key={index}
                     href={item.link}
                     className={`capitalize hover:text-white/13 body4 ${
                       item.link === pathname && 'text-primary-200'
@@ -103,10 +112,14 @@ const Navbar = () => {
                     {item.name}
                   </Link>
                 )}
-              </>
+              </div>
             ))}
             <Link href={routes.contactUs()}>
-              <Button variant="default2">Contact Us</Button>
+              <Button
+                variant={isHome ? 'default2' : isAbout ? 'default' : 'default'}
+              >
+                Contact Us
+              </Button>
             </Link>
           </div>
         </div>
@@ -137,7 +150,7 @@ const Navbar = () => {
               <div className="flex flex-col items-center  h-full gap-10 text-[24px]">
                 <div className="flex flex-col gap-7 items-center">
                   {links.slice(0, -1).map((item, index) => (
-                    <>
+                    <div key={`${index} sdsd00))`}>
                       {item.name === 'Products' ? (
                         <>
                           <NavigationMenu>
@@ -150,7 +163,7 @@ const Navbar = () => {
                                   <div className="flex flex-col gap-3 w-full">
                                     {productPages.map((item, index) => (
                                       <Link
-                                        key={index}
+                                        key={`@@@@${index} `}
                                         href={item.link}
                                         onClick={handleIsOpen}
                                         className={`capitalize hover:text-white/13 body4 w-full pb-1 border-b last-of-type:border-none`}
@@ -166,7 +179,6 @@ const Navbar = () => {
                         </>
                       ) : (
                         <Link
-                          key={index}
                           href={item.link}
                           onClick={handleIsOpen}
                           className={`capitalize hover:text-white/13 body2 `}
@@ -174,7 +186,7 @@ const Navbar = () => {
                           {item.name}
                         </Link>
                       )}
-                    </>
+                    </div>
                   ))}
                 </div>
                 <Link href={routes.contactUs()} onClick={handleIsOpen}>
@@ -187,7 +199,7 @@ const Navbar = () => {
           <div className="md:hidden flex justify-between items-center py-3">
             <Link href={routes.home()} className="text-[40px]">
               <Image
-                src={isHome ? logo.src : logo2.src}
+                src={isHome || isProduct ? logo.src : logo2.src}
                 alt="logo"
                 width={50}
                 height={50}

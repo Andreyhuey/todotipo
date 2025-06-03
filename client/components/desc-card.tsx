@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React from 'react';
 
 interface Props {
-  key: string;
   details: {
     image: string;
     desc: string;
@@ -10,12 +9,9 @@ interface Props {
   };
 }
 
-export default function DescCard({ details, key }: Props) {
+export default function DescCard({ details }: Props) {
   return (
-    <div
-      className="flex flex-col gap-6 border border-[#ebebeb] bg-white rounded-xl p-8"
-      key={key}
-    >
+    <div className="flex flex-col gap-6 border border-[#ebebeb] bg-white rounded-xl p-8">
       <div className="flex flex-col gap-3">
         <Image
           src={details.image}

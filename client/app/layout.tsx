@@ -31,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className={` ${inter.variable} ${montserrat.variable} antialiased`}>
+      <body
+        className={` ${inter.variable} ${montserrat.variable} antialiased h-full`}
+      >
         <Providers>
           <Navbar />
           {children}

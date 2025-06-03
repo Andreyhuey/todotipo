@@ -12,6 +12,9 @@ module.exports = {
       body: 'var(--font-inter)',
     },
     extend: {
+      transitionProperty: {
+        opacity: 'opacity',
+      },
       colors: {
         neutral: {
           50: '#f9fafb',

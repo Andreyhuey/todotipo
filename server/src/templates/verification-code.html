@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification Code</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f7fa;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+      }
+      h1 {
+        color: #2c3e50;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+      .verification-code {
+        font-size: 60px;
+        font-weight: bold;
+        color: #e74c3c;
+        letter-spacing: 4px;
+        padding: 15px;
+        background-color: #ecf0f1;
+        border-radius: 8px;
+        display: inline-block;
+      }
+      .instructions {
+        font-size: 18px;
+        color: #7f8c8d;
+        margin-top: 20px;
+      }
+      .footer {
+        margin-top: 40px;
+        font-size: 14px;
+        color: #95a5a6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <h1>Your Verification Code</h1>
+      <p class="instructions">
+        Please use the following code to complete your verification process:
+      </p>
+      <div class="verification-code">{{code}}</div>
+      <p class="instructions">
+        This code is valid for the next 10 minutes. Please enter it promptly.
+      </p>
+      <div class="footer">
+        <p>If you did not request this code, please ignore this email.</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+
+    <header class="bg-blue-600 text-white py-4 shadow">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl font-semibold">Welcome to Your Server</h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-10">
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+            <h2 class="text-xl font-bold mb-4">API Status</h2>
+            <p class="text-gray-700">Your server is up and running 🚀</p>
+            <div class="mt-6">
+                <p class="text-sm text-gray-500">Available Routes:</p>
+                <ul class="mt-2 text-left inline-block text-sm text-gray-800">
+                    <li>✅ <code>GET /api/auth</code> – Auth routes</li>
+                    <li>✅ <code>GET /api/posts</code> – Post routes</li>
+                    <li>✅ <code>GET /api/users</code> – User routes</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-200 py-4 text-center text-sm text-gray-600">
+        &copy; <span id="year"></span> Your Todo Tipo. All rights reserved.
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

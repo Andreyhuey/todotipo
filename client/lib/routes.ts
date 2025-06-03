@@ -1,9 +1,15 @@
 // company pages
 
+import { toSlug } from './toSlug';
+
 const home = () => '/';
 const aboutUs = () => '/about-us';
 const products = () => '/products';
-const productDetails = (id: string = '') => `${products()}/${id}`;
+const productDetails = (
+  category: string = '',
+  id: string | number = '',
+  name: string = ''
+) => `${products()}/${category}/${id}/${toSlug(name)}`;
 const designCase = () => '/design-case';
 const designCaseDetails = (id: string = '') => `${designCase()}/${id}`;
 const contactUs = () => '/contact-us';
