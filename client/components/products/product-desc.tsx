@@ -21,7 +21,7 @@ export default function ProductDesc({
 
   return (
     <div className="min-h-screen">
-      <div className="">
+      <div className="section">
         <div className="flex flex-col lg:flex-row gap-2 w-full h-full">
           <div className="flex-1 w-full h-full">
             {product.heroImage[0] && (
@@ -70,7 +70,7 @@ export default function ProductDesc({
                   className="w-full h-full border border-[#000000]"
                 />
               </div>
-              <div className="flex-1 flex flex-col justify-between items-stretch w-full lg:w-1/2 min-h-full p-3">
+              <div className="flex-1 flex flex-col justify-between items-stretch w-full lg:w-1/2 min-h-full gap-5 p-3">
                 <h1 className="text-[32px] text-neutral-head font-medium">
                   {product.title}
                 </h1>

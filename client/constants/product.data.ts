@@ -88,7 +88,6 @@ export const products: Products[] = [
       '/assets/solid4.svg',
       '/assets/solid5.svg',
     ],
-    otherImages: ['/assets/', '/assets/'],
     code: 'SP-OR',
     model: 'SP-OR05L',
     brand: 'Todotipo',
@@ -172,23 +171,34 @@ export const products: Products[] = [
     image: '/assets/hollow-decking-board.svg',
     title: 'Hollow Decking Board',
     category: 'decking',
-    heroImage: '',
-    otherImages: ['/assets/', '/assets/'],
+
+    heroImage: [
+      '/assets/hollow20.svg',
+      '/assets/hollow30.svg',
+      '/assets/hollow40.svg',
+      '/assets/hollow50.svg',
+      '/assets/hollow60.svg',
+    ],
     code: 'SP-OR',
     model: 'SP-OR05L',
     brand: 'Todotipo',
     desc: [
-      'Introducing no-gap solid composite decking that seamlessly fits together with invisible joints. This premium gap-free decking features a patented tongue-and-groove design that locks planks tightly, eliminating the unsightly and hazardous spaces found in traditional deck builds.',
-      'With solid construction, you get added strength, durability, and a firmer underfoot feel—ideal for high-traffic areas or elevated installations. Enjoy carefree outdoor living with no worries about twisted ankles from high heel gaps or valuables slipping through cracks. The solid board design also prevents debris build-up and makes cleaning a breeze, thanks to its smooth, crevice-free surface.',
-      'From a distance, this no-gap solid decking mimics the elegance of interior hardwood flooring, showcasing rich colours and natural grain textures. The hidden fastener system and seamless joints create a sleek, modern appearance that enhances any outdoor setting.',
-      'Without visible gaps, there’s no exposure of substructure elements like joists or clips—just a clean, polished surface from every angle. Your deck becomes a true extension of your home, blending beauty with structural integrity.',
-      'Whether you prioritize superior strength or refined aesthetics, this patented no-gap solid composite decking offers a flawless solution. Bring lasting performance and seamless design to your outdoor space. Contact us today to upgrade your decking experience.',
+      'Introducing no-gap hollow decking that connects seamlessly with invisible joints for a flawless finish. This innovative decking solution features a patented tongue-and-groove system that locks each board tightly together, eliminating the gaps and uneven spacing common in traditional builds.',
+      'Engineered with a lightweight hollow core, this decking offers excellent structural performance while reducing material weight making it easier to handle and install. Despite its lighter profile, it maintains impressive strength and stability, ideal for residential decks, patios, and balconies.',
+      'Say goodbye to twisted ankles, dropped keys, and dirt-trapping cracks. The gap-free surface prevents debris build-up and allows for easy cleaning, with no crevices for grime or moisture to collect. The result is a low-maintenance, high-style outdoor living space.',
+      'From afar, the decking resembles sleek interior flooring, with rich colors and wood-like textures that elevate your exterior design. The hidden fastener system and continuous board connections provide a streamlined, modern aesthetic with no visible interruptions or hardware.',
+      'With no gaps to reveal the under-structure, your deck stays visually clean and cohesive from every angle. The hollow design adds efficiency without compromising beauty or function.',
+      'Perfect for those who want contemporary style, reduced weight, and seamless performance, this patent no-gap hollow composite decking delivers a smart and stunning solution for your outdoor space. Reach out today to transform your deck with this lightweight innovation.',
     ],
-    descImages: ['/assets/', '/assets/', '/assets/'],
+    descImages: [
+      '/assets/solid1.svg',
+      '/assets/hollow2.svg',
+      '/assets/hollow3.svg',
+    ],
     specification: [
       {
         name: 'Name',
-        value: 'No Gap Solid Decking Board',
+        value: 'No Gap Hollow Decking Board',
       },
       {
         name: 'Item',
@@ -214,37 +224,37 @@ export const products: Products[] = [
     optionalColors: [
       {
         name: 'Antique',
-        image: '/assets',
+        image: '/assets/solid-antique.svg',
       },
       {
         name: 'Ashwood',
-        image: '/assets',
+        image: '/assets/solid-ashwood.svg',
       },
       {
         name: 'Dark Grey',
-        image: '/assets',
+        image: '/assets/solid-dark-grey.svg',
       },
       {
         name: 'IPE',
-        image: '/assets',
+        image: '/assets/solid-ipe.svg',
       },
       {
         name: 'Teak',
-        image: '/assets',
+        image: '/assets/solid-teak.svg',
       },
       {
         name: 'Walnut',
-        image: '/assets',
+        image: '/assets/solid-walnut.svg',
       },
     ],
     surfaceTreatment: [
       {
         name: 'Front',
-        image: '/assets',
+        image: '/assets/solid-front.svg',
       },
       {
         name: 'Back',
-        image: '/assets',
+        image: '/assets/solid-back.svg',
       },
     ],
   },
@@ -253,23 +263,33 @@ export const products: Products[] = [
     image: '/assets/composite-decking-board.svg',
     title: 'Composite Decking Board',
     category: 'decking',
-    heroImage: '',
-    otherImages: ['/assets/', '/assets/'],
+    heroImage: [
+      '/assets/composite1.svg',
+      '/assets/composite2.svg',
+      '/assets/composite3.svg',
+      '/assets/composite4.svg',
+      '/assets/composite5.svg',
+    ],
+    descImages: [
+      '/assets/composite6.svg',
+      '/assets/composite7.svg',
+      '/assets/composite8.svg',
+    ],
     code: 'SP-OR',
     model: 'SP-OR05L',
     brand: 'Todotipo',
     desc: [
-      'Introducing no-gap solid composite decking that seamlessly fits together with invisible joints. This premium gap-free decking features a patented tongue-and-groove design that locks planks tightly, eliminating the unsightly and hazardous spaces found in traditional deck builds.',
-      'With solid construction, you get added strength, durability, and a firmer underfoot feel—ideal for high-traffic areas or elevated installations. Enjoy carefree outdoor living with no worries about twisted ankles from high heel gaps or valuables slipping through cracks. The solid board design also prevents debris build-up and makes cleaning a breeze, thanks to its smooth, crevice-free surface.',
-      'From a distance, this no-gap solid decking mimics the elegance of interior hardwood flooring, showcasing rich colours and natural grain textures. The hidden fastener system and seamless joints create a sleek, modern appearance that enhances any outdoor setting.',
-      'Without visible gaps, there’s no exposure of substructure elements like joists or clips—just a clean, polished surface from every angle. Your deck becomes a true extension of your home, blending beauty with structural integrity.',
-      'Whether you prioritize superior strength or refined aesthetics, this patented no-gap solid composite decking offers a flawless solution. Bring lasting performance and seamless design to your outdoor space. Contact us today to upgrade your decking experience.',
+      'Introducing no-gap composite decking boards that join seamlessly for a smooth, flawless finish. Designed with a patented tongue-and-groove system, these boards connect tightly without the need for visible gaps, eliminating the spacing issues and safety hazards common in traditional decking.',
+      'Crafted from a blend of wood fibers and recycled polymers, these composite boards offer the natural look of timber with the long-lasting durability of modern materials. Resistant to rot, splintering, and fading, they provide a low-maintenance solution built to withstand the elements for years to come.',
+      'Enjoy your outdoor space without worry—no more heels caught in cracks, lost items slipping through gaps, or debris collecting between boards. The flush, uniform surface wipes clean easily and enhances both comfort and cleanliness.',
+      'From a distance, these no-gap composite boards resemble high-end indoor flooring, featuring rich woodgrain textures and contemporary color options. The hidden fastener system and seamless joints give your deck a sleek, modern appearance without any visual interruptions.',
+      'With the elimination of gaps, the understructure remains out of sight, creating a polished, uninterrupted surface from every angle. Your deck becomes a visually cohesive extension of your home, offering both beauty and practicality.',
+      `Whether you're building for style, safety, or long-term performance, these patented no-gap composite decking boards deliver a superior outdoor living experience. Contact us today to upgrade your deck with this seamless, smart solution.`,
     ],
-    descImages: ['/assets/', '/assets/', '/assets/'],
     specification: [
       {
         name: 'Name',
-        value: 'No Gap Solid Decking Board',
+        value: 'No Gap Composite Decking Board',
       },
       {
         name: 'Item',
@@ -295,37 +315,37 @@ export const products: Products[] = [
     optionalColors: [
       {
         name: 'Antique',
-        image: '/assets',
+        image: '/assets/solid-antique.svg',
       },
       {
         name: 'Ashwood',
-        image: '/assets',
+        image: '/assets/solid-ashwood.svg',
       },
       {
         name: 'Dark Grey',
-        image: '/assets',
+        image: '/assets/solid-dark-grey.svg',
       },
       {
         name: 'IPE',
-        image: '/assets',
+        image: '/assets/solid-ipe.svg',
       },
       {
         name: 'Teak',
-        image: '/assets',
+        image: '/assets/solid-teak.svg',
       },
       {
         name: 'Walnut',
-        image: '/assets',
+        image: '/assets/solid-walnut.svg',
       },
     ],
     surfaceTreatment: [
       {
         name: 'Front',
-        image: '/assets',
+        image: '/assets/solid-front.svg',
       },
       {
         name: 'Back',
-        image: '/assets',
+        image: '/assets/solid-back.svg',
       },
     ],
   },
@@ -894,7 +914,7 @@ export const products: Products[] = [
     },
   },
   {
-    id: '12-urban-collection',
+    id: 13,
     image: '/assets/urban-collection.svg',
     title: 'Urban Collection',
     category: 'composite-doors',
@@ -969,7 +989,7 @@ export const products: Products[] = [
     },
   },
   {
-    id: '12-anvantal-collection',
+    id: 14,
     image: '/assets/country-collection.svg',
     title: 'Anvantal Collection',
     category: 'composite-doors',
@@ -1070,7 +1090,7 @@ export const products: Products[] = [
     ],
     designSketches: [''],
   },
-] as const;
+];
 
 export const PremiumProducts = [
   {

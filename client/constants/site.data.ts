@@ -301,22 +301,22 @@ export const companyPages = [
 export const productPages = [
   {
     name: 'Decking',
-    link: routes.decking(),
+    link: `${routes.products()}#decking`,
   },
   {
-    name: 'Composite flooring',
-    link: routes.compositeFlooring(),
-  },
-  {
-    name: 'Composite ceilings',
-    link: routes.compositeCeilings(),
+    name: 'Flutted Wall Panel',
+    link: `${routes.products()}#flutted-wall-panel`,
   },
   {
     name: 'Wall panels',
-    link: routes.wallPanels(),
+    link: `${routes.products()}#wall-panels`,
   },
   {
-    name: 'Composite fencing',
-    link: routes.compositeFencing(),
+    name: 'Composite doors',
+    link: `${routes.products()}#composite-doors`,
+  },
+  {
+    name: 'Fencing',
+    link: `${routes.products()}#fencing`,
   },
 ];

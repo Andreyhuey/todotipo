@@ -11,7 +11,19 @@ import ProductCategorySelector from './product-category-selector';
 import { smoothScrollTo } from '@/lib/smooth-scroll';
 
 export default function ProductComponent() {
-  const [category, setCategory] = useState<ProductCategoryValue>('all');
+  const getInitialCategory = (): ProductCategoryValue => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '');
+      // Validate the hash value against productCategory list or 'all'
+      if (hash === 'all' || productCategory.some((cat) => cat.value === hash)) {
+        return hash as ProductCategoryValue;
+      }
+    }
+    return 'all';
+  };
+
+  const [category, setCategory] =
+    useState<ProductCategoryValue>(getInitialCategory);
 
   const groupedProducts = productCategory
     .filter((cat) => category === 'all' || cat.value === category)

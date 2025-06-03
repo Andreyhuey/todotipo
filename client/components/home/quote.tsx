@@ -1,8 +1,12 @@
 import { home } from '@/constants/site.data';
 import React from 'react';
 import TitleHeader from '../ui/title-header';
-import { PremiumProducts } from '@/constants/product.data';
+import { products } from '@/constants/product.data';
 import ProductCard from '../products/product-card';
+
+// Shuffle function (Fisher–Yates)
+export const shuffled = [...products].sort(() => 0.5 - Math.random());
+export const shuffledProducts = shuffled.slice(0, 3);
 
 export default function Quote() {
   return (
@@ -14,7 +18,7 @@ export default function Quote() {
       <div className="container flex flex-col gap-9">
         <TitleHeader title="NEW PREMIUM PRODUCTS" />
         <div className="flex flex-col md:flex-row gap-8 justify-between">
-          {PremiumProducts.slice(0, 3).map((item, index) => (
+          {shuffledProducts.slice(0, 3).map((item, index) => (
             <ProductCard product={item} key={index} />
           ))}
         </div>
