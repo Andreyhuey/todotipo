@@ -66,6 +66,7 @@ export interface Products {
   addOns?: imageObject[];
   hollowGridPlate?: gridPlate[];
   solidGridPlate?: gridPlate[];
+  plate?: object[];
   color?: object[];
   productPerformance?: imageObject[];
   caseAppreciation?: string[];
@@ -358,7 +359,13 @@ export const products: Products[] = [
     model: 'SP-OR05L',
     code: 'SP-OR',
     category: 'flutted-wall-panel',
-    heroImage: '',
+    heroImage: [
+      '/assets/flutted-wall-1.svg',
+      '/assets/flutted-wall-2.svg',
+      '/assets/flutted-wall-3.svg',
+      '/assets/flutted-wall-4.svg',
+      '/assets/flutted-wall-5.svg',
+    ],
     desc: [
       'The nano bamboo and wood fiber grid is a next-generation upgrade to traditional wooden grid systems, designed to meet the evolving demands of modern construction and interior design. By combining natural bamboo with advanced wood fiber technology at the nano level, this innovative material delivers exceptional performance while minimizing environmental impact.',
       'Traditional wooden grids, though widely used, are prone to several issues over time—especially in humid or variable climates. Wood tends to absorb moisture, leading to swelling, warping, mold growth, and even structural failure. These problems not only compromise the aesthetics and safety of a space but also result in high maintenance costs and the need for frequent replacement. Additionally, traditional wood processing contributes to deforestation and environmental degradation, making it a less sustainable option in today’s eco-conscious world.',
@@ -368,144 +375,173 @@ export const products: Products[] = [
       'In summary, the nano bamboo and wood fiber grid represents a smart, forward-thinking alternative to traditional wood. It delivers long-term value through its resilience, low maintenance, attractive appearance, and eco-conscious design—making it a preferred choice for architects, builders, and homeowners alike.',
     ],
     descImages: ['', ''],
-    otherImages: ['', ''],
     addOns: [
       {
+        image: '/assets/water-proof.svg',
         name: 'Water Proof',
-        image: '/assets',
       },
       {
-        name: 'Inspect prevention',
-        image: '/assets',
+        image: '/assets/insect-prevention.svg',
+        name: 'Insect prevention',
       },
       {
+        image: '/assets/environs-protection.svg',
         name: 'Environs Protection',
-        image: '',
       },
       {
-        name: 'flame retardant',
-        image: '',
+        image: '/assets/flame-retardant.svg',
+        name: 'Flame Retardant',
       },
     ],
-    hollowGridPlate: [
+    plate: [
       {
-        image: '',
-        name: '170 Hollow fluted wall panel',
-        lengthAndWidth: '170*3000 (mm)',
-        lengthImage: '',
-        thickness: '23.5mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
+        name: 'Hollow Grid Plate',
+        images: ['/assets/flutted-hollow-grid-plate.svg'],
       },
       {
-        image: '',
-        name: '170 arc fluted wall panel',
-        lengthAndWidth: '100*3000 (mm)',
-        lengthImage: '',
-        thickness: '19.5mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '157 inner arc grille',
-        lengthAndWidth: '157*3000 (mm)',
-        lengthImage: '',
-        thickness: '18.5mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '150 Arc fluted wall panel',
-        lengthAndWidth: '150*3000 (mm)',
-        lengthImage: '',
-        thickness: '15mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '160 triangular grille',
-        lengthAndWidth: '160*3000 (mm)',
-        lengthImage: '',
-        thickness: '15mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '170 Hollow fluted wall ',
-        lengthAndWidth: '115*3000 (mm)',
-        lengthImage: '',
-        thickness: '13mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
+        name: 'Solid Grid Plate',
+        images: [
+          '/assets/flutted-solid-grid-plate.svg',
+          '/assets/flutted-other-images2.svg',
+        ],
       },
     ],
-    solidGridPlate: [
-      {
-        image: '',
-        name: '153*24 solid fluted wall panel',
-        lengthAndWidth: '153*3000 (mm)',
-        lengthImage: '',
-        thickness: '24mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '153*24 solid fluted wall panel',
-        lengthAndWidth: '153*3000 (mm)',
-        lengthImage: '',
-        thickness: '24mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '153*24 solid fluted wall panel',
-        lengthAndWidth: '153*3000 (mm)',
-        lengthImage: '',
-        thickness: '24mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '153*24 solid fluted wall panel',
-        lengthAndWidth: '153*3000 (mm)',
-        lengthImage: '',
-        thickness: '24mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-      {
-        image: '',
-        name: '153*24 solid fluted wall panel',
-        lengthAndWidth: '153*3000 (mm)',
-        lengthImage: '',
-        thickness: '24mm',
-        environmentalProtectionGrade: 'E0',
-        fireRating: 'B1',
-      },
-    ],
+    // hollowGridPlate: [
+    //   {
+    //     image: '',
+    //     name: '170 Hollow fluted wall panel',
+    //     lengthAndWidth: '170*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '23.5mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '170 arc fluted wall panel',
+    //     lengthAndWidth: '100*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '19.5mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '157 inner arc grille',
+    //     lengthAndWidth: '157*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '18.5mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '150 Arc fluted wall panel',
+    //     lengthAndWidth: '150*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '15mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '160 triangular grille',
+    //     lengthAndWidth: '160*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '15mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '170 Hollow fluted wall ',
+    //     lengthAndWidth: '115*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '13mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    // ],
+    // solidGridPlate: [
+    //   {
+    //     image: '',
+    //     name: '153*24 solid fluted wall panel',
+    //     lengthAndWidth: '153*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '24mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '153*24 solid fluted wall panel',
+    //     lengthAndWidth: '153*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '24mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '153*24 solid fluted wall panel',
+    //     lengthAndWidth: '153*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '24mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '153*24 solid fluted wall panel',
+    //     lengthAndWidth: '153*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '24mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    //   {
+    //     image: '',
+    //     name: '153*24 solid fluted wall panel',
+    //     lengthAndWidth: '153*3000 (mm)',
+    //     lengthImage: '',
+    //     thickness: '24mm',
+    //     environmentalProtectionGrade: 'E0',
+    //     fireRating: 'B1',
+    //   },
+    // ],
     color: [
       {
-        name: 'Metal Series',
-        images: [''],
-      },
-      {
-        name: 'Wood Grain Series',
-        images: [''],
-      },
-      {
         name: 'Solid Color Series',
-        images: [''],
+        images: [
+          '/assets/solid-color-series1.svg',
+          '/assets/solid-color-series2.svg',
+          '/assets/solid-color-series3.svg',
+          '/assets/solid-color-series4.svg',
+        ],
+      },
+      {
+        name: 'Metal Series',
+        images: [
+          '/assets/flutted-metal-series.svg',
+          '/assets/flutted-metal-series2.svg',
+          '',
+        ],
+      },
+      {
+        name: ' Wood Grain Series',
+        images: [
+          '/assets/flutted-solid-color-series-1.svg',
+          '/assets/flutted-solid-color-series-2.svg',
+          '/assets/flutted-solid-color-series-3.svg',
+          '/assets/flutted-solid-color-series-colors.svg',
+        ],
       },
       {
         name: 'Stone Series',
-        images: [''],
+        images: [
+          '/assets/flutted-stone-series.svg',
+          '/assets/flutted-stone-series-colors.svg',
+        ],
       },
     ],
   },
@@ -578,33 +614,55 @@ export const products: Products[] = [
     code: 'SP-OR',
     title: 'HD Printing wall panel',
     category: 'wall-panels',
-    heroImage: '',
+    heroImage: [
+      '/assets/hd-printing-wall-panel1.svg',
+      '/assets/hd-printing-wall-panel2.svg',
+      '/assets/hd-printing-wall-panel3.svg',
+      '/assets/hd-printing-wall-panel4.svg',
+      '/assets/hd-printing-wall-panel5.svg',
+    ],
     addOns: [
       {
-        image: '',
+        image: '/assets/water-proof.svg',
         name: 'Water Proof',
       },
       {
-        image: '',
+        image: '/assets/insect-prevention.svg',
         name: 'Insect prevention',
       },
       {
-        image: '',
+        image: '/assets/high-definition.svg',
         name: 'High Definition',
       },
       {
-        image: '',
+        image: '/assets/flame-retardant.svg',
         name: 'Flame Retardant',
       },
     ],
-    descImages: [],
+    descImages: [
+      '/assets/hd-printing-wall-panel6.svg',
+      '/assets/hd-printing-wall-panel7.svg',
+      '/assets/hd-printing-wall-panel8.svg',
+      '/assets/hd-printing-wall-panel9.svg',
+      '/assets/hd-printing-wall-panel10.svg',
+      '/assets/hd-printing-wall-panel11.svg',
+      '/assets/hd-printing-wall-panel12.svg',
+      '/assets/hd-printing-wall-panel13.svg',
+    ],
   },
+  // images here are not downloadable
   {
     id: 8,
     image: '/assets/spc-hd-wood-grain.svg',
     title: 'SPC/HD Wood Grain',
     category: 'wall-panels',
-    heroImage: '',
+    heroImage: [
+      '',
+      '/assets/hd-printing-wall-panel2.svg',
+      '/assets/hd-printing-wall-panel3.svg',
+      '/assets/hd-printing-wall-panel4.svg',
+      '/assets/hd-printing-wall-panel5.svg',
+    ],
     brand: 'Todotipo',
     model: 'SP-OR05L',
     code: 'SP-OR',
@@ -615,7 +673,13 @@ export const products: Products[] = [
     image: '/assets/metal-series-wall-panel.svg',
     title: 'Metal Series wall panel',
     category: 'wall-panels',
-    heroImage: '',
+    heroImage: [
+      '/assets/metal-series-1.svg',
+      '/assets/metal-series-2.svg',
+      '/assets/metal-series-3.svg',
+      '/assets/metal-series-4.svg',
+      '/assets/metal-series-5.svg',
+    ],
     brand: 'Todotipo',
     model: 'SP-OR05L',
     code: 'SP-OR',
@@ -623,9 +687,10 @@ export const products: Products[] = [
       'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
       'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
     ],
+    descImages: ['/assets/metal-series-6.svg'],
     case: [
       {
-        image: '',
+        image: '/assets/metal-series-7.svg',
         name: 'Metal Series Case 1 (TDP704)',
         specification: [
           {
@@ -659,7 +724,7 @@ export const products: Products[] = [
         ],
       },
       {
-        image: '',
+        image: '/assets/metal-series-8.svg',
         name: 'Metal Series Case 2 (TDP751)',
         specification: [
           {
@@ -693,7 +758,7 @@ export const products: Products[] = [
         ],
       },
       {
-        image: [''],
+        image: ['/assets/metal-series-9.svg', '/assets/metal-series-10.svg'],
         name: 'Metal Series Case 3 (TDP712)',
         specification: [
           {
@@ -727,7 +792,7 @@ export const products: Products[] = [
         ],
       },
       {
-        image: [''],
+        image: ['/assets/metal-series-11.svg', '/assets/metal-series-12.svg'],
         name: 'Metal Series Case 4 (TDP701)',
         specification: [
           {
@@ -768,37 +833,78 @@ export const products: Products[] = [
     title: 'Stone Series Wall Panel',
     brand: 'Todotipo',
     model: 'SP-ORO5L',
+    heroImage: [
+      '/assets/stone-series1.svg',
+      '/assets/stone-series2.svg',
+      '/assets/stone-series3.svg',
+      '/assets/stone-series4.svg',
+      '/assets/stone-series5.svg',
+    ],
     code: 'SP-OR',
     category: 'wall-panels',
     addOns: [
       {
-        image: '',
+        image: '/assets/water-proof.svg',
         name: 'Water Proof',
       },
       {
-        image: '',
+        image: '/assets/insect-prevention.svg',
         name: 'Insect prevention',
       },
       {
-        image: '',
+        image: '/assets/high-definition.svg',
         name: 'High Definition',
       },
       {
-        image: '',
+        image: '/assets/flame-retardant.svg',
         name: 'Flame Retardant',
       },
     ],
-    heroImage: [''],
     desc: [
       'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
       'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
     ],
-    descImages: [],
-    case: [],
+    descImages: ['/assets/stone-series6.svg'],
+    case: [
+      {
+        image: ['/assets/stone-series7.svg', '/assets/stone-series8.svg'],
+        name: 'Stone Series Case 1 (51001)',
+        specification: [
+          {
+            name: 'Name',
+            value: 'WPC Wall Panel (Stone Series)',
+          },
+          {
+            name: 'Material',
+            value: 'Nanofibre powder',
+          },
+          {
+            name: 'Length & Width',
+            value: '1120*2800(mm)',
+          },
+          {
+            name: 'Thickness',
+            value: '5mm&8mm',
+          },
+          {
+            name: 'Environmental Protection Grade',
+            value: 'ENF',
+          },
+          {
+            name: 'Fire Rating',
+            value: 'B1',
+          },
+          {
+            name: 'Performance',
+            value: 'Waterproof and Bendable',
+          },
+        ],
+      },
+    ],
     color: [
       {
         name: 'Colors',
-        image: '',
+        image: '/assets/stone-series9.svg',
       },
     ],
   },
@@ -807,26 +913,58 @@ export const products: Products[] = [
     image: '/assets/wood-grain-series-wall-panel.svg',
     title: 'Wood Grain Series Wall Panel',
     category: 'wall-panels',
-    heroImage: '',
+    heroImage: [
+      '/assets/wood-grain1.svg',
+      '/assets/wood-grain2.svg',
+      '/assets/wood-grain3.svg',
+      '/assets/wood-grain4.svg',
+      '/assets/wood-grain5.svg',
+    ],
+    addOns: [
+      {
+        image: '/assets/water-proof.svg',
+        name: 'Water Proof',
+      },
+      {
+        image: '/assets/insect-prevention.svg',
+        name: 'Insect prevention',
+      },
+      {
+        image: '/assets/high-definition.svg',
+        name: 'High Definition',
+      },
+      {
+        image: '/assets/flame-retardant.svg',
+        name: 'Flame Retardant',
+      },
+    ],
     desc: [
       'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
       'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
     ],
-    descImages: [''],
+    descImages: ['/assets/wood-grain6.svg'],
     case: [
       {
         name: 'Wood Grain Series Case 1 (8005)',
-        image: [''],
+        image: [
+          '/assets/wood-grain7.svg',
+          '/assets/wood-grain8.svg',
+          '/assets/wood-grain9.svg',
+        ],
       },
       {
         name: 'Wood Grain Series Case 2 (8024)',
-        image: [''],
+        image: [
+          '/assets/wood-grain10.svg',
+          '/assets/wood-grain11.svg',
+          '/assets/wood-grain12.svg',
+        ],
       },
     ],
     color: [
       {
-        name: '',
-        colors: [''],
+        name: 'Colors',
+        colors: '/assets/wood-grain13.svg',
       },
     ],
   },
