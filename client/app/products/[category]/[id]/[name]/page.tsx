@@ -28,12 +28,11 @@ export async function generateMetadata({
   const description = `Explore details about ${product.title.toLowerCase()} in our ${
     product.category
   } collection.`;
-  const image =
-    product.seoImage && product.seoImage.startsWith('http')
-      ? product.seoImage
-      : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}${
-          product.seoImage ?? ''
-        }`;
+  const image = product.seoImage
+    ? product.seoImage
+    : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}${
+        product.seoImage ?? ''
+      }`;
 
   return {
     title,

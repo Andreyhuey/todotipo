@@ -977,17 +977,30 @@ export const products: Products[] = [
     brand: 'Todotipo',
     model: 'SP-OR05L',
     code: 'SP-OR',
+    heroImage: [
+      '/assets/door-collection.svg',
+      '/assets/door-collection2.svg',
+      '/assets/door-collection3.svg',
+      '/assets/door-collection1.svg',
+      '/assets/door-collection4.svg',
+    ],
     desc: [
       'Composite doors combine the best of multiple materials to deliver superior strength, durability, and aesthetic appeal. Designed to withstand the elements, they feature a solid timber core encased in a weather-resistant outer layer, offering excellent thermal efficiency, security, and low maintenance. Available in a wide range of styles and finishes, composite doors are the perfect upgrade for any home, blending classic looks with modern performance.',
     ],
-    descImages: [''],
-    heroImage: [''],
+    descImages: ['/assets/door-collection5.svg'],
     collection: {
       name: 'Classic Collections',
-      image: '',
+      image: '/assets/door-collection6.svg',
       styles: {
         name: 'Popular Classic Styles',
-        image: [''],
+        image: [
+          '/assets/door-collection7.svg',
+          '/assets/door-collection8.svg',
+          '/assets/door-collection9.svg',
+          '/assets/door-collection10.svg',
+          '/assets/door-collection11.svg',
+          '/assets/door-collection12.svg',
+        ],
       },
       details: [
         {
@@ -995,27 +1008,27 @@ export const products: Products[] = [
           types: [
             {
               name: 'Heritage Pull Knob',
-              image: '',
+              image: '/assets/door-collection13.svg',
             },
             {
               name: 'Classic Escutcheon',
-              image: '',
+              image: '/assets/door-collection14.svg',
             },
             {
               name: 'Classic Urm Knocker',
-              image: '',
+              image: '/assets/door-collection15.svg',
             },
             {
               name: 'Classic Slimline Knocker',
-              image: '',
+              image: '/assets/door-collection16.svg',
             },
             {
               name: 'Classic Leather Plate',
-              image: '',
+              image: '/assets/door-collection17.svg',
             },
             {
               name: 'Classic Level Pad',
-              image: '',
+              image: '/assets/door-collection18.svg',
             },
           ],
         },
@@ -1024,27 +1037,27 @@ export const products: Products[] = [
           types: [
             {
               name: 'Riviera',
-              image: '',
+              image: '/assets/door-collection19.svg',
             },
             {
               name: 'Regal',
-              image: '',
+              image: '/assets/door-collection20.svg',
             },
             {
               name: 'Sarah',
-              image: '',
+              image: '/assets/door-collection21.svg',
             },
             {
               name: 'Virtue',
-              image: '',
+              image: '/assets/door-collection22.svg',
             },
             {
               name: 'Spring',
-              image: '',
+              image: '/assets/door-collection23.svg',
             },
             {
               name: 'Opal',
-              image: '',
+              image: '/assets/door-collection24.svg',
             },
           ],
         },
@@ -1059,10 +1072,20 @@ export const products: Products[] = [
     heroImage: '',
     collection: {
       name: 'Urban Collections',
-      image: '',
+      image: '/assets/urban-door-collection.svg',
       styles: {
         name: 'Popular Urban Styles',
-        image: [''],
+        image: [
+          '/assets/urban-door-collection1.svg',
+          '/assets/urban-door-collection2.svg',
+          '/assets/urban-door-collection3.svg',
+          '/assets/urban-door-collection4.svg',
+          '/assets/urban-door-collection5.svg',
+          '/assets/urban-door-collection6.svg',
+          '/assets/urban-door-collection7.svg',
+          '/assets/urban-door-collection8.svg',
+          '/assets/urban-door-collection9.svg',
+        ],
       },
       details: [
         {
@@ -1070,27 +1093,27 @@ export const products: Products[] = [
           types: [
             {
               name: 'Square Pull Handle',
-              image: '',
+              image: '/assets/urban-door-collection10.svg',
             },
             {
               name: 'Lever Handle',
-              image: '',
+              image: '/assets/urban-door-collection11.svg',
             },
             {
               name: 'Square Pull Knob',
-              image: '',
+              image: '/assets/urban-door-collection12.svg',
             },
             {
               name: 'Round Pull Knob',
-              image: '',
+              image: '/assets/urban-door-collection13.svg',
             },
             {
               name: 'Classic Escutcheon',
-              image: '',
+              image: '/assets/urban-door-collection14.svg',
             },
             {
               name: 'Leather plate',
-              image: '',
+              image: '/assets/urban-door-collection15.svg',
             },
           ],
         },
@@ -1099,27 +1122,27 @@ export const products: Products[] = [
           types: [
             {
               name: 'Fabian',
-              image: '',
+              image: '/assets/urban-door-collection16.svg',
             },
             {
               name: 'Harmony',
-              image: '',
+              image: '/assets/urban-door-collection17.svg',
             },
             {
               name: 'Comete',
-              image: '',
+              image: '/assets/urban-door-collection18.svg',
             },
             {
               name: 'Virtue',
-              image: '',
+              image: '/assets/urban-door-collection19.svg',
             },
             {
               name: 'Clarence',
-              image: '',
+              image: '/assets/urban-door-collection20.svg',
             },
             {
               name: 'Olympias',
-              image: '',
+              image: '/assets/urban-door-collection21.svg',
             },
           ],
         },
@@ -1129,15 +1152,21 @@ export const products: Products[] = [
   {
     id: 14,
     image: '/assets/country-collection.svg',
-    title: 'Anvantal Collection',
+    title: 'Avantal Collection',
     category: 'composite-doors',
     heroImage: '',
     collection: {
       name: 'Avantal Collections',
-      image: '',
+      image: '/assets/avantal-door-collection.svg',
       styles: {
         name: 'Popular Avantal Styles',
-        image: [''],
+        image: [
+          '/assets/avantal-door-collection1.svg',
+          '/assets/avantal-door-collection2.svg',
+          '/assets/avantal-door-collection3.svg',
+          '/assets/avantal-door-collection4.svg',
+          '/assets/avantal-door-collection5.svg',
+        ],
       },
       details: [
         {
@@ -1145,23 +1174,23 @@ export const products: Products[] = [
           types: [
             {
               name: 'Lever Handle',
-              image: '',
+              image: '/assets/avantal-door-collection6.svg',
             },
             {
               name: 'Knocker',
-              image: '',
+              image: '/assets/avantal-door-collection7.svg',
             },
             {
               name: 'Pull Bar',
-              image: '',
+              image: '/assets/avantal-door-collection8.svg',
             },
             {
               name: 'Round Pull Knob',
-              image: '',
+              image: '/assets/avantal-door-collection9.svg',
             },
             {
               name: 'Square Pull Knob',
-              image: '',
+              image: '/assets/avantal-door-collection10.svg',
             },
           ],
         },
@@ -1172,7 +1201,7 @@ export const products: Products[] = [
   {
     id: 17,
     image: '/assets/Woven-Wood-Fence-Panels.svg',
-    title: 'Wooden Woove Fence Panels',
+    title: 'Wooden Woove Fence Panel',
     category: 'fencing',
     heroImage: '',
     addOns: [
@@ -1186,10 +1215,10 @@ export const products: Products[] = [
       },
       {
         image: '',
-        name: 'High Definition',
+        name: '100% Eco Material',
       },
       {
-        image: '100% Eco Material',
+        image: '',
         name: 'UV Resistant',
       },
     ],
