@@ -31,6 +31,8 @@ export default function ProductDesc({
                   alt="about us"
                   fill
                   className="object-cover rounded"
+                  unoptimized
+                  priority
                 />
               </div>
             )}
@@ -44,6 +46,8 @@ export default function ProductDesc({
                     alt={`${product.title}-${index}`}
                     fill
                     className="object-cover rounded"
+                    unoptimized
+                    priority
                   />
                 </div>
               ))}
@@ -68,6 +72,7 @@ export default function ProductDesc({
                   width={100}
                   height={100}
                   className="w-full h-full border border-[#000000]"
+                  unoptimized
                 />
               </div>
               <div className="flex-1 flex flex-col justify-between items-stretch w-full lg:w-1/2 min-h-full gap-5 p-3">
@@ -104,6 +109,7 @@ export default function ProductDesc({
                     width={100}
                     height={100}
                     className="w-full h-full"
+                    unoptimized
                   />
                 ))}
               </div>
@@ -144,6 +150,7 @@ export default function ProductDesc({
                         width={100}
                         height={100}
                         className="w-full h-full"
+                        unoptimized
                       />
                       <p className="font-[400] text-neutral-head">
                         {item.name}
@@ -170,6 +177,7 @@ export default function ProductDesc({
                         width={100}
                         height={100}
                         className="w-full h-full"
+                        unoptimized
                       />
                       <p className="font-[400] text-neutral-head">
                         {item.name}
