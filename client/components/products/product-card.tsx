@@ -31,6 +31,7 @@ export default function ProductCard({
         height={100}
         width={100}
         unoptimized
+        priority
       />
       <div
         className={`absolute bottom-0 left-0 right-0 ${

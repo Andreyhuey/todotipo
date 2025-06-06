@@ -12,6 +12,8 @@ export default function AboutHero() {
         alt="about us"
         height={100}
         width={100}
+        unoptimized
+        priority
       />
       <div className="container flex flex-col gap-3">
         <h3 className="text-neutral-head h4 md:h3 text-center md:text-left">

@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import NextImage from 'next/image';
 
 export default function Hero() {
   const slides = home.hero.slider;
@@ -48,11 +49,19 @@ export default function Hero() {
           return (
             <div
               key={index}
-              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
                 isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
-              style={{ backgroundImage: `url(${slide.image})` }}
-            />
+            >
+              <NextImage
+                src={slide.image}
+                alt={`Slide ${index}`}
+                fill
+                priority={index === 0}
+                className="object-cover"
+                quality={100} // max clarity
+              />
+            </div>
           );
         })}
         <div className="relative z-10 container section py-[1rem] flex flex-col gap-4 lg:flex-row lg:gap-[40px] items-end justify-between h-full w-full">
