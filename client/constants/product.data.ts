@@ -49,7 +49,7 @@ interface collection {
 
 export interface Products {
   id: number | string;
-  seoImage?: string;
+  seoImage: string;
   image: string;
   title: string;
   category: ProductCategoryValue;
@@ -79,6 +79,7 @@ export const products: Products[] = [
   // Decking
   {
     id: 1,
+    seoImage: '/assets/solid-decking-board.jpg',
     image: '/assets/solid-decking-board.svg',
     title: 'Solid Decking Board',
     category: 'decking',
@@ -169,6 +170,7 @@ export const products: Products[] = [
   },
   {
     id: 2,
+    seoImage: '/assets/hollow-decking-board.jpg',
     image: '/assets/hollow-decking-board.svg',
     title: 'Hollow Decking Board',
     category: 'decking',
@@ -261,6 +263,7 @@ export const products: Products[] = [
   },
   {
     id: 3,
+    seoImage: '/assets/composite-decking-board.jpg',
     image: '/assets/composite-decking-board.svg',
     title: 'Composite Decking Board',
     category: 'decking',
@@ -353,6 +356,7 @@ export const products: Products[] = [
   // flutted wall panels
   {
     id: 4,
+    seoImage: '/assets/flutted-wall-panel.jpg',
     image: '/assets/flutted-wall-panel.svg',
     title: 'Flutted wall panel information',
     brand: 'Todotipo',
@@ -608,6 +612,7 @@ export const products: Products[] = [
   // wall-panels
   {
     id: 7,
+    seoImage: '/assets/hd-printing-wall-panel.jpg',
     image: '/assets/hd-printing-wall-panel.svg',
     brand: 'Todotipo',
     model: 'SP-OR05L',
@@ -653,6 +658,7 @@ export const products: Products[] = [
   // images here are not downloadable
   {
     id: 8,
+    seoImage: '/assets/spc-hd-wood-grain.jpg',
     image: '/assets/spc-hd-wood-grain.svg',
     title: 'SPC/HD Wood Grain',
     category: 'wall-panels',
@@ -670,6 +676,7 @@ export const products: Products[] = [
   },
   {
     id: 9,
+    seoImage: '/assets/metal-series-wall-panel.jpg',
     image: '/assets/metal-series-wall-panel.svg',
     title: 'Metal Series wall panel',
     category: 'wall-panels',
@@ -829,6 +836,7 @@ export const products: Products[] = [
   },
   {
     id: 10,
+    seoImage: '/assets/stone-series-wall-panel.jpg',
     image: '/assets/stone-series-wall-panel.svg',
     title: 'Stone Series Wall Panel',
     brand: 'Todotipo',
@@ -910,6 +918,7 @@ export const products: Products[] = [
   },
   {
     id: 11,
+    seoImage: '/assets/wood-grain-series-wall-panel.jpg',
     image: '/assets/wood-grain-series-wall-panel.svg',
     title: 'Wood Grain Series Wall Panel',
     category: 'wall-panels',
@@ -971,6 +980,7 @@ export const products: Products[] = [
   // composite-doors
   {
     id: 12,
+    seoImage: '/assets/classic-collection.jpg',
     image: '/assets/classic-collection.svg',
     title: 'Classic Collection',
     category: 'composite-doors',
@@ -1066,6 +1076,7 @@ export const products: Products[] = [
   },
   {
     id: 13,
+    seoImage: '/assets/urban-collection.jpg',
     image: '/assets/urban-collection.svg',
     title: 'Urban Collection',
     category: 'composite-doors',
@@ -1151,6 +1162,7 @@ export const products: Products[] = [
   },
   {
     id: 14,
+    seoImage: '/assets/country-collection.jpg',
     image: '/assets/country-collection.svg',
     title: 'Avantal Collection',
     category: 'composite-doors',
@@ -1200,17 +1212,24 @@ export const products: Products[] = [
   // fencing
   {
     id: 17,
+    seoImage: '/assets/Woven-Wood-Fence-Panels.jpg',
     image: '/assets/Woven-Wood-Fence-Panels.svg',
     title: 'Wooden Woove Fence Panel',
     category: 'fencing',
-    heroImage: '',
+    heroImage: [
+      '/assets/fence-panel.svg',
+      '/assets/fence-panel1.svg',
+      '/assets/fence-panel2.svg',
+      '/assets/fence-panel3.svg',
+      '/assets/fence-panel4.svg',
+    ],
     addOns: [
       {
-        image: '',
+        image: '/assets/water-proof.svg',
         name: 'Water Proof',
       },
       {
-        image: '',
+        image: '/assets/insect-prevention.svg',
         name: 'Insect prevention',
       },
       {
@@ -1229,33 +1248,38 @@ export const products: Products[] = [
       'But why should it have to be this way? Fortunately, with our stunning woven fence design, you won’t have to. Made from 100% eco-friendly and recyclable materials WPC, our stunning woven fence is UV resistant, insect resistant, and fully waterproof. Plus, each fence is available in various colours, and the unique woven design adds a little extra charm and magic to your property as a result. So, why not give it a try – you might at amazed by the value our woven fences could bring!',
       'Because the high praise of the co-extrusion woven fence gave us great confidence in co-extrusion WPC fence development, we opened a new mold for the privacy fence. After the marketing research, we will promote two colours for the WPC fence at the beginning, and we have displayed the latest products in our showroom.',
     ],
-    color: [
+    optionalColors: [
       {
         name: 'Antique',
-        color: '',
+        image: '/assets/solid-antique.svg',
       },
       {
         name: 'Ashwood',
-        color: '',
+        image: '/assets/solid-ashwood.svg',
       },
       {
         name: 'Dark Grey',
-        color: '',
+        image: '/assets/solid-dark-grey.svg',
       },
       {
         name: 'IPE',
-        color: '',
+        image: '/assets/solid-ipe.svg',
       },
       {
         name: 'Teak',
-        color: '',
+        image: '/assets/solid-teak.svg',
       },
       {
         name: 'Walnut',
-        color: '',
+        image: '/assets/solid-walnut.svg',
       },
     ],
-    designSketches: [''],
+    designSketches: [
+      '/assets/fence-panel5.svg',
+      '/assets/fence-panel6.svg',
+      '/assets/fence-panel7.svg',
+      '/assets/fence-panel8.svg',
+    ],
   },
 ];
 
