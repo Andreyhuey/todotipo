@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { PriceDefaultValues } from "@/constants/form.data";
-import { ContactUsFormSchema } from "@/lib/validator";
+import { PriceDefaultValues } from '@/constants/form.data';
+import { ContactUsFormSchema } from '@/lib/validator';
 import useCreateContactRequest, {
   ContactRequest,
-} from "@/store/mutation/useCreateContact";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+} from '@/store/mutation/useCreateContact';
+import { zodResolver } from '@hookform/resolvers/zod';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { Button } from './ui/button';
 
 const ContactForm = () => {
   const form = useForm<z.infer<typeof ContactUsFormSchema>>({
@@ -36,38 +36,36 @@ const ContactForm = () => {
 
   const fieldDefinitions = [
     {
-      label: "Name",
-      name: "name",
-      placeholder: "Your full name.",
+      label: 'Full Name',
+      name: 'name',
+      placeholder: 'Your full name.',
     },
     {
-      label: "Email Address",
-      name: "email",
-      placeholder: "Your valid email address",
+      label: 'Phone Number',
+      name: 'phone',
+      placeholder: 'Your Mobile number',
     },
     {
-      label: "Phone Number",
-      name: "phone",
-      placeholder: "Your valid phone number",
+      label: 'Email',
+      name: 'email',
+      placeholder: 'Email address',
     },
     {
-      label: "Subject",
-      name: "subject",
-      placeholder: "Please input a subject",
+      label: 'Subject',
+      name: 'subject',
+      placeholder: 'Please input a subject',
     },
     {
-      label: "Message",
-      name: "message",
-      placeholder: "please leave a message",
-      type: "note",
+      label: 'Message',
+      name: 'message',
+      placeholder: `We'd love to hear from you`,
+      type: 'note',
     },
   ];
 
   return (
-    <div className="w-full md:max-w-[500px] flex flex-col gap-16">
-      <p className="font-bold text-[30px] text-black text-center">
-        Do you have any questions?, contact our team.
-      </p>
+    <div className="w-full flex flex-col gap-8">
+      <p className="text-neutral-head h4">Contact Us</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -83,7 +81,7 @@ const ContactForm = () => {
                   <FormItem>
                     <FormControl>
                       <>
-                        {type === "note" ? (
+                        {type === 'note' ? (
                           <Textarea
                             placeholder={placeholder}
                             {...field}
@@ -92,7 +90,7 @@ const ContactForm = () => {
                         ) : (
                           <Input placeholder={placeholder} {...field} />
                         )}
-                        <FormMessage className="text-red" />
+                        <FormMessage />
                       </>
                     </FormControl>
                   </FormItem>
@@ -100,11 +98,13 @@ const ContactForm = () => {
               />
             </div>
           ))}
-          <div className="flex justify-center">
-            <Button type="submit" className="" loading={isPending}>
-              Submit
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            className="min-w-[200px] text-center w-fit"
+            loading={isPending}
+          >
+            Submit
+          </Button>
         </form>
       </Form>
     </div>

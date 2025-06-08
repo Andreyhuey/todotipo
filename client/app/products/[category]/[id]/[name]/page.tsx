@@ -65,6 +65,7 @@ export default function ProductPage({
     <ProductDesc
       productCategory={params.category as ProductCategoryValue}
       product={product}
+      products={products}
     />
   );
 }

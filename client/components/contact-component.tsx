@@ -1,39 +1,36 @@
-import React from 'react';
-import { Mail, MapPin, MessagesSquare } from 'lucide-react';
-import { siteInfo } from '@/constants/site.data';
+import Image from 'next/image';
+import ContactForm from './contact-form';
 
 const ContactComponent = () => {
-  const contact = [
-    {
-      title: 'Email Us',
-      value: siteInfo.email,
-      icon: <Mail className="h-8 w-8" />,
-      placeholder:
-        'Ask us a question by email and we will respond within a few days.',
-      end: 'Leave a Message',
-    },
-    {
-      title: 'Office Address',
-      value: siteInfo.address,
-      icon: <MapPin className="h-8 w-8" />,
-      placeholder:
-        'You can meet us at our office and discuss the details of your question.',
-      end: 'Get Directions',
-    },
-    {
-      title: 'Customer Support',
-      value: siteInfo.phone,
-      icon: <MessagesSquare className="h-8 w-8" />,
-      placeholder: 'Call us if your question requires an immediate response.',
-      end: 'Reach Out',
-    },
-  ];
-
-  console.log(contact);
-
   return (
-    <div className="container flex flex-col gap-20 items-center justify-center w-full">
-      <p>contact us</p>
+    <div className="container flex flex-col lg:flex-row gap-10 items-center lg:items-start justify-between w-full pt-20">
+      <div className="flex-1 flex flex-col gap-8 body-4-regular text-[#6B7280] justify-between">
+        <Image
+          alt="contact-image"
+          width={100}
+          height={100}
+          className="w-full h-full"
+          src="/assets/contact-form-image.svg"
+        />
+        <p>
+          We specialize in eco-friendly WPC and SPC solutions, offering a
+          diverse range of building materials and innovative products. Our core
+          offerings include composite decking, fluted wall panels,
+          high-definition wall panels, wood-grain panels, fences and doors .
+          Each product is designed with sustainability in mind, blending natural
+          aesthetics with durable, recyclable materials to elevate any space.
+        </p>
+        <p>
+          Guided by our philosophy of “building green, shaping spaces that
+          endure,” we lead in sustainable design, serving contractors,
+          architects, homeowners, and businesses. Our collaborative approach
+          ensures tailored solutions, fostering partnerships that transform
+          spaces with style, quality, and environmental responsibility.
+        </p>
+      </div>
+      <div className="flex-1">
+        <ContactForm />
+      </div>
     </div>
   );
 };

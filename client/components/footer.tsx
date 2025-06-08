@@ -9,6 +9,9 @@ import { routes } from '@/lib/routes';
 import logo from '@/public/assets/footer-logo.svg';
 import megaphone from '@/public/assets/megaphone.svg';
 import { Button } from './ui/button';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 const contact = [
   {
@@ -25,7 +28,25 @@ const contact = [
   },
 ];
 
+const SubscribeSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+});
+
+type SubscribeFormValues = z.infer<typeof SubscribeSchema>;
+
 const Footer = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SubscribeFormValues>({
+    resolver: zodResolver(SubscribeSchema),
+  });
+
+  const onSubmit = (data: SubscribeFormValues) => {
+    console.log(data.email);
+  };
+
   return (
     <div>
       <div className="container justify-between section w-full flex flex-col gap-7 lg:flex-row">
@@ -74,19 +95,30 @@ const Footer = () => {
                 us
               </p>
             </div>
-            <form className="border rounded-[100px] py-2 pl-6 pr-2 w-full flex items-center">
-              <input
-                placeholder="Your email address"
-                className="w-full outline-none focus:outline-none"
-              />
-              <Button
-                type="submit"
-                variant="default"
-                className="rounded-[100px]"
+            <div className="flex flex-col gap-1 w-full">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="border rounded-[100px] py-2 pl-6 pr-2 w-full flex items-center"
               >
-                Subscribe
-              </Button>
-            </form>
+                <input
+                  placeholder="Your email address"
+                  className="w-full outline-none focus:outline-none text-sm"
+                  {...register('email')}
+                />
+                <Button
+                  type="submit"
+                  variant="default"
+                  className="rounded-[100px]"
+                >
+                  Subscribe
+                </Button>
+              </form>
+              {errors.email && (
+                <p className="text-red-500 text-sm text-center">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

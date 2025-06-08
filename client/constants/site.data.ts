@@ -229,37 +229,37 @@ export const about = {
       title: '',
       list: [
         {
-          bg: '',
+          bg: '/assets/sustainability.svg',
           image: img1.src,
           name: 'Sustainability',
           desc: 'We prioritize eco-friendly materials and practices, reducing environmental impact while delivering lasting solutions',
         },
         {
-          bg: '',
+          bg: '/assets/view-board.svg',
           image: quality.src,
           name: 'Quality',
           desc: 'We craft durable, stylish products that meet the highest standards, ensuring trust and satisfaction.',
         },
         {
-          bg: '',
+          bg: '/assets/innovation.svg',
           image: lightBulb.src,
           name: 'Innovation',
           desc: 'We embrace cutting-edge technology to create versatile, forward-thinking building materials.',
         },
         {
-          bg: '',
+          bg: '/assets/jigsaw.svg',
           image: integrity.src,
           name: 'Integrity',
           desc: 'We operate with honesty and reliability, building strong relationships with our clients and partners.',
         },
         {
-          bg: '',
+          bg: '/assets/young-people.svg',
           image: community.src,
           name: 'Community',
           desc: 'We support the communities we serve, fostering spaces that bring people together.',
         },
         {
-          bg: '',
+          bg: '/assets/customer-focus.svg',
           image: heart.src,
           name: 'Customer Focus',
           desc: 'We listen to our clients’ needs, delivering tailored solutions that bring their visions to life.',

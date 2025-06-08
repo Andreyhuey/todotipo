@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 max-h-[80px] ${Color} backdrop-blur-xl`}
+      className={`fixed top-0 left-0 w-full z-20 max-h-[80px] ${Color} backdrop-blur-xl`}
     >
       <div className="container">
         {/* for medium and large screens */}
