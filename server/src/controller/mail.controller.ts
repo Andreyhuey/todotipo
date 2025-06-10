@@ -11,7 +11,7 @@ export const sendContactFormMail = async (req: Request, res: Response) => {
     const { name, email, phone, subject, message } = req.body;
 
     const supportEmail = mailer.send({
-      to: 'andreyhuey777@gmail.com',
+      to: 'projects@todotipo.ca',
       subject: `${subject}`,
       templateName: 'contact-form',
       templateData: {
@@ -65,7 +65,7 @@ export const sendProductQuote = async (req: Request, res: Response) => {
 
     // First send to support
     const support = mailer.send({
-      to: 'andreyhuey777@gmail.com',
+      to: 'projects@todotipo.ca',
       subject: `Product Quote: ${name}`,
       templateName: 'product-quote',
       templateData: {
@@ -138,7 +138,7 @@ export const joinSubscribersList = async (req: Request, res: Response) => {
       await repo.save(subscriber);
 
       const support = mailer.send({
-        to: 'andreyhuey777@gmail.com',
+        to: 'projects@todotipo.ca',
         subject: `New Subscriber: ${email}`,
         templateName: 'mailing-list',
         templateData: {
