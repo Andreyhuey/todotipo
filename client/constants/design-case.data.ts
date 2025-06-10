@@ -30,7 +30,7 @@ export const designCases: DesignCaseProps[] = [
       '/assets/backyard2.svg',
       '/assets/backyard3.svg',
     ],
-    seoImage: '/assets/backyard.png',
+    seoImage: '/assets/backyard.jpg',
   },
   {
     id: '8',
@@ -50,7 +50,7 @@ export const designCases: DesignCaseProps[] = [
       '/assets/homespace2.svg',
       '/assets/homespace3.svg',
     ],
-    seoImage: '/assets/homespace.png',
+    seoImage: '/assets/homespace.jpg',
   },
   {
     id: '9',
@@ -66,7 +66,7 @@ export const designCases: DesignCaseProps[] = [
     ],
     audience: ['Homeowners', 'Contractors', 'Municipal Clients'],
     image: ['/assets/haven1.svg', '/assets/haven2.svg', '/assets/haven.svg'],
-    seoImage: '/assets/haven.png',
+    seoImage: '/assets/haven.jpg',
   },
   {
     id: '10',
@@ -92,7 +92,7 @@ export const designCases: DesignCaseProps[] = [
       '/assets/prestigious2.svg',
       '/assets/prestigious3.svg',
     ],
-    seoImage: '/assets/prestigious.png',
+    seoImage: '/assets/prestigious.jpg',
   },
   {
     id: '11',
@@ -108,7 +108,7 @@ export const designCases: DesignCaseProps[] = [
     ],
     audience: ['Business Owners', 'Architects', 'Commercial Contractors'],
     image: ['/assets/busy1.svg', '/assets/busy2.svg', '/assets/busy3.svg'],
-    seoImage: '/assets/busy.png',
+    seoImage: '/assets/busy.jpg',
   },
   {
     id: '12',
@@ -124,6 +124,6 @@ export const designCases: DesignCaseProps[] = [
     ],
     audience: ['Business Owners', 'Architects', 'Interior Designers'],
     image: ['/assets/hotel1.svg', '/assets/hotel2.svg', '/assets/hotel3.svg'],
-    seoImage: '/assets/hotel.png',
+    seoImage: '/assets/hotel.jpg',
   },
 ];
