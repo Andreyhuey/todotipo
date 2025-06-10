@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { companyPages, productPages, siteInfo } from '@/constants/site.data';
 import moment from 'moment';
 import Image from 'next/image';
-import { routes } from '@/lib/routes';
 import logo from '@/public/assets/footer-logo.svg';
 import megaphone from '@/public/assets/megaphone.svg';
 import { Button } from './ui/button';
@@ -139,12 +138,12 @@ const Footer = () => {
         />
       </div>
       <div className="border-t border-primary-600 py-10 flex items-center justify-center h-full">
-        <div className="flex flex-col gap-y-9 lg:flex-row justify-between container text-center text-[#6b7280]">
+        <div className="flex flex-col gap-y-9 lg:flex-row justify-center container text-center text-[#6b7280]">
           <p>
             © {moment(Date.now()).format('YYYY')} {siteInfo.name} All Rights
             Reserved.
           </p>
-          <div className="flex justify-between gap-2">
+          {/* <div className="flex justify-between gap-2">
             <Link href={routes.terms()} className="hover:text-primary-300">
               Terms & Conditions
             </Link>
@@ -152,7 +151,7 @@ const Footer = () => {
             <Link href={routes.privacy()} className="hover:text-primary-300">
               Privacy Policy
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
