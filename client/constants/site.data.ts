@@ -24,7 +24,7 @@ export const siteInfo = {
   siteLink: baseUrl,
   name: 'Todotipo',
   phone: '+(307) 565-0033',
-  email: 'support@todotipo.ca',
+  email: 'projects@todotipo.ca',
   address: '',
   jurisdiction: 'Houston, Texas',
 };
