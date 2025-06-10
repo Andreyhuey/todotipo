@@ -34,6 +34,7 @@ const QuoteProduct = ({ close, name, link }: Props) => {
     resolver: zodResolver(QuoteProductFormSchema),
     defaultValues: {
       name,
+      fullname: '',
       phone: '',
       email: '',
       address: '',
@@ -93,6 +94,28 @@ const QuoteProduct = ({ close, name, link }: Props) => {
                         {...field}
                         disabled
                         className="bg-[#F0F2F5] border border-[#D0D5DD]"
+                      />
+                      <FormMessage />
+                    </>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>Full Name</p>
+
+            <FormField
+              name="fullname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <>
+                      <Input
+                        {...field}
+                        className="bg-[#F0F2F5] border border-[#D0D5DD]"
+                        placeholder="Your Full Name"
                       />
                       <FormMessage />
                     </>

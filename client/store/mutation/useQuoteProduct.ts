@@ -7,6 +7,7 @@ import { ProjectTypeEnum } from '@/lib/validator';
 
 export interface QuoteProductRequest {
   name: string;
+  fullname: string;
   phone: string;
   email: string;
   address: string;

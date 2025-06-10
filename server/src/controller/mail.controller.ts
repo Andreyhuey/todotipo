@@ -53,6 +53,7 @@ export const sendProductQuote = async (req: Request, res: Response) => {
   try {
     const {
       name,
+      fullname,
       phone,
       email,
       address,
@@ -66,10 +67,11 @@ export const sendProductQuote = async (req: Request, res: Response) => {
     // First send to support
     const support = mailer.send({
       to: 'projects@todotipo.ca',
-      subject: `Product Quote: ${name}`,
+      subject: `Product Quote: ${fullname}`,
       templateName: 'product-quote',
       templateData: {
         name,
+        fullname,
         phone,
         email,
         address,
@@ -88,6 +90,7 @@ export const sendProductQuote = async (req: Request, res: Response) => {
       templateName: 'product-quote-confirmation',
       templateData: {
         name,
+        fullname,
         email,
         message,
         quantity,

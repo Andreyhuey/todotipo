@@ -56,6 +56,7 @@ export class MailerService {
 
       const mailOptions: SMTPTransport.Options = {
         from,
+        replyTo: 'projects@todotipo.ca',
         to,
         subject,
         html: htmlContent,

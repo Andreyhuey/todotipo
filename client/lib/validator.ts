@@ -40,7 +40,7 @@ export const SubscriberFormSchema = z.object({
 
 export const QuoteProductFormSchema = z.object({
   name: z.string().min(3, { message: 'Please input your name' }),
-
+  fullname: z.string().min(3, { message: 'Please input your full name' }),
   phone: z
     .string()
     .trim()
