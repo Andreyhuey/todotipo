@@ -38,7 +38,7 @@ export const sendContactFormMail = async (req: Request, res: Response) => {
     });
 
     // 🔥 Run both emails at the same time
-    Promise.all([userConfirmationEmail, supportEmail]).catch(console.error);
+    await Promise.all([userConfirmationEmail, supportEmail]);
 
     res
       .status(200)
@@ -98,7 +98,7 @@ export const sendProductQuote = async (req: Request, res: Response) => {
       },
     });
 
-    Promise.all([support, confirmation]).catch(console.error);
+    await Promise.all([support, confirmation]);
 
     res.status(200).json({
       status: true,
@@ -159,7 +159,7 @@ export const joinSubscribersList = async (req: Request, res: Response) => {
         },
       });
 
-      Promise.all([support, confirmation]).catch(console.error);
+      await Promise.all([support, confirmation]);
       res.status(201).json({
         status: true,
         message: 'Subscribed successfully.',
