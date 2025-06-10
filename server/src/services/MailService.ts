@@ -28,6 +28,19 @@ export class MailerService {
     });
   }
 
+  private templates = new Map<string, HandlebarsTemplateDelegate>();
+
+  private async loadTemplate(
+    name: string
+  ): Promise<HandlebarsTemplateDelegate> {
+    if (!this.templates.has(name)) {
+      const html = await getHtmlTemplate(name);
+      const compiled = handlebars.compile(html);
+      this.templates.set(name, compiled);
+    }
+    return this.templates.get(name)!;
+  }
+
   // Sends the actual email
   public async send({
     to,
@@ -38,8 +51,7 @@ export class MailerService {
     const from = `"${site.SITE_NAME}" <${config.SMTP_USER}>`;
 
     try {
-      const htmlTemplate = await getHtmlTemplate(templateName);
-      const compiledTemplate = handlebars.compile(htmlTemplate);
+      const compiledTemplate = await this.loadTemplate(templateName);
       const htmlContent = juice(compiledTemplate(templateData));
 
       const mailOptions: SMTPTransport.Options = {
@@ -47,7 +59,7 @@ export class MailerService {
         to,
         subject,
         html: htmlContent,
-        priority: 'high',
+        // priority: 'high', // no need for noice
       };
 
       const info = await this.transporter.sendMail(mailOptions);
@@ -57,17 +69,3 @@ export class MailerService {
     }
   }
 }
-
-// Test email
-// (async () => {
-//   const mailer = new MailerService();
-
-//   await mailer.send({
-//     to: 'example@gmail.com', // change to a real email address
-//     subject: 'Test Email from MailerService',
-//     templateName: 'verification-code', // make sure this template exists in your template directory
-//     templateData: {
-//       code: 23455,
-//     },
-//   });
-// })();

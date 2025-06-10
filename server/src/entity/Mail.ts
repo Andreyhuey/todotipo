@@ -1,4 +1,4 @@
-// File: src/entity/User.ts
+
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('subscribers')
 export class NewsletterSubscriber {
   @PrimaryGeneratedColumn()
   id: number;

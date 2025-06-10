@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quote Confirmation</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; line-height: 1.6">
+    <h2>Thank You, {{email}}! 🙌</h2>
+
+    <p>
+      We've received your product quote request. Our team will review your
+      inquiry and get back to you shortly.
+    </p>
+
+    <p><strong>Quote Details:</strong></p>
+    <ul>
+      <li>Product Name: {{name}}</li>
+      <li>Message: {{message}}</li>
+      <li>Project Type: {{projectType}}</li>
+      <li>Quantity: {{quantity}}</li>
+      <li>Product Link: <a href="{{link}}">{{link}}</a></li>
+    </ul>
+
+    <p>If you have any urgent questions, feel free to reply to this email.</p>
+
+    <br />
+    <p>Warm regards,</p>
+    <p><strong>{{siteName}} Team</strong></p>
+    <p>&copy; {{year}} {{siteName}}</p>
+  </body>
+</html>

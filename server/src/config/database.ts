@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
   username: DB_USER,
   password: DB_PASS,
   database: DB_NAME,
-  entities: [User, NewsletterSubscriber],
+  entities: [NewsletterSubscriber],
   synchronize: process.env.NODE_ENV === 'production' ? false : true, // Disable in production
   logging: process.env.NODE_ENV === 'production' ? false : true,
 });
