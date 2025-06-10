@@ -114,7 +114,7 @@ const QuoteProduct = ({ close, name, link }: Props) => {
                     <>
                       <Input
                         {...field}
-                        className="bg-[#F0F2F5] border border-[#D0D5DD]"
+                        className="w-full"
                         placeholder="Your Full Name"
                       />
                       <FormMessage />
