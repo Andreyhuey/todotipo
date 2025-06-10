@@ -3,16 +3,9 @@ import ProductDesc from '@/components/products/product-desc';
 import { ProductCategoryValue, products } from '@/constants/product.data';
 import { siteInfo } from '@/constants/site.data';
 import { toSlug } from '@/lib/toSlug';
+import { toCapitalCase } from '@/lib/utils';
 import { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
-
-function toCapitalCase(str: string) {
-  return str
-    .toLowerCase()
-    .split(' ')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
 
 export async function generateMetadata({
   params,
@@ -37,7 +30,6 @@ export async function generateMetadata({
   return {
     title,
     description,
-    icons: image,
     openGraph: { title, description, images: [{ url: image }] },
     twitter: {
       card: 'summary_large_image',

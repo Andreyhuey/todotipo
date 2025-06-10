@@ -3,14 +3,34 @@
 import { productCategory, products } from '@/constants/product.data';
 import ProductCard from './product-card';
 import ProductCategorySelector from './product-category-selector';
+import { useEffect } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function ProductComponent() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const groupedProducts = productCategory
     .map((cat) => ({
       category: cat,
       items: products.filter((p) => p.category === cat.value),
     }))
     .filter((group) => group.items.length > 0);
+
+  // Scroll to hash when component mounts
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      // wait for DOM render
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100); // slight delay ensures content is loaded
+    }
+  }, [pathname, searchParams]);
 
   return (
     <div className="section container">

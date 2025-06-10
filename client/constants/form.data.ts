@@ -1,14 +1,15 @@
 export const ContactDefaultValues = {
-  name: "",
-  phone: "",
-  subject: "",
-  email: "",
-  message: "",
+  name: '',
+  phone: '',
+  subject: '',
+  email: '',
+  message: '',
 };
 
 export const PriceDefaultValues = {
-  name: "",
-  phone: "",
-  email: "",
-  message: "",
+  name: '',
+  phone: '',
+  subject: '',
+  email: '',
+  message: '',
 };

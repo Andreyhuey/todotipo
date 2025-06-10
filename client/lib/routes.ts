@@ -1,5 +1,3 @@
-// company pages
-
 import { toSlug } from './toSlug';
 
 const home = () => '/';
@@ -11,7 +9,8 @@ const productDetails = (
   name: string = ''
 ) => `${products()}/${category}/${id}/${toSlug(name)}`;
 const designCase = () => '/design-case';
-const designCaseDetails = (id: string = '') => `${designCase()}/${id}`;
+const designCaseDetails = (id: string | number = '', name: string = '') =>
+  `${designCase()}/${id}/${toSlug(name)}`;
 const contactUs = () => '/contact-us';
 
 // product pages
@@ -20,7 +19,6 @@ const compositeFlooring = () => `${products()}/composite-flooring`;
 const compositeCeilings = () => `${products()}/composite-ceilings`;
 const wallPanels = () => `${products()}/wall-panels`;
 const compositeFencing = () => `${products}/composite-fencing`;
-
 const privacy = () => '/privacy-policy';
 const terms = () => '/terms-and-conditions';
 

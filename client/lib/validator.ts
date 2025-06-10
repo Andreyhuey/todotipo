@@ -1,11 +1,14 @@
 import * as z from 'zod';
 import phone from 'phone';
-export const projectTypes = [
-  'Residential',
-  'Commercial',
-  'Public Space',
-  'Outdoor',
-] as const;
+
+export enum ProjectTypeEnum {
+  Residential = 'Residential',
+  Commercial = 'Commercial',
+  PublicSpace = 'Public Space',
+  Outdoor = 'Outdoor',
+}
+
+export const projectTypes = Object.values(ProjectTypeEnum);
 
 export const ContactUsFormSchema = z.object({
   name: z.string().min(3, { message: 'Please input your name' }),
@@ -54,7 +57,8 @@ export const QuoteProductFormSchema = z.object({
     ),
 
   email: z.string().email({ message: 'Invalid email address' }),
-  projectType: z.enum(projectTypes, {
+
+  projectType: z.nativeEnum(ProjectTypeEnum, {
     errorMap: () => ({ message: 'Please select a project type' }),
   }),
 

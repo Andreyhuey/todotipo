@@ -1,14 +1,9 @@
-// api links
-const apiViewAllProperties = () => "/properties";
-const apiViewProperty = (id: string) => `/properties/${id}`;
-//
-const apiSendContactMail = () => "/mail";
-const apiSendPropertyRequest = () => "/mail/property-request";
+const apiSendMail = () => '/mail';
+const apiSubscribe = () => '/mail/subscribe';
+const apiQuoteProduct = () => '/mail/quote-product';
 
 export const ApiRoutes = {
-  // apis
-  apiViewAllProperties,
-  apiViewProperty,
-  apiSendContactMail,
-  apiSendPropertyRequest,
+  apiSubscribe,
+  apiSendMail,
+  apiQuoteProduct,
 };

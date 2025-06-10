@@ -12,9 +12,16 @@ import { Input } from '../ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { projectTypes, QuoteProductFormSchema } from '@/lib/validator';
+import {
+  ProjectTypeEnum,
+  projectTypes,
+  QuoteProductFormSchema,
+} from '@/lib/validator';
 import { Button } from '../ui/button';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
+import useQuoteProduct, {
+  QuoteProductRequest,
+} from '@/store/mutation/useQuoteProduct';
 
 interface Props {
   name: string;
@@ -22,7 +29,7 @@ interface Props {
   close: () => void;
 }
 
-const QuoteProduct = ({ close, name }: Props) => {
+const QuoteProduct = ({ close, name, link }: Props) => {
   const form = useForm<z.infer<typeof QuoteProductFormSchema>>({
     resolver: zodResolver(QuoteProductFormSchema),
     defaultValues: {
@@ -33,12 +40,21 @@ const QuoteProduct = ({ close, name }: Props) => {
       city: '',
       quantity: '',
       message: '',
-      projectType: projectTypes[0],
+      projectType: ProjectTypeEnum.Residential,
     },
   });
 
+  const { mutateAsync, isPending } = useQuoteProduct();
+
   const onSubmit = async (data: z.infer<typeof QuoteProductFormSchema>) => {
-    console.log(data);
+    const payload: QuoteProductRequest = { ...data, link };
+
+    mutateAsync(payload, {
+      onSuccess: () => {
+        form.reset(); // optional: reset form
+        close(); // close modal after success
+      },
+    });
   };
   return (
     <div className="flex flex-col gap-5 bg-white w-full lg:max-w-[600px] overflow-y-auto">
@@ -251,7 +267,7 @@ const QuoteProduct = ({ close, name }: Props) => {
           <Button
             type="submit"
             className="min-w-[200px] text-center w-full lg:w-fit"
-            // loading={isPending}
+            loading={isPending}
           >
             Submit
           </Button>

@@ -11,6 +11,8 @@ import Modal from '../modal';
 import QuoteProduct from './quote-product';
 import Link from 'next/link';
 import { toSlug } from '@/lib/toSlug';
+import { baseUrl } from '@/constants/site.data';
+import { routes } from '@/lib/routes';
 
 export default function ProductDesc({
   product,
@@ -104,7 +106,11 @@ export default function ProductDesc({
                     {(close) => (
                       <QuoteProduct
                         close={close}
-                        link=""
+                        link={`${baseUrl}${routes.productDetails(
+                          product.category,
+                          product.id,
+                          toSlug(product.title)
+                        )}`}
                         name={product.title}
                       />
                     )}

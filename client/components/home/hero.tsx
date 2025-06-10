@@ -81,26 +81,26 @@ export default function Hero() {
                 {slides[currentIndex].title}
               </h1>
             </div>
-            <div className="bg-[#000000a1] p-3 lg:p-9 rounded-lg flex flex-col gap-[52px] w-full lg:w-[435px] border-[0.5px] border-[#808080]">
+            <div className="bg-[#000000a1] p-3 lg:p-9 rounded-lg flex flex-col gap-6 w-full md:w-[435px] border-[0.5px] border-[#808080]">
               <p className="text-[#ADADAD] body3 font-normal">
                 {home.hero.desc}
               </p>
-              <div className="flex justify-center gap-2 lg:gap-7 w-full">
-                <Link href={home.hero.cta[1].link} className="min-w-fit">
+              <div className="flex justify-center gap-2 md:gap-5 w-full">
+                <Link href={home.hero.cta[1].link} className="w-full">
                   <Button
                     variant="default2"
-                    className="caption1 font-normal min-w-fit"
+                    className="caption1 font-normal w-full"
                   >
                     {home.hero.cta[1].text}
                   </Button>
                 </Link>
-                <Link href={home.hero.cta[2].link} className="min-w-fit">
+                <Link href={home.hero.cta[2].link} className="w-full group">
                   <Button
                     variant="outline"
-                    className="flex items-center gap-2 caption1 font-normal min-w-fit"
+                    className="flex items-center gap-2 caption1 font-normal w-full"
                   >
                     <p>{home.hero.cta[2].text}</p>
-                    <ArrowRight className="h-3 w-3" />
+                    <ArrowRight className="h-3 w-3 transform transition-transform duration-200 group-hover:translate-x-1" />
                   </Button>
                 </Link>
               </div>

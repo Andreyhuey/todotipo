@@ -72,7 +72,29 @@ export const metadataMap: Record<string, Metadata> = {
       'Todotipo product listings',
     ],
   },
-
+  [routes.designCase()]: {
+    title: 'Design Cases | Innovative WPC Projects by TodoTipo. Canada',
+    description:
+      'Explore real-world design cases featuring TodoTipo’s wood-plastic composite (WPC) materials. Discover how architects and builders use our products in innovative, eco-conscious projects across Canada.',
+    keywords: [
+      'WPC design cases',
+      'WPC project showcase',
+      'architectural case studies Canada',
+      'eco-friendly construction projects',
+      'WPC applications',
+      'Todotipo Canada projects',
+      'modern building materials',
+      'WPC decking design',
+      'WPC cladding examples',
+    ],
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: '/design-case',
+    },
+  },
   [routes.terms()]: {
     title: 'Terms & Conditions | TodoTipo.',
     description:

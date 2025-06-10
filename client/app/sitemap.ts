@@ -1,6 +1,6 @@
-import { MetadataRoute } from "next";
-import { routes } from "@/lib/routes";
-import { baseUrl } from "@/constants/site.data";
+import { MetadataRoute } from 'next';
+import { routes } from '@/lib/routes';
+import { baseUrl } from '@/constants/site.data';
 
 type RouteObject = {
   [key: string]: string | (() => string) | RouteObject;
@@ -10,9 +10,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Function to recursively get the URLs from the `routes` object
   const getRouteUrls = (routeObject: RouteObject): string[] => {
     return Object.values(routeObject).reduce<string[]>((acc, value) => {
-      if (typeof value === "function") {
+      if (typeof value === 'function') {
         acc.push(value()); // If the value is a function, call it to get the URL
-      } else if (typeof value === "object") {
+      } else if (typeof value === 'object') {
         // If the value is an object, recursively get its URLs
         acc.push(...getRouteUrls(value));
       }

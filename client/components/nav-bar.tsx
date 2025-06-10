@@ -25,13 +25,13 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isHome = pathname === routes.home();
+  const isHome = pathname === routes.home() || routes.contactUs();
   const isAbout = pathname === routes.aboutUs();
   const isProduct = pathname.includes(routes.products());
   const Color =
     isHome || isProduct
       ? 'text-white bg-[#0E0E0ECC]'
-      : 'text-neutral-head bg-white';
+      : 'text-neutral-head bg-white border-b border-[#EBEBEB]`';
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,7 +53,7 @@ const Navbar = () => {
     >
       <div className="container">
         {/* for medium and large screens */}
-        <div className="hidden md:flex items-center justify-between py-3">
+        <div className="hidden lg:flex items-center justify-between py-3">
           <Link href={routes.home()} className="">
             <Image
               src={isHome || isProduct ? logo.src : logo2.src}
@@ -91,7 +91,7 @@ const Navbar = () => {
                                   href={item.link}
                                   className={`capitalize hover:text-white/13 ${
                                     !isHome && 'text-white'
-                                  } body4 w-full pb-1 border-b last-of-type:border-none`}
+                                  } body4 w-full pb-1 px-1 border-b last-of-type:border-none`}
                                 >
                                   {item.name}
                                 </Link>
@@ -127,7 +127,7 @@ const Navbar = () => {
 
         {isOpen ? (
           <div
-            className={`md:hidden fixed top-0 left-0 w-full h-screen bg-white text-black z-50 transition-transform duration-300 ${
+            className={`lg:hidden fixed top-0 left-0 w-full h-screen bg-white text-black z-50 transition-transform duration-300 ${
               isOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
@@ -159,7 +159,7 @@ const Navbar = () => {
                                 <NavigationMenuTrigger>
                                   <p className="body2">{item.name}</p>
                                 </NavigationMenuTrigger>
-                                <NavigationMenuContent className="bg-black">
+                                <NavigationMenuContent className="text-neutral-head bg-white border-b border-[#EBEBEB]">
                                   <div className="flex flex-col gap-3 w-full">
                                     {productPages.map((item, index) => (
                                       <Link
@@ -196,7 +196,7 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="md:hidden flex justify-between items-center py-3">
+          <div className="lg:hidden flex justify-between items-center py-3">
             <Link href={routes.home()} className="text-[40px]">
               <Image
                 src={isHome || isProduct ? logo.src : logo2.src}

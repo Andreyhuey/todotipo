@@ -12,6 +12,7 @@ import { Button } from './ui/button';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import useSubscribe from '@/store/mutation/useSubscribe';
 
 const contact = [
   {
@@ -39,12 +40,17 @@ const Footer = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<SubscribeFormValues>({
     resolver: zodResolver(SubscribeSchema),
   });
 
+  const { mutateAsync, isPending } = useSubscribe();
+
   const onSubmit = (data: SubscribeFormValues) => {
-    console.log(data.email);
+    mutateAsync(data, {
+      onSuccess: () => reset(), // Reset form on success
+    });
   };
 
   return (
@@ -108,6 +114,7 @@ const Footer = () => {
                 <Button
                   type="submit"
                   variant="default"
+                  loading={isPending}
                   className="rounded-[100px]"
                 >
                   Subscribe
@@ -122,7 +129,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="container  px-20">
+      <div className="container p-20">
         <Image
           src={logo.src}
           alt="todotipo footer logo"

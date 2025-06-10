@@ -42,6 +42,10 @@ export const home = {
     desc: 'Get ranges of high quality composite materials that combines aesthetics, durability and sustainability for your next project',
     slider: [
       {
+        image: hero2.src,
+        title: 'HD PRINTING WALL PANEL',
+      },
+      {
         image: hero3.src,
         title: 'WPC WALL PANELS',
       },
@@ -49,10 +53,7 @@ export const home = {
         image: hero5.src,
         title: `DOORS ${' '}•${' '} WALLS ${' '}•${' '} CABINETS`,
       },
-      {
-        image: hero2.src,
-        title: 'HD PRINTING WALL PANEL',
-      },
+
       {
         image: hero4.src,
         title: 'SPC BACKGROUND WALL',

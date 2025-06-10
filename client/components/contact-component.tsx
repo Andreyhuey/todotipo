@@ -3,8 +3,8 @@ import ContactForm from './contact-form';
 
 const ContactComponent = () => {
   return (
-    <div className="container flex flex-col lg:flex-row gap-10 items-center lg:items-start justify-between w-full pt-20">
-      <div className="flex-1 flex flex-col gap-8 body-4-regular text-[#6B7280] justify-between">
+    <div className="container flex flex-col lg:flex-row gap-10 items-center lg:items-start justify-between w-full pt-40">
+      <div className="flex-1 flex flex-col gap-8 body-4-regular text-[#6B7280] justify-between w-full">
         <Image
           alt="contact-image"
           width={100}
@@ -28,7 +28,7 @@ const ContactComponent = () => {
           spaces with style, quality, and environmental responsibility.
         </p>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 w-full">
         <ContactForm />
       </div>
     </div>
