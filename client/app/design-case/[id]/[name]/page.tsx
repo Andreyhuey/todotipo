@@ -35,7 +35,7 @@ export async function generateMetadata({
   };
 }
 
-export default function page({
+export default function DesignCasePage({
   params,
 }: {
   params: { id: string; name: string };
