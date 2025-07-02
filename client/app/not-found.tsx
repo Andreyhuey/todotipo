@@ -7,7 +7,7 @@ import { Undo2 } from 'lucide-react';
 import notfound from '@/public/assets/404.jpg';
 
 export const metadata: Metadata = {
-  title: 'Page not found | EasyRentProps',
+  title: 'Page not found | Todotipo',
 };
 
 export default function NotFound() {
