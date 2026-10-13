@@ -55,10 +55,11 @@ const walk = (dir) =>
   const remoteRoot = `${home}/${APP_ROOT}`;
 
   // Fresh dist/ each deploy so deleted files don't linger.
-  await sh(conn, `rm -rf ${remoteRoot}/dist && mkdir -p ${remoteRoot}/dist`);
+  await sh(conn, `rm -rf ${remoteRoot}/dist ${remoteRoot}/cron && mkdir -p ${remoteRoot}/dist`);
 
   const files = [
     ...walk(path.join(ROOT, 'dist')).map((p) => [p, path.relative(ROOT, p)]),
+    ...walk(path.join(ROOT, 'cron')).map((p) => [p, path.relative(ROOT, p)]),
     [path.join(ROOT, 'package.json'), 'package.json'],
     [path.join(ROOT, 'package-lock.json'), 'package-lock.json'],
     [path.join(ROOT, 'production.env'), '.env'],
@@ -72,6 +73,27 @@ const walk = (dir) =>
     await new Promise((resolve, reject) => sftp.fastPut(local, remote, (e) => (e ? reject(e) : resolve())));
   }
   await sh(conn, `chmod 600 ${remoteRoot}/.env`);
+
+  // Cron jobs: LF line endings, executable, and the schedule installed as a
+  // marked block so other crontab entries (e.g. cPanel's Redis) are kept.
+  console.log('⏰ Installing scheduled jobs…');
+  await sh(
+    conn,
+    [
+      `sed -i 's/\\r$//' ${remoteRoot}/cron/*`,
+      `chmod 700 ${remoteRoot}/cron/*.sh`,
+      // Via a temp file: piping `crontab -l` straight into `crontab -` races on
+      // this host and can wipe existing entries.
+      `T=$(mktemp)`,
+      `crontab -l > "$T.cur" 2>/dev/null; true`,
+      `sed '/^# BEGIN oaken/,/^# END oaken/d' "$T.cur" > "$T"`,
+      `{ echo '# BEGIN oaken'; cat ${remoteRoot}/cron/crontab; echo '# END oaken'; } >> "$T"`,
+      // Refuse to install if the existing entries were somehow not read.
+      `[ "$(grep -c redis-server "$T.cur")" = "$(grep -c redis-server "$T")" ]`,
+      `crontab "$T"`,
+      `rm -f "$T" "$T.cur"`,
+    ].join(' && ')
+  );
 
   console.log('📥 Installing production dependencies (this can take a few minutes)…');
   await sh(conn, `cloudlinux-selector install-modules --json --interpreter nodejs --app-root ${APP_ROOT}`);

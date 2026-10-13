@@ -123,3 +123,22 @@ Pending alerts are tracked in the database (`activity_logs.alertedAt`), so
 nothing is lost when the host stops the idle app — they are sent shortly
 after the next start. Crashes and start-up failures are emailed immediately.
 Set `ALERT_MIN_LEVEL=error` to receive errors only.
+
+## Scheduled jobs (cron)
+
+Defined in `cron/crontab` and installed by `npm run deploy` (as a marked block,
+leaving other crontab entries alone). Times are UTC; WAT = UTC+1. Jobs are
+silent on success and email `ALERT_EMAIL` on failure.
+
+| When (WAT) | Job | What it does |
+| --- | --- | --- |
+| every 5 min | `health-check.sh` | Checks `/api/health`; emails once when the API goes down and once when it recovers. Keeps the app warm. |
+| daily 03:00 | `backup-db.sh` | Verified `pg_dump` to `~/backups/oaken/db`, 14 days kept |
+| Sun 03:30 | `backup-media.sh` | Archive of uploaded media to `~/backups/oaken/media`, 4 weeks kept |
+| daily 07:00 | `daily-visits` | Yesterday's visitors and where they came from → `ANALYTICS_EMAIL` |
+| Mon 08:00 | `weekly-report` | Traffic, enquiries and subscribers for the week → `REPORT_EMAIL` / notification email |
+| daily 09:00 | `unread-reminder` | Enquiries unread for 24h+ (silent when none) |
+| 1st, 04:00 | `maintenance` | Deletes visits older than 13 months and stale location lookups; reports storage/media-library mismatches |
+
+Run a job by hand on the server: `npm run remote -- "~/oaken-api/cron/run-task.sh daily-visits"`.
+Backups live on the same server — download a copy now and then.

@@ -32,7 +32,7 @@ export const LogService = {
    * Records an entry. Never throws and never blocks the caller — logging must
    * not be able to break the action being logged.
    */
-  record(entry: LogEntry): void {
+  record(entry: LogEntry): Promise<void> {
     const alertable = entry.level === 'warning' || entry.level === 'error';
     // Lazy import: AlertService → MailService → LogService would be circular.
     const notify = (stored: boolean) => {
@@ -44,10 +44,11 @@ export const LogService = {
 
     if (!AppDataSource.isInitialized) {
       notify(false); // e.g. start-up failure before the DB is connected
-      return;
+      return Promise.resolve();
     }
     const repo = AppDataSource.getRepository(ActivityLog);
-    repo
+    // Callers may ignore the promise; it never rejects.
+    return repo
       .save(
         repo.create({
           level: entry.level ?? 'info',
@@ -74,7 +75,7 @@ export const LogService = {
 
   /** Shorthand for system events (no request/actor). */
   system(action: string, message: string, level: LogLevel = 'info', meta: Record<string, unknown> = {}) {
-    this.record({ category: 'system', action, message, level, meta });
+    return this.record({ category: 'system', action, message, level, meta });
   },
 
   /** Deletes entries older than LOG_RETENTION_DAYS. */
