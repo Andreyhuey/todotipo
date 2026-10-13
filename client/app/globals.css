@@ -4,68 +4,117 @@
 
 @layer base {
   :root {
-    --max-width: 1200px;
-    --extra-width: calc(100% - var(--max-width));
-    --full-bleed: calc(var(--extra-width) / 2);
+    /* shadcn/ui tokens, tuned to the Oaken palette */
+    --background: 40 33% 98%;
+    --foreground: 143 14% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 143 14% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 143 14% 11%;
+    --primary: 140 25% 18%;
+    --primary-foreground: 40 33% 96%;
+    --secondary: 40 30% 93%;
+    --secondary-foreground: 143 14% 11%;
+    --muted: 40 25% 94%;
+    --muted-foreground: 36 6% 42%;
+    --accent: 40 30% 93%;
+    --accent-foreground: 143 14% 11%;
+    --destructive: 0 70% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 38 20% 87%;
+    --input: 38 18% 82%;
+    --ring: 30 45% 45%;
+    --radius: 0.75rem;
   }
 
-  .full-bleed {
-    @apply px-[--full-bleed];
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .container {
-    @apply px-2 md:px-4 lg:px-10 xl:full-bleed;
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  .hero {
-    @apply pt-16 md:pt-20;
+  ::selection {
+    @apply bg-oak-200 text-ink;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-oak-400 ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
   .section {
-    @apply py-14 lg:py-20;
+    @apply py-20 md:py-28;
   }
 
-  .h1 {
-    @apply text-[64px] font-semibold font-heading;
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-eyebrow text-oak-600;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-8 bg-current opacity-60;
   }
 
-  .h2 {
-    @apply text-[54px] font-semibold font-heading;
+  .display-1 {
+    @apply font-display text-[2.75rem] leading-[1.02] sm:text-6xl lg:text-[5.25rem] font-light;
+  }
+  .display-2 {
+    @apply font-display text-4xl leading-[1.08] md:text-5xl lg:text-[3.5rem] font-light;
+  }
+  .display-3 {
+    @apply font-display text-3xl leading-tight md:text-4xl font-light;
+  }
+  .lead {
+    @apply text-lg leading-relaxed text-stone-600 md:text-xl;
   }
 
-  .h3 {
-    @apply text-[48px] font-semibold font-heading;
+  .prose-oaken p {
+    @apply mb-5 leading-[1.8] text-stone-600;
   }
 
-  .h4 {
-    @apply text-[32px] font-semibold font-heading;
+  /* Image placeholder used when the CMS has no image for a slot */
+  .placeholder-grain {
+    background-color: #e9e1d1;
+    background-image: repeating-linear-gradient(
+        96deg,
+        rgb(168 116 63 / 0.07) 0 2px,
+        transparent 2px 9px
+      ),
+      radial-gradient(120% 90% at 20% 10%, #f3e7d5 0%, #ddcfb8 100%);
   }
+}
 
-  .h5 {
-    @apply text-[28px] font-semibold font-heading;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
-
-  .body1 {
-    @apply font-medium text-[24px] font-body;
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
-
-  .body2 {
-    @apply font-medium text-[20px] font-body;
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
+}
 
-  .body3 {
-    @apply font-medium text-[18px] font-body;
-  }
-
-  .body4 {
-    @apply font-medium text-[16px] font-body;
-  }
-
-  .caption1 {
-    @apply font-medium text-[14px] font-body;
-  }
-
-  .caption2 {
-    @apply font-medium text-[12px] font-body;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

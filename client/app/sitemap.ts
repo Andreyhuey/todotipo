@@ -1,32 +1,29 @@
-import { MetadataRoute } from 'next';
-import { routes } from '@/lib/routes';
-import { baseUrl } from '@/constants/site.data';
+import type { MetadataRoute } from 'next';
+import { baseUrl } from '@/constants/config';
+import { getDesignCases, getProducts } from '@/lib/cms';
+import { routes, staticPages } from '@/lib/routes';
 
-type RouteObject = {
-  [key: string]: string | (() => string) | RouteObject;
-};
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [products, cases] = await Promise.all([
+    getProducts().catch(() => []),
+    getDesignCases().catch(() => []),
+  ]);
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Function to recursively get the URLs from the `routes` object
-  const getRouteUrls = (routeObject: RouteObject): string[] => {
-    return Object.values(routeObject).reduce<string[]>((acc, value) => {
-      if (typeof value === 'function') {
-        acc.push(value()); // If the value is a function, call it to get the URL
-      } else if (typeof value === 'object') {
-        // If the value is an object, recursively get its URLs
-        acc.push(...getRouteUrls(value));
-      }
-      return acc;
-    }, []);
-  };
-
-  // Get all the route URLs from the `routes` object
-  const routeUrls = getRouteUrls(routes);
-
-  // Return the sitemap
-  return routeUrls.map((url) => ({
-    url: `${baseUrl}${url}`,
-    lastModified: new Date(),
-    priority: 0.8, // Set a default priority for all URLs, adjust as needed
-  }));
+  return [
+    ...staticPages.map((path) => ({
+      url: `${baseUrl}${path}`,
+      changeFrequency: 'weekly' as const,
+      priority: path === '/' ? 1 : 0.8,
+    })),
+    ...products.map((p) => ({
+      url: `${baseUrl}${routes.productDetails(p.category, p.slug)}`,
+      lastModified: p.updatedAt,
+      priority: 0.7,
+    })),
+    ...cases.map((c) => ({
+      url: `${baseUrl}${routes.designCaseDetails(c.slug)}`,
+      lastModified: c.updatedAt,
+      priority: 0.6,
+    })),
+  ];
 }
