@@ -44,6 +44,7 @@
     "typecheck": "tsc --noEmit -p .",
     "create-admin": "ts-node src/scripts/create-admin.ts",
     "import:legacy": "ts-node src/scripts/import-legacy.ts",
+    "fix:content": "ts-node src/scripts/fix-content.ts",
     "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.js",
     "start:prod": "node dist/index.js",
     "deploy": "node scripts/deploy.js",

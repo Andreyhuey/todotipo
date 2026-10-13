@@ -29,7 +29,7 @@ export default function ProductCard({ product, categoryName }: Props) {
         </span>
       </div>
       <div className="flex flex-col gap-1.5 px-1">
-        {categoryName && (
+        {categoryName && categoryName !== product.title && (
           <span className="text-[11px] font-semibold uppercase tracking-eyebrow text-oak-600">
             {categoryName}
           </span>
