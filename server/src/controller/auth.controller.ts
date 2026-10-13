@@ -1,110 +1,126 @@
-import { NextFunction, Request, Response } from "express";
-import { AppDataSource } from "../config/database";
-import { User } from "../entity/User";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { Request, Response } from 'express';
+import { AppDataSource } from '../config/database';
+import { authConfig } from '../config/auth';
+import { User } from '../entity/User';
+import bcrypt from 'bcrypt';
+import jwt, { SignOptions } from 'jsonwebtoken';
+import { HttpError, str } from '../helpers/http';
+import { LogService, requestContext } from '../services/LogService';
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+const publicUser = (user: User) => ({
+  id: user.id,
+  username: user.username,
+  email: user.email,
+  role: user.role,
+});
 
-export const register = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const { username, email, password, role } = req.body;
+const signToken = (user: User) =>
+  jwt.sign({ id: user.id }, authConfig.JWT_SECRET, {
+    expiresIn: authConfig.JWT_EXPIRES_IN as SignOptions['expiresIn'],
+  });
 
-    if (!username || !email || !password || !role) {
-      res.status(400).json({ message: "All fields are required" });
-      return;
-    }
+export const login = async (req: Request, res: Response) => {
+  const email = str(req.body.email).toLowerCase();
+  const password = str(req.body.password);
 
-    const userRepository = AppDataSource.getRepository(User);
+  if (!email || !password) {
+    throw new HttpError(400, 'Email and password are required');
+  }
 
-    // Check if user already exists
-    const existingUser = await userRepository.findOne({
-      where: [{ username }, { email }],
+  const user = await AppDataSource.getRepository(User).findOne({
+    where: { email },
+  });
+
+  // Same message for unknown user and bad password to avoid account probing.
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    LogService.record({
+      ...requestContext(req),
+      category: 'security',
+      action: 'auth.login_failed',
+      level: 'warning',
+      message: `Failed sign-in attempt for ${email}`,
+      meta: { reason: user ? 'wrong password' : 'unknown email' },
     });
+    throw new HttpError(401, 'Invalid email or password');
+  }
 
-    if (existingUser) {
-      res.status(400).json({ message: "Username or email already exists" });
-      return;
-    }
+  LogService.record({
+    ...requestContext(req),
+    actor: { type: 'admin', id: user.id, email: user.email },
+    category: 'auth',
+    action: 'auth.login',
+    message: 'Signed in',
+  });
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+  res.json({
+    status: true,
+    message: 'Login successful',
+    token: signToken(user),
+    user: publicUser(user),
+  });
+};
 
-    // Create new user
-    const user = userRepository.create({
-      username,
+export const me = async (req: Request, res: Response) => {
+  res.json({ status: true, user: publicUser(req.user!) });
+};
+
+export const changePassword = async (req: Request, res: Response) => {
+  const current = str(req.body.currentPassword);
+  const next = str(req.body.newPassword);
+  const user = req.user!;
+
+  if (next.length < 8) {
+    throw new HttpError(400, 'New password must be at least 8 characters');
+  }
+  if (!(await bcrypt.compare(current, user.password))) {
+    throw new HttpError(400, 'Current password is incorrect');
+  }
+
+  user.password = await bcrypt.hash(next, 10);
+  await AppDataSource.getRepository(User).save(user);
+  res.json({ status: true, message: 'Password updated' });
+};
+
+export const listUsers = async (_req: Request, res: Response) => {
+  const users = await AppDataSource.getRepository(User).find({
+    order: { createdAt: 'ASC' },
+  });
+  res.json({ status: true, data: users.map(publicUser) });
+};
+
+export const createUser = async (req: Request, res: Response) => {
+  const email = str(req.body.email).toLowerCase();
+  const password = str(req.body.password);
+  const username = str(req.body.username) || null;
+
+  if (!email || password.length < 8) {
+    throw new HttpError(400, 'Email and a password of 8+ characters are required');
+  }
+
+  const repo = AppDataSource.getRepository(User);
+  if (await repo.findOneBy({ email })) {
+    throw new HttpError(400, 'A user with that email already exists');
+  }
+
+  const user = await repo.save(
+    repo.create({
       email,
-      password: hashedPassword,
-      role,
-    });
-
-    await userRepository.save(user);
-
-    // Generate JWT token
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1d" });
-
-    res.status(201).json({
-      message: "User registered successfully",
-      token,
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Registration error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
+      username: username as string,
+      password: await bcrypt.hash(password, 10),
+      role: 'admin',
+    })
+  );
+  res.locals.audit = { id: user.id, label: user.email };
+  res.status(201).json({ status: true, data: publicUser(user) });
 };
 
-export const login = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      res.status(400).json({ message: "Email and password are required" });
-      return;
-    }
-
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOne({ where: { email } });
-
-    if (!user) {
-      res.status(401).json({ message: "User does not exist!" });
-      return;
-    }
-
-    // Verify password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      res.status(401).json({ message: "Invalid credentials" });
-      return;
-    }
-
-    // Generate JWT token
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1d" });
-
-    res.status(200).json({
-      message: "Login successful",
-      token,
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ message: "Server error" });
+export const deleteUser = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  if (id === req.user!.id) {
+    throw new HttpError(400, "You can't delete your own account");
   }
+  const target = await AppDataSource.getRepository(User).findOneBy({ id });
+  res.locals.audit = { id, label: target?.email };
+  await AppDataSource.getRepository(User).delete(id);
+  res.json({ status: true, message: 'User removed' });
 };
-
-export const resetPassword = async () => {};
