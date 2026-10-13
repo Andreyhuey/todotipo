@@ -7,6 +7,7 @@ import { NewsletterSubscriber } from '../entity/Mail';
 import { Inquiry } from '../entity/Inquiry';
 import { HttpError, str } from '../helpers/http';
 import { LogService, requestContext } from '../services/LogService';
+import { isValidUnsubscribeToken, unsubscribeHeaders, unsubscribeUrl } from '../helpers/unsubscribe';
 
 const mailer = new MailerService();
 
@@ -71,7 +72,7 @@ export const sendContactFormMail = async (req: Request, res: Response) => {
     mailer.send({
       to: email,
       replyTo,
-      subject: 'We have received your message',
+      subject: `Thanks for contacting ${siteName}`,
       templateName: 'confirm-contact-form',
       templateData: { name, email, subject, year, siteName },
     }),
@@ -136,7 +137,7 @@ export const sendProductQuote = async (req: Request, res: Response) => {
     mailer.send({
       to: data.email,
       replyTo,
-      subject: "We've received your quote request",
+      subject: `Your ${siteName} quote request`,
       templateName: 'product-quote-confirmation',
       templateData: { ...data, year: new Date().getFullYear(), siteName },
     }),
@@ -166,6 +167,8 @@ export const joinSubscribersList = async (req: Request, res: Response) => {
   });
 
   const { siteName, notify, replyTo } = await getRouting();
+  const site = await SettingsService.get('site');
+  const unsubscribeLink = unsubscribeUrl(req, email);
 
   await Promise.all([
     mailer.send({
@@ -177,11 +180,60 @@ export const joinSubscribersList = async (req: Request, res: Response) => {
     mailer.send({
       to: email,
       replyTo,
-      subject: "You're subscribed!",
+      subject: `Welcome to the ${siteName} newsletter`,
       templateName: 'confirm-mailing-list',
-      templateData: { siteName, email, year: new Date().getFullYear() },
+      templateData: {
+        siteName,
+        email,
+        unsubscribeLink,
+        address: site.address,
+        year: new Date().getFullYear(),
+      },
+      headers: unsubscribeHeaders(unsubscribeLink, replyTo),
     }),
   ]);
 
   res.status(201).json({ status: true, message: 'Subscribed successfully.' });
+};
+
+const unsubscribePage = (title: string, body: string) => `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f6f2ea;color:#18201b;font-family:system-ui,sans-serif}
+main{max-width:440px;margin:24px;padding:40px;background:#fff;border-radius:20px;text-align:center}
+h1{font-family:Georgia,serif;font-weight:400;margin:0 0 12px}p{color:#5d655f;line-height:1.6;margin:0}</style>
+</head><body><main><h1>${title}</h1><p>${body}</p></main></body></html>`;
+
+/**
+ * GET  /api/mail/unsubscribe?email&token — link in the email (shows a page)
+ * POST /api/mail/unsubscribe?email&token — RFC 8058 one-click from the mail client
+ */
+export const unsubscribe = async (req: Request, res: Response) => {
+  const email = str(req.query.email).toLowerCase();
+  const token = str(req.query.token);
+  const valid = EMAIL_RE.test(email) && isValidUnsubscribeToken(email, token);
+
+  if (!valid) {
+    if (req.method === 'POST') throw new HttpError(400, 'Invalid unsubscribe link');
+    res.status(400).send(unsubscribePage('Link not valid', 'This unsubscribe link is invalid or incomplete. Please use the link from your most recent email.'));
+    return;
+  }
+
+  const result = await AppDataSource.getRepository(NewsletterSubscriber).delete({ email });
+  if (result.affected) {
+    LogService.record({
+      ...requestContext(req),
+      actor: { type: 'visitor', email },
+      category: 'inbox',
+      action: 'newsletter.unsubscribed',
+      message: `${email} unsubscribed from the newsletter${req.method === 'POST' ? ' (one-click)' : ''}`,
+    });
+  }
+
+  if (req.method === 'POST') {
+    res.status(200).json({ status: true });
+    return;
+  }
+  const { siteName } = await getRouting();
+  res.send(unsubscribePage("You're unsubscribed", `${email} will no longer receive newsletter emails from ${siteName}.`));
 };

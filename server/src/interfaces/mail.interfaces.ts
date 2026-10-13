@@ -8,4 +8,6 @@ export interface SendMailProps {
   subject: string;
   templateName: string;
   templateData: TemplateData;
+  /** Extra headers, e.g. List-Unsubscribe for newsletter mail. */
+  headers?: Record<string, string>;
 }

@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Quote Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>We received your quote request</title>
   </head>
-  <body style="font-family: Arial, sans-serif; line-height: 1.6">
-    <h2>Thank You, {{fullname}}! 🙌</h2>
-
-    <p>
-      We've received your product quote request. Our team will review your
-      inquiry and get back to you shortly.
-    </p>
-
-    <p><strong>Quote Details:</strong></p>
-    <ul>
-      <li>Product Name: {{name}}</li>
-      <li>Message: {{message}}</li>
-      <li>Project Type: {{projectType}}</li>
-      <li>Quantity: {{quantity}}</li>
-      <li>Product Link: <a href="{{link}}">{{link}}</a></li>
-    </ul>
-
-    <p>If you have any urgent questions, feel free to reply to this email.</p>
-
-    <br />
-    <p>Warm regards,</p>
-    <p><strong>{{siteName}} Team</strong></p>
-    <p>&copy; {{year}} {{siteName}}</p>
+  <body style="margin: 0; padding: 24px 12px; background-color: #f6f2ea; font-family: Arial, Helvetica, sans-serif; color: #18201b">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 12px">
+      <tr>
+        <td style="padding: 32px">
+          <p style="margin: 0 0 24px; font-family: Georgia, serif; font-size: 24px; color: #18201b">{{siteName}}</p>
+          <h1 style="margin: 0 0 16px; font-size: 20px; font-weight: normal">Thank you, {{fullname}}</h1>
+          <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.6; color: #46433e">
+            We've received your quote request. Our team will review the details and send you a tailored quote shortly.
+          </p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px; line-height: 1.5; border: 1px solid #ede6d9; border-radius: 8px">
+            <tr><td style="padding: 10px 14px; color: #7c776e; width: 38%">Product</td><td style="padding: 10px 14px"><a href="{{link}}" style="color: #8c5d33">{{name}}</a></td></tr>
+            <tr><td style="padding: 10px 14px; color: #7c776e; border-top: 1px solid #ede6d9">Quantity</td><td style="padding: 10px 14px; border-top: 1px solid #ede6d9">{{quantity}}</td></tr>
+            <tr><td style="padding: 10px 14px; color: #7c776e; border-top: 1px solid #ede6d9">Project type</td><td style="padding: 10px 14px; border-top: 1px solid #ede6d9">{{projectType}}</td></tr>
+            <tr><td style="padding: 10px 14px; color: #7c776e; border-top: 1px solid #ede6d9">Your message</td><td style="padding: 10px 14px; border-top: 1px solid #ede6d9">{{message}}</td></tr>
+          </table>
+          <p style="margin: 20px 0 0; font-size: 15px; line-height: 1.6; color: #46433e">
+            Questions in the meantime? Just reply to this email.
+          </p>
+          <p style="margin: 24px 0 0; font-size: 15px; line-height: 1.6; color: #46433e">Kind regards,<br />The {{siteName}} team</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 16px 32px 28px; border-top: 1px solid #ede6d9; font-size: 12px; line-height: 1.6; color: #a9a49b">
+          &copy; {{year}} {{siteName}} &middot; {{siteLink}}<br />
+          You're receiving this one-time confirmation because you requested a quote on our website.
+        </td>
+      </tr>
+    </table>
   </body>
 </html>

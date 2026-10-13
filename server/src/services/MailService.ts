@@ -9,6 +9,34 @@ import { getHtmlTemplate } from '../helpers/get-template';
 import juice from 'juice';
 import { LogService } from './LogService';
 
+/** Plain-text version of an email: drops styling, keeps link targets and paragraphs. */
+export function htmlToText(html: string) {
+  return html
+    .replace(/<(head|style|script)[^>]*>[\s\S]*?<\/\1>/gi, '')
+    .replace(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, (_m, href, label) => {
+      const text = label.replace(/<[^>]+>/g, '').trim();
+      return text && text !== href ? `${text} (${href})` : href;
+    })
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|h[1-6]|li|tr|table)>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '• ')
+    .replace(/<[^>]+>/g, '')
+    // Numeric entities (Handlebars escapes "=" in URLs as &#x3D;), then named ones.
+    .replace(/&#x([0-9a-f]+);/gi, (_m, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_m, dec) => String.fromCodePoint(Number(dec)))
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&copy;/g, '©')
+    .replace(/&middot;/g, '·')
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/ *\n */g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 export class MailerService {
   private transporter: Transporter;
 
@@ -49,6 +77,7 @@ export class MailerService {
     subject,
     templateName,
     templateData,
+    headers,
   }: SendMailProps): Promise<void> {
     const siteName = String(templateData.siteName || site.SITE_NAME);
     const from = `"${siteName}" <${config.SMTP_USER}>`;
@@ -70,7 +99,9 @@ export class MailerService {
         to,
         subject,
         html: htmlContent,
-        // priority: 'high', // no need for noice
+        // HTML-only mail is a spam signal; always include a text version.
+        text: htmlToText(htmlContent),
+        headers,
       };
 
       const info = await this.transporter.sendMail(mailOptions);
