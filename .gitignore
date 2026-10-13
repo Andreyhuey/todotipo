@@ -44,3 +44,9 @@ next-env.d.ts
 *all-for-sale-properties.json
 *property.json
 
+
+# local media uploads (STORAGE_DRIVER=local)
+server/uploads/
+
+# compiled API
+server/dist/
