@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "outDir": "dist", "sourceMap": false },
+  "exclude": ["node_modules", "dist", "src/scripts/legacy", "src/scripts/import-legacy.ts"]
+}

@@ -7,6 +7,7 @@ import { site } from '../config/site';
 import { SendMailProps } from '../interfaces/mail.interfaces';
 import { getHtmlTemplate } from '../helpers/get-template';
 import juice from 'juice';
+import { LogService } from './LogService';
 
 export class MailerService {
   private transporter: Transporter;
@@ -44,19 +45,28 @@ export class MailerService {
   // Sends the actual email
   public async send({
     to,
+    replyTo,
     subject,
     templateName,
     templateData,
   }: SendMailProps): Promise<void> {
-    const from = `"${site.SITE_NAME}" <${config.SMTP_USER}>`;
+    const siteName = String(templateData.siteName || site.SITE_NAME);
+    const from = `"${siteName}" <${config.SMTP_USER}>`;
 
     try {
       const compiledTemplate = await this.loadTemplate(templateName);
-      const htmlContent = juice(compiledTemplate(templateData));
+      const htmlContent = juice(
+        compiledTemplate({
+          siteLink: site.SITE_LINK,
+          year: new Date().getFullYear(),
+          ...templateData,
+          siteName,
+        })
+      );
 
       const mailOptions: SMTPTransport.Options = {
         from,
-        replyTo: 'projects@todotipo.ca',
+        replyTo,
         to,
         subject,
         html: htmlContent,
@@ -67,6 +77,10 @@ export class MailerService {
       console.log('✅ Email sent:', info.response);
     } catch (error) {
       console.error('❌ Failed to send email:', error);
+      LogService.system('email.failed', `Email “${subject}” to ${Array.isArray(to) ? to.join(', ') : to} could not be sent`, 'error', {
+        template: templateName,
+        error: error instanceof Error ? error.message : String(error),
+      });
     }
   }
 }

@@ -1,0 +1,4 @@
+# Shell scripts and git hooks must keep LF line endings to run on macOS/Linux/CI
+.githooks/* text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf

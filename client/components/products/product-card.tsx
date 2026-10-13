@@ -1,59 +1,43 @@
-'use client';
-
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDownRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { routes } from '@/lib/routes';
+import CmsImage from '@/components/site/cms-image';
+import type { Product } from '@/types/cms';
 
-type ProductCard = {
-  id: string | number;
-  image: string;
-  title: string;
-  category: string;
-};
+interface Props {
+  product: Product;
+  categoryName?: string;
+}
 
-export default function ProductCard({
-  product,
-  info = false,
-}: {
-  product: ProductCard;
-  info?: boolean;
-}) {
+export default function ProductCard({ product, categoryName }: Props) {
   return (
     <Link
-      href={routes.productDetails(product.category, product.id, product.title)}
-      className="relative group w-full overflow-hidden"
+      href={routes.productDetails(product.category, product.slug)}
+      className="group flex flex-col gap-4"
     >
-      <Image
-        src={product.image}
-        alt={product.title}
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-        height={100}
-        width={100}
-        unoptimized
-        priority
-      />
-      <div
-        className={`absolute bottom-0 left-0 right-0 ${
-          info ? 'bg-[#00000080]' : 'bg-black/20'
-        } text-white text-center px-4 ${
-          info ? 'py-4' : 'py-2'
-        } transition-all duration-500 ease-in-out
-          ${
-            info
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-5 group-hover:translate-y-0 group-hover:opacity-100'
-          }
-        `}
-      >
-        <div className="flex items-center justify-between">
-          <p className={info ? 'caption1' : 'body2'}>{product.title}</p>
-          {!info && (
-            <div className="p-2 flex items-center rounded-full border border-white">
-              <ArrowDownRight />
-            </div>
-          )}
-        </div>
+      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-linen-300">
+        <CmsImage
+          src={product.image || product.gallery[0]}
+          alt={product.title}
+          fill
+          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <span className="absolute right-4 top-4 grid size-11 translate-y-1 place-items-center rounded-full bg-linen text-ink opacity-0 shadow-soft transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <ArrowUpRight className="size-5" />
+        </span>
+      </div>
+      <div className="flex flex-col gap-1.5 px-1">
+        {categoryName && (
+          <span className="text-[11px] font-semibold uppercase tracking-eyebrow text-oak-600">
+            {categoryName}
+          </span>
+        )}
+        <h3 className="font-display text-xl font-normal leading-snug text-ink transition-colors group-hover:text-oak-700">
+          {product.title}
+        </h3>
+        {product.summary && <p className="line-clamp-2 text-[15px] text-stone-500">{product.summary}</p>}
       </div>
     </Link>
   );

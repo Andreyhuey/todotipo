@@ -1,114 +1,113 @@
 'use client';
 
-import { home } from '@/constants/site.data';
-import { Button } from '../ui/button';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import NextImage from 'next/image';
+import { Button } from '@/components/ui/button';
+import CmsImage from '@/components/site/cms-image';
+import { cn } from '@/lib/utils';
+import type { HomeSettings } from '@/types/cms';
 
-export default function Hero() {
-  const slides = home.hero.slider;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [isPaused, setIsPaused] = useState(false);
+const SLIDE_MS = 6500;
 
-  // Preload images
-  useEffect(() => {
-    slides.forEach((slide) => {
-      const img = new Image();
-      img.src = slide.image;
-    });
-  }, [slides]);
+export default function Hero({ hero }: { hero: HomeSettings['hero'] }) {
+  const slides = hero.slides.filter((s) => s.image);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    if (!isPaused) {
-      timeoutRef.current = setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % slides.length);
-      }, 7000);
-    }
-
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [currentIndex, isPaused, slides.length]);
-
-  const togglePause = () => {
-    setIsPaused((prev) => !prev);
-  };
+    if (slides.length < 2) return;
+    const t = setTimeout(() => setActive((i) => (i + 1) % slides.length), SLIDE_MS);
+    return () => clearTimeout(t);
+  }, [active, slides.length]);
 
   return (
-    <>
-      <div
-        className="relative min-h-screen w-full flex flex-col items-center justify-center hero overflow-hidden"
-        onClick={togglePause}
-      >
-        {/* Background layers */}
-        {slides.map((slide, index) => {
-          const isActive = index === currentIndex;
-          return (
-            <div
-              key={index}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
-            >
-              <NextImage
-                src={slide.image}
-                alt={`Slide ${index}`}
-                fill
-                priority={index === 0}
-                className="object-cover"
-                quality={100} // max clarity
-              />
-            </div>
-          );
-        })}
-        <div className="relative z-10 container section py-[1rem] flex flex-col gap-4 lg:flex-row lg:gap-[40px] items-end justify-between h-full w-full">
-          <div className="flex flex-col items-center lg:items-start gap-14 w-full">
-            <div className="flex flex-col gap-5">
-              <div className="flex gap-5 w-full">
-                {home.hero.tag.map((item, index) => (
-                  <p
-                    className="text-white body4 font-normal"
-                    key={`index ${index} sdsdcscd`}
-                  >
-                    {item}
-                  </p>
-                ))}
-              </div>
-              <h1 className="text-white h5 lg:h3 shadow-3xl transition-opacity duration-1000">
-                {slides[currentIndex].title}
-              </h1>
-            </div>
-            <div className="bg-[#000000a1] p-3 lg:p-9 rounded-lg flex flex-col gap-6 w-full md:w-[435px] border-[0.5px] border-[#808080]">
-              <p className="text-[#ADADAD] body3 font-normal">
-                {home.hero.desc}
-              </p>
-              <div className="flex justify-center gap-2 md:gap-5 w-full">
-                <Link href={home.hero.cta[1].link} className="w-full">
-                  <Button
-                    variant="default2"
-                    className="caption1 font-normal w-full"
-                  >
-                    {home.hero.cta[1].text}
-                  </Button>
-                </Link>
-                <Link href={home.hero.cta[2].link} className="w-full group">
-                  <Button
-                    variant="outline"
-                    className="flex items-center gap-2 caption1 font-normal w-full"
-                  >
-                    <p>{home.hero.cta[2].text}</p>
-                    <ArrowRight className="h-3 w-3 transform transition-transform duration-200 group-hover:translate-x-1" />
-                  </Button>
-                </Link>
-              </div>
+    <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-forest-900 pb-14 pt-32 md:pb-20">
+      {/* Slides */}
+      <div className="absolute inset-0 -z-10">
+        {slides.length === 0 && (
+          <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_70%_20%,#3B6046_0%,#14221A_70%)]" />
+        )}
+        {slides.map((s, i) => (
+          <div
+            key={s.image}
+            className={cn(
+              'absolute inset-0 transition-opacity duration-[1400ms] ease-out',
+              i === active ? 'opacity-100' : 'opacity-0'
+            )}
+          >
+            <CmsImage
+              src={s.image}
+              alt={s.caption || ''}
+              fill
+              priority={i === 0}
+              sizes="100vw"
+              className={cn('object-cover', i === active && 'animate-ken-burns')}
+            />
+          </div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-t from-forest-900 via-forest-900/45 to-forest-900/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-forest-900/60 to-transparent" />
+      </div>
+
+      <div className="container">
+        <div className="grid items-end gap-12 lg:grid-cols-[1fr_auto]">
+          <div className="flex max-w-4xl flex-col gap-7">
+            {hero.eyebrow && (
+              <span className="eyebrow animate-fade-up text-oak-200 [animation-delay:100ms]">{hero.eyebrow}</span>
+            )}
+            <h1 className="display-1 animate-fade-up text-balance text-linen [animation-delay:200ms]">{hero.title}</h1>
+            {hero.subtitle && (
+              <p className="lead max-w-2xl animate-fade-up text-linen/80 [animation-delay:300ms]">{hero.subtitle}</p>
+            )}
+            <div className="flex animate-fade-up flex-wrap gap-3 pt-2 [animation-delay:400ms]">
+              {hero.primaryCta?.label && (
+                <Button asChild size="lg" variant="oak">
+                  <Link href={hero.primaryCta.href || '/contact-us'}>
+                    {hero.primaryCta.label} <ArrowRight />
+                  </Link>
+                </Button>
+              )}
+              {hero.secondaryCta?.label && (
+                <Button asChild size="lg" variant="outlineLight">
+                  <Link href={hero.secondaryCta.href || '/products'}>{hero.secondaryCta.label}</Link>
+                </Button>
+              )}
             </div>
           </div>
-          <div className=""></div>
+
+          {slides.length > 1 && (
+            <div className="flex animate-fade-up flex-col gap-4 [animation-delay:500ms] lg:w-72">
+              <p className="min-h-[1.5em] text-sm font-medium uppercase tracking-eyebrow text-linen/80">
+                {slides[active]?.caption}
+              </p>
+              <div className="flex gap-2">
+                {slides.map((s, i) => (
+                  <button
+                    key={s.image}
+                    type="button"
+                    onClick={() => setActive(i)}
+                    aria-label={`Show slide ${i + 1}`}
+                    className="group h-8 flex-1"
+                  >
+                    <span className="block h-0.5 overflow-hidden rounded bg-linen/25">
+                      <span
+                        key={`${i}-${active}`}
+                        className={cn(
+                          'block h-full bg-linen',
+                          i < active && 'w-full',
+                          i > active && 'w-0',
+                          i === active && 'animate-progress'
+                        )}
+                        style={{ animationDuration: `${SLIDE_MS}ms` }}
+                      />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </section>
   );
 }

@@ -4,6 +4,7 @@ export interface TemplateData {
 
 export interface SendMailProps {
   to: string | string[];
+  replyTo?: string;
   subject: string;
   templateName: string;
   templateData: TemplateData;

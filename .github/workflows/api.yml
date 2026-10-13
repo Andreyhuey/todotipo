@@ -1,0 +1,88 @@
+# Builds the API on every push that touches server/, and deploys it to the
+# cPanel Node.js app when the push is to master.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   PRODUCTION_ENV        full contents of server/production.env
+#   SSH_HOST              s19639.use2.stableserver.net
+#   SSH_USER              cPanel username
+#   SSH_PASSWORD          cPanel password   (or SSH_PRIVATE_KEY instead)
+#   SSH_HOST_FINGERPRINT  SHA256:… of the server's ED25519 host key
+name: API
+
+on:
+  push:
+    paths: ['server/**', '.github/workflows/api.yml']
+  pull_request:
+    paths: ['server/**']
+  workflow_dispatch: # "Run workflow" button for manual redeploys
+
+# One deploy at a time; a newer push waits rather than racing the previous one.
+concurrency:
+  group: api-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: server
+
+jobs:
+  build:
+    name: Type-check & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+
+  deploy:
+    name: Deploy to cPanel
+    needs: build
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://oaken-api.andreyhuey.dev/api/health
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+
+      - name: Write production config
+        env:
+          PRODUCTION_ENV: ${{ secrets.PRODUCTION_ENV }}
+        run: |
+          if [ -z "$PRODUCTION_ENV" ]; then echo "::error::PRODUCTION_ENV secret is not set"; exit 1; fi
+          printf '%s\n' "$PRODUCTION_ENV" > production.env
+
+      - name: Deploy
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST_FINGERPRINT: ${{ secrets.SSH_HOST_FINGERPRINT }}
+        run: npm run deploy
+
+      - name: Health check
+        run: |
+          for i in $(seq 1 12); do
+            body=$(curl -s -m 30 https://oaken-api.andreyhuey.dev/api/health || true)
+            if echo "$body" | grep -q '"status":"ok"'; then echo "$body"; exit 0; fi
+            echo "Waiting for the API to come up ($i/12)…"; sleep 10
+          done
+          echo "::error::API did not report healthy after deploy: $body"; exit 1
+
+      - name: Clean up
+        if: always()
+        run: rm -f production.env
