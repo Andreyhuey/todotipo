@@ -1,10 +1,11 @@
-import { Router } from 'express';
+import express, { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import { asyncHandler as h } from '../helpers/http';
 import {
   sendContactFormMail,
   joinSubscribersList,
   sendProductQuote,
+  unsubscribe,
 } from '../controller/mail.controller';
 import { LogService, requestContext } from '../services/LogService';
 
@@ -33,5 +34,8 @@ router.use(
 router.post('/', h(sendContactFormMail));
 router.post('/subscribe', h(joinSubscribersList));
 router.post('/quote-product', h(sendProductQuote));
+// One-click POSTs arrive form-encoded; email + token are in the query string.
+router.get('/unsubscribe', h(unsubscribe));
+router.post('/unsubscribe', express.urlencoded({ extended: false }), h(unsubscribe));
 
 export default router;

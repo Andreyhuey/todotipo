@@ -58,7 +58,7 @@ has run against production, `../legacy-assets` can be deleted.
 | Categories | `GET /api/categories` | CRUD `/api/admin/categories` |
 | Design cases | `GET /api/design-cases`, `/:idOrSlug` | CRUD `/api/admin/design-cases` |
 | Media | — | `GET/POST /api/admin/media`, `PATCH/DELETE /:id`, `GET /:id/usage` |
-| Forms | `POST /api/mail`, `/mail/quote-product`, `/mail/subscribe` | `/api/admin/inquiries`, `/api/admin/subscribers` |
+| Forms | `POST /api/mail`, `/mail/quote-product`, `/mail/subscribe`, `GET/POST /mail/unsubscribe` | `/api/admin/inquiries`, `/api/admin/subscribers` |
 | Auth | `POST /api/auth/login` | `GET /api/auth/me`, `PUT /api/auth/password`, `/api/admin/users` |
 
 ## Visitor analytics
