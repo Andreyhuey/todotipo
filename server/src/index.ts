@@ -11,6 +11,7 @@ import publicRoutes from './routes/public.routes';
 import adminRoutes from './routes/admin.routes';
 import { isLocalStorage, LOCAL_UPLOAD_DIR } from './services/FileService';
 import { LogService } from './services/LogService';
+import { AlertService } from './services/AlertService';
 import { auditTrail } from './middleware/audit';
 
 // Load environment variables
@@ -86,6 +87,30 @@ app.use('/api', (_req, res) => {
 });
 app.use(errorMiddleware);
 
+/**
+ * Fatal path: record the error, send the alert email right away (waiting up to
+ * 10s for delivery), then exit so the process manager restarts the app.
+ */
+const fatal = async (action: string, message: string, err: unknown) => {
+  console.error(`❌ ${message}:`, err);
+  LogService.system(action, message, 'error', {
+    error: err instanceof Error ? err.message : String(err),
+    stack: err instanceof Error ? err.stack?.split('\n').slice(0, 6).join('\n') : undefined,
+  });
+  await new Promise((r) => setTimeout(r, 300)); // let the entry be queued
+  await Promise.race([AlertService.flush(), new Promise((r) => setTimeout(r, 10_000))]);
+  process.exit(1);
+};
+
+process.on('uncaughtException', (err) => void fatal('server.crashed', 'API crashed with an uncaught error', err));
+process.on('unhandledRejection', (reason) => {
+  // Not fatal, but always a bug worth knowing about.
+  console.error('❌ Unhandled promise rejection:', reason);
+  LogService.system('server.unhandled_rejection', 'Unhandled promise rejection in the API', 'error', {
+    error: reason instanceof Error ? reason.message : String(reason),
+  });
+});
+
 const startServer = async () => {
   try {
     await connectDatabase();
@@ -98,10 +123,11 @@ const startServer = async () => {
 
     // Keep the activity log from growing forever.
     LogService.prune().catch(() => {});
+    // Email any warnings/errors left pending by a previous (stopped) process.
+    AlertService.start();
     setInterval(() => LogService.prune().catch(() => {}), 24 * 3600e3).unref();
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
-    process.exit(1); // Exit the process on failure
+    await fatal('server.start_failed', 'API failed to start', error);
   }
 };
 

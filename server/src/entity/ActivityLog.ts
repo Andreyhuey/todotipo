@@ -57,4 +57,9 @@ export class ActivityLog {
   /** Extra detail: changed fields, request info, error text… */
   @Column({ type: 'simple-json' })
   meta: Record<string, unknown>;
+
+  /** When this entry was included in an alert email (warnings/errors only). */
+  @Index()
+  @Column({ type: 'timestamp', nullable: true })
+  alertedAt: Date | null;
 }

@@ -78,6 +78,7 @@ export class MailerService {
     templateName,
     templateData,
     headers,
+    internal,
   }: SendMailProps): Promise<void> {
     const siteName = String(templateData.siteName || site.SITE_NAME);
     const from = `"${siteName}" <${config.SMTP_USER}>`;
@@ -108,6 +109,9 @@ export class MailerService {
       console.log('✅ Email sent:', info.response);
     } catch (error) {
       console.error('❌ Failed to send email:', error);
+      // Internal mail (alert digests) must not log its own failure — that would
+      // queue another alert and loop. The caller retries instead.
+      if (internal) throw error;
       LogService.system('email.failed', `Email “${subject}” to ${Array.isArray(to) ? to.join(', ') : to} could not be sent`, 'error', {
         template: templateName,
         error: error instanceof Error ? error.message : String(error),

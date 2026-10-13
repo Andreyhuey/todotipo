@@ -33,7 +33,19 @@ export const LogService = {
    * not be able to break the action being logged.
    */
   record(entry: LogEntry): void {
-    if (!AppDataSource.isInitialized) return;
+    const alertable = entry.level === 'warning' || entry.level === 'error';
+    // Lazy import: AlertService → MailService → LogService would be circular.
+    const notify = (stored: boolean) => {
+      if (!alertable) return;
+      import('./AlertService')
+        .then(({ AlertService }) => AlertService.notify(entry, stored))
+        .catch(() => {});
+    };
+
+    if (!AppDataSource.isInitialized) {
+      notify(false); // e.g. start-up failure before the DB is connected
+      return;
+    }
     const repo = AppDataSource.getRepository(ActivityLog);
     repo
       .save(
@@ -53,7 +65,11 @@ export const LogService = {
           meta: entry.meta ?? {},
         })
       )
-      .catch((err) => console.warn('⚠️  Could not write activity log:', err.message));
+      .then(() => notify(true))
+      .catch((err) => {
+        console.warn('⚠️  Could not write activity log:', err.message);
+        notify(false);
+      });
   },
 
   /** Shorthand for system events (no request/actor). */

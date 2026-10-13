@@ -113,3 +113,13 @@ Repository secrets used by the workflow: `PRODUCTION_ENV` (contents of
 `production.env`), `SSH_HOST`, `SSH_USER`, `SSH_PASSWORD` (or
 `SSH_PRIVATE_KEY`), `SSH_HOST_FINGERPRINT`. Because `PRODUCTION_ENV` is the
 deployed config, update that secret whenever you change `production.env`.
+
+## Alert emails
+
+Warning and error entries in the activity log are emailed to `ALERT_EMAIL`
+(production: `logs@andreyhuey.dev`) as batched digests: errors within about a
+minute, warnings every 5 minutes, never more than one email per 2 minutes.
+Pending alerts are tracked in the database (`activity_logs.alertedAt`), so
+nothing is lost when the host stops the idle app — they are sent shortly
+after the next start. Crashes and start-up failures are emailed immediately.
+Set `ALERT_MIN_LEVEL=error` to receive errors only.
