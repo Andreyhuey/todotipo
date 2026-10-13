@@ -706,8 +706,8 @@ export const products: Products[] = [
     model: 'SP-OR05L',
     code: 'SP-OR',
     desc: [
-      'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
-      'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
+      'The Metal Series brings the look of brushed metal to interior walls without the weight, cost or cold touch of real metal. Each panel pairs a wood-plastic composite core with a metallic film finish, so it cuts and installs like any other Oaken wall panel.',
+      'Use it for feature walls, reception desks, retail displays and ceilings. The surface is waterproof, flexible enough to follow gentle curves and wipes clean with a damp cloth.',
     ],
     descImages: ['/assets/metal-series-6.svg'],
     case: [
@@ -721,19 +721,19 @@ export const products: Products[] = [
           },
           {
             name: 'Material',
-            value: 'Nanofibre powder',
+            value: 'WPC core with metallic film finish',
           },
           {
             name: 'Length & Width',
-            value: '1120*2800(mm)',
+            value: '1120 × 2800 mm',
           },
           {
             name: 'Thickness',
-            value: '5mm&8mm',
+            value: '5 mm or 8 mm',
           },
           {
-            name: 'Environmental Protection Grade',
-            value: 'ENF',
+            name: 'Formaldehyde emission grade',
+            value: 'ENF (lowest emission class)',
           },
           {
             name: 'Fire Rating',
@@ -755,19 +755,19 @@ export const products: Products[] = [
           },
           {
             name: 'Material',
-            value: 'Nanofibre powder',
+            value: 'WPC core with metallic film finish',
           },
           {
             name: 'Length & Width',
-            value: '1120*2800(mm)',
+            value: '1120 × 2800 mm',
           },
           {
             name: 'Thickness',
-            value: '5mm&8mm',
+            value: '5 mm or 8 mm',
           },
           {
-            name: 'Environmental Protection Grade',
-            value: 'ENF',
+            name: 'Formaldehyde emission grade',
+            value: 'ENF (lowest emission class)',
           },
           {
             name: 'Fire Rating',
@@ -789,19 +789,19 @@ export const products: Products[] = [
           },
           {
             name: 'Material',
-            value: 'Nanofibre powder',
+            value: 'WPC core with metallic film finish',
           },
           {
             name: 'Length & Width',
-            value: '1120*2800(mm)',
+            value: '1120 × 2800 mm',
           },
           {
             name: 'Thickness',
-            value: '5mm&8mm',
+            value: '5 mm or 8 mm',
           },
           {
-            name: 'Environmental Protection Grade',
-            value: 'ENF',
+            name: 'Formaldehyde emission grade',
+            value: 'ENF (lowest emission class)',
           },
           {
             name: 'Fire Rating',
@@ -823,19 +823,19 @@ export const products: Products[] = [
           },
           {
             name: 'Material',
-            value: 'Nanofibre powder',
+            value: 'WPC core with metallic film finish',
           },
           {
             name: 'Length & Width',
-            value: '1120*2800(mm)',
+            value: '1120 × 2800 mm',
           },
           {
             name: 'Thickness',
-            value: '5mm&8mm',
+            value: '5 mm or 8 mm',
           },
           {
-            name: 'Environmental Protection Grade',
-            value: 'ENF',
+            name: 'Formaldehyde emission grade',
+            value: 'ENF (lowest emission class)',
           },
           {
             name: 'Fire Rating',
@@ -884,8 +884,8 @@ export const products: Products[] = [
       },
     ],
     desc: [
-      'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
-      'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
+      'The Stone Series captures the depth and veining of natural marble and stone in a lightweight composite panel. A high-definition printed surface gives you the luxury of stone at a fraction of the weight, cost and installation time.',
+      'Ideal for bathrooms, kitchens, lobbies and feature walls. The panels are waterproof, flame retardant and seamless enough to cover large walls without the grout lines of tile.',
     ],
     descImages: ['/assets/stone-series6.svg'],
     case: [
@@ -899,19 +899,19 @@ export const products: Products[] = [
           },
           {
             name: 'Material',
-            value: 'Nanofibre powder',
+            value: 'WPC core with HD printed stone finish',
           },
           {
             name: 'Length & Width',
-            value: '1120*2800(mm)',
+            value: '1120 × 2800 mm',
           },
           {
             name: 'Thickness',
-            value: '5mm&8mm',
+            value: '5 mm or 8 mm',
           },
           {
-            name: 'Environmental Protection Grade',
-            value: 'ENF',
+            name: 'Formaldehyde emission grade',
+            value: 'ENF (lowest emission class)',
           },
           {
             name: 'Fire Rating',
@@ -966,8 +966,8 @@ export const products: Products[] = [
       },
     ],
     desc: [
-      'WPC uses polythene, polypropylene, and polyvinyl chloride instead of commonly used resin adhesives to mix with more than 50% of waste plant fibres such as wood powder, rice husk and straw to form new wood materials.',
-      'Then, it produces boards or profiles through plastic processes such as extrusion molding and injection molding.',
+      'The Wood Grain Series gives interiors the warmth of real timber with none of the upkeep. Each panel carries a high-definition wood-grain finish on a composite core that will not warp, crack or attract insects.',
+      'Choose from oak, walnut and teak tones for living rooms, bedrooms, offices and hotel corridors. Panels click together quickly and never need sanding, sealing or staining.',
     ],
     descImages: ['/assets/wood-grain6.svg'],
     case: [

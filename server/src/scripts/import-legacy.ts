@@ -25,6 +25,7 @@ import { toSlug } from '../helpers/http';
 import { LogService } from '../services/LogService';
 import { products as legacyProducts, productCategory } from './legacy/product.data';
 import { designCases as legacyCases } from './legacy/design-case.data';
+import { rebrand, TITLE_RENAMES } from './legacy/rebrand';
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
@@ -43,18 +44,10 @@ const MIME: Record<string, string> = {
   '.mp4': 'video/mp4',
 };
 
-const rebrand = (s: string) =>
-  s.replace(/todo\s?tipo\.?/gi, 'Oaken').replace(/Flutted/g, 'Fluted').replace(/flutted/g, 'fluted');
-
 /** Renamed categories (typo fixes) — old slug -> new name. */
 const CATEGORY_RENAMES: Record<string, string> = {
   'flutted-wall-panel': 'Fluted Wall Panels',
   'composite-doors': 'Composite Doors',
-};
-const TITLE_RENAMES: Record<string, string> = {
-  'Flutted wall panel information': 'Fluted Wall Panel',
-  'HD Printing wall panel': 'HD Printing Wall Panel',
-  'Metal Series wall panel': 'Metal Series Wall Panel',
 };
 
 /**

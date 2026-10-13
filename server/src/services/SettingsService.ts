@@ -19,7 +19,7 @@ export const defaultSettings = {
     favicon: '',
     ogImage: '',
     footerBlurb:
-      'Sustainable wood-plastic composite decking, cladding, wall panels and doors — engineered to look beautiful and last for decades.',
+      'Sustainable wood-plastic composite decking, wall panels, doors and fencing — engineered to look beautiful and last for decades.',
     socials: {
       instagram: '',
       facebook: '',
@@ -31,12 +31,12 @@ export const defaultSettings = {
   seo: {
     title: 'Oaken — Premium Composite Building Materials',
     description:
-      'Oaken supplies premium, eco-friendly wood-plastic composite (WPC) decking, wall panels, cladding, doors and fencing for builders, architects and homeowners.',
+      'Oaken supplies premium, eco-friendly wood-plastic composite (WPC) decking, wall panels, doors and fencing for builders, architects and homeowners.',
     keywords: [
       'WPC decking',
       'composite decking',
       'wall panels',
-      'composite cladding',
+      'composite wall panels',
       'sustainable building materials',
       'composite doors',
       'composite fencing',
@@ -124,7 +124,7 @@ export const defaultSettings = {
     story: {
       title: 'Our story',
       paragraphs: [
-        'We began with a simple idea: to build better, greener spaces. Our passion for sustainability drove us to pioneer wood-plastic composite solutions that blend durability with eco-conscious design. From our first backyard deck to supplying architects with innovative cladding, we have grown into a trusted partner for contractors, architects and homeowners.',
+        'We began with a simple idea: to build better, greener spaces. Our passion for sustainability drove us to pioneer wood-plastic composite solutions that blend durability with eco-conscious design. From our first backyard deck to supplying architects with innovative wall panels, we have grown into a trusted partner for contractors, architects and homeowners.',
         'Every product reflects our commitment to quality and the planet. We source responsibly, innovate relentlessly and listen to our clients. Today Oaken stands for spaces that last, inspire, and tread lightly on the earth — one project at a time.',
       ],
       image: '',
