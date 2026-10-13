@@ -1,0 +1,6 @@
+# sharp is only an optional dependency of Next.js; images are optimised by the
+# API and served unoptimized, so its native install script is not needed.
+allowBuilds:
+  sharp: false # pnpm 11+
+ignoredBuiltDependencies: # pnpm 10
+  - sharp
