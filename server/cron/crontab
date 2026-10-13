@@ -1,0 +1,19 @@
+# Oaken scheduled jobs. Times are UTC (server time); WAT = UTC+1.
+# Managed in the repo (server/cron/crontab) and installed by `npm run deploy` —
+# edit here, not in cPanel, or the next deploy will overwrite your change.
+# Jobs are silent when they succeed and email ALERT_EMAIL when they fail.
+
+# Health check + keep the API warm — every 5 minutes
+*/5 * * * * $HOME/oaken-api/cron/health-check.sh >/dev/null 2>&1
+# Database backup — daily 03:00 WAT, keeps 14 days in ~/backups/oaken/db
+0 2 * * * $HOME/oaken-api/cron/backup-db.sh >/dev/null 2>&1
+# Media backup — Sundays 03:30 WAT, keeps 4 weeks in ~/backups/oaken/media
+30 2 * * 0 $HOME/oaken-api/cron/backup-media.sh >/dev/null 2>&1
+# Daily visits email (yesterday's visitors and locations) — daily 07:00 WAT
+0 6 * * * $HOME/oaken-api/cron/run-task.sh daily-visits >/dev/null 2>&1
+# Weekly summary — Mondays 08:00 WAT
+0 7 * * 1 $HOME/oaken-api/cron/run-task.sh weekly-report >/dev/null 2>&1
+# Unread-enquiry reminder (only if any are >24h old) — daily 09:00 WAT
+0 8 * * * $HOME/oaken-api/cron/run-task.sh unread-reminder >/dev/null 2>&1
+# Monthly maintenance (old visits, location cache, storage check) — 1st, 04:00 WAT
+0 3 1 * * $HOME/oaken-api/cron/run-task.sh maintenance >/dev/null 2>&1

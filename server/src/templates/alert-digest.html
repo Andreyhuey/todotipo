@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platform alert</title>
+  </head>
+  <body style="margin: 0; padding: 20px 10px; background-color: #f4f3f1; font-family: Arial, Helvetica, sans-serif; color: #18201b">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 680px; margin: 0 auto; background: #ffffff; border-radius: 10px">
+      <tr>
+        <td style="padding: 24px 28px 8px">
+          <p style="margin: 0 0 4px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: {{#if hasErrors}}#b42318{{else}}#8a6200{{/if}}">
+            {{siteName}} platform alert
+          </p>
+          <h1 style="margin: 0 0 8px; font-size: 20px; font-weight: normal">{{counts}} logged</h1>
+          <p style="margin: 0 0 16px; font-size: 14px; line-height: 1.5; color: #5e5a53">
+            These entries were recorded in the activity log.
+            <a href="{{logsLink}}" style="color: #8c5d33">Open the activity log</a> for full details.
+          </p>
+        </td>
+      </tr>
+      {{#each entries}}
+      <tr>
+        <td style="padding: 0 28px">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top: 1px solid #e6e4e0">
+            <tr>
+              <td style="padding: 12px 0 2px; font-size: 12px; color: #7c776e">
+                <strong style="color: {{#if isError}}#b42318{{else}}#8a6200{{/if}}">{{level}}</strong> &middot; {{category}} &middot; {{time}}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 0 2px; font-size: 14px; line-height: 1.45; color: #18201b">{{message}}</td>
+            </tr>
+            <tr>
+              <td style="padding: 0 0 12px; font-size: 12px; line-height: 1.45; color: #7c776e">
+                {{who}}{{#if detail}}<br />{{detail}}{{/if}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {{/each}}
+      <tr>
+        <td style="padding: 12px 28px 24px; border-top: 1px solid #e6e4e0; font-size: 12px; line-height: 1.5; color: #a9a49b">
+          {{#if more}}{{more}} more entries will follow in the next digest.<br />{{/if}}
+          {{#if skipped}}{{skipped}} entries were skipped because too many were logged at once — see the activity log.<br />{{/if}}
+          Sent to the address in ALERT_EMAIL. Warnings are batched every few minutes; errors are sent within about a minute.
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
