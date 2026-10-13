@@ -4,6 +4,7 @@ import { AppDataSource } from '../config/database';
 import { Visit } from '../entity/Visit';
 import { IpGeo } from '../entity/IpGeo';
 import { GeoService } from '../services/GeoService';
+import { VisitNotifier } from '../services/VisitNotifier';
 import { parseUserAgent } from '../helpers/user-agent';
 import { HttpError, clientIp, idParam, int, str } from '../helpers/http';
 
@@ -61,9 +62,10 @@ export const trackVisit = async (req: Request, res: Response) => {
 
   res.status(201).json({ status: true, id: visit.id });
 
-  GeoService.enrichVisit(visit.id, ip).catch((err) =>
-    console.warn('⚠️  Visit enrichment failed:', err.message)
-  );
+  GeoService.enrichVisit(visit.id, ip)
+    .catch((err) => console.warn('⚠️  Visit enrichment failed:', err.message))
+    .then(() => VisitNotifier.send(visit.id))
+    .catch((err) => console.warn('⚠️  Visit email failed:', err.message));
 };
 
 /** POST /api/track/leave — time on page, sent via sendBeacon (text/plain). */
