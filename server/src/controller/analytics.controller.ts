@@ -62,10 +62,8 @@ export const trackVisit = async (req: Request, res: Response) => {
 
   res.status(201).json({ status: true, id: visit.id });
 
-  GeoService.enrichVisit(visit.id, ip)
-    .catch((err) => console.warn('⚠️  Visit enrichment failed:', err.message))
-    .then(() => VisitNotifier.send(visit.id))
-    .catch((err) => console.warn('⚠️  Visit email failed:', err.message));
+  VisitNotifier.queue(visit);
+  GeoService.enrichVisit(visit.id, ip).catch((err) => console.warn('⚠️  Visit enrichment failed:', err.message));
 };
 
 /** POST /api/track/leave — time on page, sent via sendBeacon (text/plain). */
