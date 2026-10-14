@@ -37,7 +37,7 @@ import {
   updateSettings,
 } from '../controller/content.controller';
 import { createUser, deleteUser, listUsers } from '../controller/auth.controller';
-import { analyticsSummary, getVisit, listVisits } from '../controller/analytics.controller';
+import { analyticsSummary, getVisitor, listVisitors } from '../controller/analytics.controller';
 import { exportLogs, listLogs } from '../controller/logs.controller';
 
 const router = Router();
@@ -48,8 +48,8 @@ router.get('/dashboard', h(dashboard));
 
 // Visitor analytics
 router.get('/analytics', h(analyticsSummary));
-router.get('/analytics/visits', h(listVisits));
-router.get('/analytics/visits/:id', h(getVisit));
+router.get('/analytics/visitors', h(listVisitors));
+router.get('/analytics/visitors/:visitorId', h(getVisitor));
 
 // Activity log
 router.get('/logs', h(listLogs));

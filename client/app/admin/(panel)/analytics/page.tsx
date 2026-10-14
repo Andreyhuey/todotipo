@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useAdminQuery } from '@/lib/admin/hooks';
 import { cn } from '@/lib/utils';
-import type { AnalyticsSummary, Pagination, Visit } from '@/types/cms';
+import type { AnalyticsSummary, Pagination, Visit, VisitorSummary } from '@/types/cms';
 
 const RANGES = [
   { key: '24h', label: 'Last 24 hours' },
@@ -30,7 +30,7 @@ export default function AnalyticsPage() {
   const [country, setCountry] = useState('');
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
-  const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
   const tz = useMemo(() => new Date().getTimezoneOffset(), []);
 
   const summaryQ = useAdminQuery<AnalyticsSummary>(`/admin/analytics?range=${range}&tz=${tz}`);
@@ -39,7 +39,9 @@ export default function AnalyticsPage() {
   const params = new URLSearchParams({ range, page: String(page) });
   if (country) params.set('country', country);
   if (q) params.set('q', q);
-  const visitsQ = useAdminQuery<{ data: Visit[]; pagination: Pagination }>(`/admin/analytics/visits?${params}`, { full: true });
+  const visitsQ = useAdminQuery<{ data: VisitorSummary[]; pagination: Pagination }>(`/admin/analytics/visitors?${params}`, {
+    full: true,
+  });
 
   const refresh = () => {
     summaryQ.refetch();
@@ -187,7 +189,11 @@ export default function AnalyticsPage() {
         {/* Visit log */}
         <Panel
           title="Visit log"
-          subtitle={visitsQ.data ? `${nf.format(visitsQ.data.pagination.total)} page views` : undefined}
+          subtitle={
+            visitsQ.data
+              ? `${nf.format(visitsQ.data.pagination.total)} ${visitsQ.data.pagination.total === 1 ? 'visitor' : 'visitors'} · click one to see their pages`
+              : undefined
+          }
           action={
             <div className="relative w-full max-w-xs">
               <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-stone-400" />
@@ -205,15 +211,16 @@ export default function AnalyticsPage() {
           flush
         >
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-sm">
+            <table className="w-full min-w-[860px] text-sm">
               <thead className="border-y border-stone-100 bg-stone-50 text-left text-xs uppercase tracking-wider text-stone-500">
                 <tr>
-                  <th className="px-5 py-3 font-medium">Time</th>
+                  <th className="px-5 py-3 font-medium">Last seen</th>
                   <th className="px-3 py-3 font-medium">Location</th>
-                  <th className="px-3 py-3 font-medium">Page</th>
+                  <th className="px-3 py-3 font-medium">Pages</th>
+                  <th className="px-3 py-3 font-medium">Landing page</th>
                   <th className="px-3 py-3 font-medium">Source</th>
                   <th className="px-3 py-3 font-medium">Device</th>
-                  <th className="px-5 py-3 text-right font-medium">Time on page</th>
+                  <th className="px-5 py-3 text-right font-medium">Time on site</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100">
@@ -221,20 +228,24 @@ export default function AnalyticsPage() {
                   const I = deviceIcon(v.device);
                   return (
                     <tr
-                      key={v.id}
+                      key={v.visitorId}
                       tabIndex={0}
-                      onClick={() => setOpenId(v.id)}
-                      onKeyDown={(e) => e.key === 'Enter' && setOpenId(v.id)}
+                      onClick={() => setOpenId(v.visitorId)}
+                      onKeyDown={(e) => e.key === 'Enter' && setOpenId(v.visitorId)}
                       className="cursor-pointer hover:bg-stone-50 focus:bg-oak-50 focus:outline-none"
                     >
-                      <td className="whitespace-nowrap px-5 py-3 text-stone-500">{timeFmt.format(new Date(v.createdAt))}</td>
-                      <td className="px-3 py-3">
+                      <td className="whitespace-nowrap px-5 py-3 text-stone-500">{timeFmt.format(new Date(v.lastSeen))}</td>
+                      <td className="max-w-[280px] px-3 py-3">
                         <span className="flex items-center gap-2">
                           <Flag code={v.countryCode} />
                           <span className={cn('truncate', !v.countryCode && 'text-stone-400')}>{place(v)}</span>
                         </span>
                       </td>
-                      <td className="max-w-[220px] truncate px-3 py-3 font-mono text-[13px]">{v.path}</td>
+                      <td className="whitespace-nowrap px-3 py-3 tabular-nums text-ink">
+                        {v.pages} {v.pages === 1 ? 'page' : 'pages'}
+                        {v.views > v.pages && <span className="text-stone-400"> · {v.views} views</span>}
+                      </td>
+                      <td className="max-w-[200px] truncate px-3 py-3 font-mono text-[13px]">{v.landingPage}</td>
                       <td className="px-3 py-3 text-stone-600">{v.referrerHost || 'Direct'}</td>
                       <td className="px-3 py-3 text-stone-600">
                         <span className="flex items-center gap-2 whitespace-nowrap">
@@ -242,15 +253,15 @@ export default function AnalyticsPage() {
                         </span>
                       </td>
                       <td className="px-5 py-3 text-right tabular-nums text-stone-600">
-                        {v.duration !== null ? formatDuration(v.duration) : '—'}
+                        {v.duration > 0 ? formatDuration(v.duration) : '—'}
                       </td>
                     </tr>
                   );
                 })}
                 {visitsQ.data && !visitsQ.data.data.length && (
                   <tr>
-                    <td colSpan={6} className="px-5 py-12 text-center text-stone-500">
-                      No visits in this period yet.
+                    <td colSpan={7} className="px-5 py-12 text-center text-stone-500">
+                      No visitors in this period yet.
                     </td>
                   </tr>
                 )}
@@ -273,7 +284,7 @@ export default function AnalyticsPage() {
         </Panel>
       </div>
 
-      {openId !== null && <VisitDetail id={openId} onClose={() => setOpenId(null)} />}
+      {openId !== null && <VisitorDetail visitorId={openId} range={range} onClose={() => setOpenId(null)} />}
     </>
   );
 }
@@ -316,18 +327,37 @@ interface GeoData {
   country_metadata?: { calling_code?: string };
 }
 
-interface VisitDetailData {
+type PageView = Pick<Visit, 'id' | 'sessionId' | 'path' | 'title' | 'referrerHost' | 'createdAt' | 'duration'>;
+
+interface VisitorDetailData {
+  /** The visitor's latest located page view — source of the details below. */
   visit: Visit;
   geo: GeoData | null;
-  journey: Pick<Visit, 'id' | 'path' | 'title' | 'createdAt' | 'duration'>[];
+  /** Every page view in the selected range, oldest first. */
+  pages: PageView[];
   visitorTotal: number;
 }
 
-function VisitDetail({ id, onClose }: { id: number; onClose: () => void }) {
-  const { data } = useAdminQuery<VisitDetailData>(`/admin/analytics/visits/${id}`);
+const dayFmt = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+function VisitorDetail({ visitorId, range, onClose }: { visitorId: string; range: string; onClose: () => void }) {
+  const { data } = useAdminQuery<VisitorDetailData>(`/admin/analytics/visitors/${visitorId}?range=${range}`);
   const v = data?.visit;
   const g = data?.geo;
   const hasCoords = v?.latitude !== null && v?.latitude !== undefined && v?.longitude !== null;
+  const pages = useMemo(() => data?.pages ?? [], [data]);
+  const totalTime = pages.reduce((sum, p) => sum + (p.duration ?? 0), 0);
+  const uniquePages = new Set(pages.map((p) => p.path)).size;
+
+  // Page views grouped by local day, in the order they happened.
+  const days = useMemo(() => {
+    const groups = new Map<string, PageView[]>();
+    for (const p of pages) {
+      const key = dayFmt.format(new Date(p.createdAt));
+      groups.set(key, [...(groups.get(key) ?? []), p]);
+    }
+    return [...groups.entries()];
+  }, [pages]);
 
   const rows: [string, React.ReactNode][] = v
     ? [
@@ -344,7 +374,6 @@ function VisitDetail({ id, onClose }: { id: number; onClose: () => void }) {
         ['Device', <span key="d" className="capitalize">{v.device}{v.screen ? ` · ${v.screen}` : ''}</span>],
         ['Language', v.language],
         ['Referrer', v.referrer ? <a key="r" href={v.referrer} target="_blank" rel="noreferrer" className="break-all text-oak-700 hover:underline">{v.referrer}</a> : 'Direct'],
-        ['Time on page', v.duration !== null ? formatDuration(v.duration) : null],
         ['User agent', <span key="ua" className="break-all text-xs text-stone-500">{v.userAgent}</span>],
       ]
     : [];
@@ -355,8 +384,15 @@ function VisitDetail({ id, onClose }: { id: number; onClose: () => void }) {
       <aside className="relative flex h-full w-full max-w-lg animate-sheet-in flex-col overflow-y-auto bg-white shadow-lift">
         <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-stone-100 bg-white px-6 py-4">
           <div className="min-w-0">
-            <p className="text-xs text-stone-500">{v ? timeFmt.format(new Date(v.createdAt)) : 'Loading…'}</p>
-            <h2 className="truncate font-mono text-sm text-ink">{v?.path}</h2>
+            <p className="text-xs text-stone-500">
+              {pages.length ? `Last seen ${timeFmt.format(new Date(pages[pages.length - 1].createdAt))}` : 'Loading…'}
+            </p>
+            <h2 className="truncate text-sm text-ink">
+              {pages.length > 0 &&
+                `${uniquePages} ${uniquePages === 1 ? 'page' : 'pages'}${pages.length > uniquePages ? ` · ${pages.length} views` : ''}${
+                  totalTime ? ` · ${formatDuration(totalTime)} on site` : ''
+                }`}
+            </h2>
           </div>
           <Button size="icon" variant="ghost" onClick={onClose} aria-label="Close">
             <X />
@@ -370,7 +406,9 @@ function VisitDetail({ id, onClose }: { id: number; onClose: () => void }) {
               <div>
                 <p className="font-display text-xl text-ink">{place(v)}</p>
                 <p className="text-sm text-stone-500">
-                  {data!.visitorTotal > 1 ? `Returning visitor · ${data!.visitorTotal} page views in total` : 'First visit'}
+                  {data!.visitorTotal > pages.length
+                    ? `Returning visitor · ${data!.visitorTotal} page views in total`
+                    : 'New visitor in this period'}
                 </p>
               </div>
             </div>
@@ -408,30 +446,37 @@ function VisitDetail({ id, onClose }: { id: number; onClose: () => void }) {
                 ))}
             </dl>
 
-            {data!.journey.length > 1 && (
-              <div>
-                <h3 className="mb-3 flex items-center gap-2 text-sm font-medium text-ink">
-                  <Laptop className="size-4 text-stone-400" /> Session journey
-                </h3>
-                <ol className="relative flex flex-col gap-3 border-l border-stone-200 pl-5">
-                  {data!.journey.map((j) => (
-                    <li key={j.id} className="relative">
-                      <span
-                        className={cn(
-                          'absolute -left-[25px] top-1.5 size-2.5 rounded-full border-2 border-white',
-                          j.id === v.id ? 'bg-oak-500' : 'bg-stone-300'
-                        )}
-                      />
-                      <p className={cn('font-mono text-[13px]', j.id === v.id ? 'text-ink' : 'text-stone-600')}>{j.path}</p>
-                      <p className="text-xs text-stone-400">
-                        {new Date(j.createdAt).toLocaleTimeString()}
-                        {j.duration !== null && ` · ${formatDuration(j.duration)}`}
-                      </p>
-                    </li>
-                  ))}
-                </ol>
+            <div>
+              <h3 className="mb-3 flex items-center gap-2 text-sm font-medium text-ink">
+                <Laptop className="size-4 text-stone-400" /> Pages visited
+              </h3>
+              <div className="flex flex-col gap-5">
+                {days.map(([day, views]) => (
+                  <div key={day}>
+                    {days.length > 1 && <p className="mb-2 text-xs font-medium uppercase tracking-wider text-stone-400">{day}</p>}
+                    <ol className="relative flex flex-col gap-3 border-l border-stone-200 pl-5">
+                      {views.map((p, i) => (
+                        <li key={p.id} className="relative">
+                          <span
+                            className={cn(
+                              'absolute -left-[25px] top-1.5 size-2.5 rounded-full border-2 border-white',
+                              i === 0 ? 'bg-oak-500' : 'bg-stone-300'
+                            )}
+                          />
+                          <p className="break-all font-mono text-[13px] text-ink">{p.path}</p>
+                          {p.title && <p className="truncate text-xs text-stone-500">{p.title}</p>}
+                          <p className="text-xs text-stone-400">
+                            {new Date(p.createdAt).toLocaleTimeString()}
+                            {p.duration !== null && ` · ${formatDuration(p.duration)}`}
+                            {p.referrerHost && ` · from ${p.referrerHost}`}
+                          </p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         )}
       </aside>

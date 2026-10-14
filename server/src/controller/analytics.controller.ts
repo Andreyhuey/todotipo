@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { Between, MoreThanOrEqual } from 'typeorm';
+import { Between, In, MoreThanOrEqual } from 'typeorm';
 import { AppDataSource } from '../config/database';
 import { Visit } from '../entity/Visit';
 import { IpGeo } from '../entity/IpGeo';
 import { GeoService } from '../services/GeoService';
 import { VisitNotifier } from '../services/VisitNotifier';
 import { parseUserAgent } from '../helpers/user-agent';
-import { HttpError, clientIp, idParam, int, str } from '../helpers/http';
+import { HttpError, clientIp, int, str } from '../helpers/http';
 
 const visits = () => AppDataSource.getRepository(Visit);
 
@@ -202,28 +202,84 @@ export const analyticsSummary = async (req: Request, res: Response) => {
   });
 };
 
-/** GET /api/admin/analytics/visits?page&range&country&q */
-export const listVisits = async (req: Request, res: Response) => {
+/**
+ * GET /api/admin/analytics/visitors?page&range&country&q
+ * One row per visitor, most recently active first. A visitor matches the
+ * filters if any of their page views in the range does.
+ */
+export const listVisitors = async (req: Request, res: Response) => {
   const { start } = rangeOf(req);
   const page = Math.max(int(req.query.page, 1), 1);
   const perPage = 30;
-  const qb = visits()
-    .createQueryBuilder('v')
-    .where('v.createdAt >= :start', { start })
-    .orderBy('v.createdAt', 'DESC')
-    .skip((page - 1) * perPage)
-    .take(perPage);
 
-  const country = str(req.query.country).toUpperCase();
-  if (country) qb.andWhere('v.countryCode = :country', { country });
-  const q = str(req.query.q).toLowerCase();
-  if (q) {
-    qb.andWhere('(LOWER(v.path) LIKE :q OR LOWER(v.city) LIKE :q OR LOWER(v.country) LIKE :q OR v.ip LIKE :q)', {
-      q: `%${q}%`,
-    });
-  }
+  const filtered = () => {
+    const qb = visits().createQueryBuilder('v').where('v.createdAt >= :start', { start });
+    const country = str(req.query.country).toUpperCase();
+    if (country) qb.andWhere('v.countryCode = :country', { country });
+    const q = str(req.query.q).toLowerCase();
+    if (q) {
+      qb.andWhere('(LOWER(v.path) LIKE :q OR LOWER(v.city) LIKE :q OR LOWER(v.country) LIKE :q OR v.ip LIKE :q)', {
+        q: `%${q}%`,
+      });
+    }
+    return qb;
+  };
 
-  const [data, total] = await qb.getManyAndCount();
+  const [groups, count] = await Promise.all([
+    filtered()
+      .select('v.visitorId', 'visitorId')
+      .addSelect('MIN(v.id)', 'firstId')
+      .addSelect('MAX(v.id)', 'lastId')
+      .addSelect('COUNT(*)', 'views')
+      .addSelect('COUNT(DISTINCT v.path)', 'pages')
+      .addSelect('MIN(v.createdAt)', 'firstSeen')
+      .addSelect('MAX(v.createdAt)', 'lastSeen')
+      .addSelect('SUM(COALESCE(v.duration, 0))', 'duration')
+      .groupBy('v.visitorId')
+      .orderBy('MAX(v.createdAt)', 'DESC')
+      .offset((page - 1) * perPage)
+      .limit(perPage)
+      .getRawMany<{
+        visitorId: string;
+        firstId: number;
+        lastId: number;
+        views: string;
+        pages: string;
+        firstSeen: Date;
+        lastSeen: Date;
+        duration: string;
+      }>(),
+    filtered().select('COUNT(DISTINCT v.visitorId)', 'n').getRawOne<{ n: string }>(),
+  ]);
+
+  // Landing details come from the first view, location/device from the latest.
+  const ids = groups.flatMap((g) => [Number(g.firstId), Number(g.lastId)]);
+  const rows = ids.length ? await visits().findBy({ id: In(ids) }) : [];
+  const byId = new Map(rows.map((r) => [r.id, r]));
+
+  const data = groups.map((g) => {
+    const first = byId.get(Number(g.firstId))!;
+    const last = byId.get(Number(g.lastId))!;
+    return {
+      visitorId: g.visitorId,
+      views: Number(g.views),
+      pages: Number(g.pages),
+      duration: Number(g.duration),
+      firstSeen: g.firstSeen,
+      lastSeen: g.lastSeen,
+      landingPage: first.path,
+      referrerHost: first.referrerHost,
+      city: last.city,
+      region: last.region,
+      country: last.country,
+      countryCode: last.countryCode,
+      device: last.device,
+      browser: last.browser,
+      os: last.os,
+    };
+  });
+
+  const total = Number(count?.n ?? 0);
   res.json({
     status: true,
     data,
@@ -231,25 +287,41 @@ export const listVisits = async (req: Request, res: Response) => {
   });
 };
 
-/** GET /api/admin/analytics/visits/:id — full detail incl. raw geo data and the session's journey. */
-export const getVisit = async (req: Request, res: Response) => {
-  const visit = await visits().findOneBy({ id: idParam(req) });
-  if (!visit) throw new HttpError(404, 'Visit not found');
+/**
+ * GET /api/admin/analytics/visitors/:visitorId?range — the visitor's details
+ * (from their latest page view, incl. raw geo data) and every page they viewed
+ * in the range.
+ */
+export const getVisitor = async (req: Request, res: Response) => {
+  const { start } = rangeOf(req);
+  const visitorId = str(req.params.visitorId);
+  if (!ID_RE.test(visitorId)) throw new HttpError(404, 'Visitor not found');
 
-  const [geo, journey, visitorTotal] = await Promise.all([
-    AppDataSource.getRepository(IpGeo).findOneBy({ ip: visit.ip }),
-    visits().find({
-      select: ['id', 'path', 'title', 'createdAt', 'duration'],
-      where: { sessionId: visit.sessionId },
-      order: { createdAt: 'ASC' },
-      take: 50,
-    }),
-    visits().countBy({ visitorId: visit.visitorId }),
+  const [pages, visitorTotal] = await Promise.all([
+    visits().find({ where: { visitorId, createdAt: MoreThanOrEqual(start) }, order: { createdAt: 'ASC' }, take: 500 }),
+    visits().countBy({ visitorId }),
   ]);
+  if (!pages.length) throw new HttpError(404, 'Visitor not found');
+
+  const visit = [...pages].reverse().find((p) => p.countryCode) ?? pages[pages.length - 1];
+  const geo = await AppDataSource.getRepository(IpGeo).findOneBy({ ip: visit.ip });
 
   res.json({
     status: true,
-    data: { visit, geo: geo?.data?.error ? null : geo?.data ?? null, journey, visitorTotal },
+    data: {
+      visit,
+      geo: geo?.data?.error ? null : geo?.data ?? null,
+      pages: pages.map(({ id, sessionId, path, title, referrerHost, createdAt, duration }) => ({
+        id,
+        sessionId,
+        path,
+        title,
+        referrerHost,
+        createdAt,
+        duration,
+      })),
+      visitorTotal,
+    },
   });
 };
 

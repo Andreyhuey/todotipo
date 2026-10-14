@@ -245,6 +245,18 @@ export interface Visit {
   createdAt: string;
 }
 
+/** One row of the visit log: a visitor's activity within the selected range. */
+export interface VisitorSummary
+  extends Pick<Visit, 'visitorId' | 'referrerHost' | 'city' | 'region' | 'country' | 'countryCode' | 'device' | 'browser' | 'os'> {
+  views: number;
+  pages: number;
+  /** Total time on page, seconds. */
+  duration: number;
+  firstSeen: string;
+  lastSeen: string;
+  landingPage: string;
+}
+
 export interface AnalyticsKpis {
   pageViews: number;
   visitors: number;
