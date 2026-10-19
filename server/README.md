@@ -1,3 +1,9 @@
+> **Retired.** Oaken's API now runs inside the portfolio server
+> (`apps/server` in the portfolio repo), mounted at
+> `https://api.andreyhuey.dev/api/oaken`, with its scheduled jobs and backups
+> in that server's crontab. This folder is kept for reference only: it is no
+> longer built or deployed (the `API` workflow was removed).
+
 # Oaken API
 
 Express + TypeORM API that powers the Oaken website and its admin CMS:

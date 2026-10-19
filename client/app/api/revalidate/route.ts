@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { revalidateTag } from 'next/cache';
-import { apiBaseUrl } from '@/constants/config';
+import { apiUrl } from '@/constants/config';
 import { CMS_TAG } from '@/lib/cms';
 
 /**
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const auth = req.headers.get('authorization');
   if (!auth) return NextResponse.json({ ok: false }, { status: 401 });
 
-  const res = await fetch(`${apiBaseUrl()}/api/auth/me`, {
+  const res = await fetch(apiUrl('/auth/me'), {
     headers: { Authorization: auth },
     cache: 'no-store',
   });

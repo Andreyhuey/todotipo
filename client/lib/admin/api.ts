@@ -1,6 +1,6 @@
 'use client';
 
-import { apiBaseUrl } from '@/constants/config';
+import { apiUrl } from '@/constants/config';
 
 const TOKEN_KEY = 'oaken_admin_token';
 
@@ -39,7 +39,7 @@ async function request<T>(method: Method, path: string, body?: unknown): Promise
   const token = tokenStore.get();
   const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
 
-  const res = await fetch(`${apiBaseUrl()}/api${path}`, {
+  const res = await fetch(apiUrl(path), {
     method,
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -79,7 +79,7 @@ export const adminApi = {
 
     return new Promise<{ data: import('@/types/cms').Media[] }>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${apiBaseUrl()}/api/admin/media`);
+      xhr.open('POST', apiUrl('/admin/media'));
       const token = tokenStore.get();
       if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
       xhr.upload.onprogress = (e) => {

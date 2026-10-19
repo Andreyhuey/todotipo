@@ -1,4 +1,4 @@
-import { config } from '@/constants/config';
+import { API_PREFIX, config } from '@/constants/config';
 import { isProduction } from '@/lib/check-env';
 
 export class ApiError<T = { [key: string]: unknown }> extends Error {
@@ -23,7 +23,7 @@ export class ApiError<T = { [key: string]: unknown }> extends Error {
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 const fetchUrl = (path: string) =>
-  `${isProduction() ? config.API_URL : config.LOCAL_HOST_API_URL}/api${path}`;
+  `${isProduction() ? config.API_URL : config.LOCAL_HOST_API_URL}${API_PREFIX}${path}`;
 
 const fetchApi = async <T>(
   method: HttpMethod,

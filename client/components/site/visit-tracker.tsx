@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { apiBaseUrl } from '@/constants/config';
+import { apiUrl } from '@/constants/config';
 
 const VISITOR_KEY = 'oaken_vid';
 const SESSION_KEY = 'oaken_sid';
@@ -39,7 +39,6 @@ export default function VisitTracker() {
     const ids = getIds();
     if (!ids) return;
 
-    const base = apiBaseUrl();
     const started = Date.now();
     let visitId: number | null = null;
     let left = false;
@@ -53,7 +52,7 @@ export default function VisitTracker() {
       });
       visitId = null;
       // text/plain keeps sendBeacon a "simple" request (no CORS preflight).
-      navigator.sendBeacon?.(`${base}/api/track/leave`, new Blob([payload], { type: 'text/plain' }));
+      navigator.sendBeacon?.(apiUrl('/track/leave'), new Blob([payload], { type: 'text/plain' }));
     };
     const leave = () => {
       left = true;
@@ -67,7 +66,7 @@ export default function VisitTracker() {
       const referrer = firstHit.current && ids.isNewSession ? document.referrer : '';
       firstHit.current = false;
 
-      fetch(`${base}/api/track`, {
+      fetch(apiUrl('/track'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         keepalive: true,

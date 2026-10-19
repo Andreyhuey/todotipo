@@ -1,6 +1,6 @@
 import 'server-only';
 import { cache } from 'react';
-import { apiBaseUrl } from '@/constants/config';
+import { apiUrl } from '@/constants/config';
 import type { DesignCase, Product, SiteData } from '@/types/cms';
 
 /** Cache tag shared by every CMS read; admin saves revalidate it. */
@@ -10,7 +10,7 @@ const REVALIDATE_SECONDS = 300;
 class CmsNotFound extends Error {}
 
 const get = async <T>(path: string): Promise<T> => {
-  const res = await fetch(`${apiBaseUrl()}/api${path}`, {
+  const res = await fetch(apiUrl(path), {
     next: { revalidate: REVALIDATE_SECONDS, tags: [CMS_TAG] },
   });
   if (res.status === 404) throw new CmsNotFound(path);

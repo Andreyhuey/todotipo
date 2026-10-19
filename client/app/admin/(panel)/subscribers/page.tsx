@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/admin/shell';
 import { Button } from '@/components/ui/button';
 import { adminApi, tokenStore } from '@/lib/admin/api';
 import { useAdminMutation, useAdminQuery } from '@/lib/admin/hooks';
-import { apiBaseUrl } from '@/constants/config';
+import { apiUrl } from '@/constants/config';
 
 interface Subscriber {
   id: number;
@@ -19,7 +19,7 @@ export default function SubscribersPage() {
   const remove = useAdminMutation((id: number) => adminApi.del(`/admin/subscribers/${id}`), { success: 'Removed' });
 
   const exportCsv = async () => {
-    const res = await fetch(`${apiBaseUrl()}/api/admin/subscribers?format=csv`, {
+    const res = await fetch(apiUrl('/admin/subscribers?format=csv'), {
       headers: { Authorization: `Bearer ${tokenStore.get()}` },
     });
     if (!res.ok) return toast.error('Export failed');

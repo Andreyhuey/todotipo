@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useAdminQuery } from '@/lib/admin/hooks';
 import { tokenStore } from '@/lib/admin/api';
-import { apiBaseUrl } from '@/constants/config';
+import { apiUrl } from '@/constants/config';
 import { cn } from '@/lib/utils';
 import type { ActivityLog, LogCategory, LogLevel, Pagination } from '@/types/cms';
 
@@ -60,7 +60,7 @@ export default function LogsPage() {
   const total = data?.facets.categories.reduce((a, b) => a + b.count, 0) ?? 0;
 
   const exportCsv = async () => {
-    const res = await fetch(`${apiBaseUrl()}/api/admin/logs/export?${params}`, {
+    const res = await fetch(`${apiUrl('/admin/logs/export')}?${params}`, {
       headers: { Authorization: `Bearer ${tokenStore.get()}` },
     });
     if (!res.ok) return toast.error('Export failed');

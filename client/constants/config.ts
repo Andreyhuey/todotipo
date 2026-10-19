@@ -11,4 +11,14 @@ export const apiBaseUrl = () =>
     : config.LOCAL_HOST_API_URL || config.API_URL
   )?.replace(/\/$/, '') ?? '';
 
+/**
+ * Where Oaken's routes are mounted on that origin. The API runs inside the
+ * portfolio server (api.andreyhuey.dev) at /api/oaken; set
+ * NEXT_PUBLIC_API_PREFIX=/api to talk to a standalone Oaken API instead.
+ */
+export const API_PREFIX = (process.env.NEXT_PUBLIC_API_PREFIX || '/api/oaken').replace(/\/$/, '');
+
+/** Full URL of an API route, e.g. apiUrl('/products') → https://api.andreyhuey.dev/api/oaken/products. */
+export const apiUrl = (path: string) => `${apiBaseUrl()}${API_PREFIX}${path}`;
+
 export const baseUrl = (config.BASE_URL || 'http://localhost:3000').replace(/\/$/, '');
